@@ -1,147 +1,244 @@
 ---
 /**
- * Coming Soon — Portfolio Senior 2026
+ * Index — Portfolio Senior 2026
  *
- * Página placeholder con diseño premium:
- * - Fondo animado con gradiente
- * - Avatar placeholder con gradiente circular
- * - Propuesta de valor
- * - Efecto glassmorphism
+ * Main landing page with Bento Grid layout.
+ * Phase 1: Sections with placeholder cards.
+ * Phase 2-3: Replace with interactive islands.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
+import BentoLayout from '../layouts/BentoLayout.astro';
+import Card from '../components/ui/Card.astro';
+import Badge from '../components/ui/Badge.astro';
+import SectionHeader from '../components/ui/SectionHeader.astro';
+import { projects } from '../data/projects';
+import { skillClusters } from '../data/skills';
 ---
 
-<BaseLayout title="Portfolio 2026 — Coming Soon" description="Senior Full Stack Developer & AI Solutions Engineer. Portfolio en construcción.">
-  <main class="coming-soon">
-    <!-- Animated background orbs -->
-    <div class="bg-orbs" aria-hidden="true">
-      <div class="orb orb-1"></div>
-      <div class="orb orb-2"></div>
-      <div class="orb orb-3"></div>
-    </div>
+<BaseLayout
+  title="zelinkavo — Senior Full Stack Developer & AI Solutions Engineer"
+  description="Orquestador de sistemas autónomos y ecosistemas digitales. Portfolio técnico 2026."
+>
+  <BentoLayout>
+    <!-- ==================== HERO ==================== -->
+    <section id="hero" slot="hero" data-animate="fade-in">
+      <div class="hero">
+        <!-- Animated background orbs -->
+        <div class="hero__orbs" aria-hidden="true">
+          <div class="hero__orb hero__orb--1"></div>
+          <div class="hero__orb hero__orb--2"></div>
+          <div class="hero__orb hero__orb--3"></div>
+        </div>
 
-    <!-- Grid pattern overlay -->
-    <div class="grid-pattern" aria-hidden="true"></div>
+        <!-- Grid pattern -->
+        <div class="hero__grid-pattern" aria-hidden="true"></div>
 
-    <div class="content">
-      <!-- Avatar placeholder -->
-      <div class="avatar-ring">
-        <div class="avatar" aria-label="Avatar placeholder">
-          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="avatar-icon">
-            <circle cx="40" cy="30" r="14" fill="rgba(255,255,255,0.15)" />
-            <ellipse cx="40" cy="62" rx="22" ry="14" fill="rgba(255,255,255,0.15)" />
-          </svg>
+        <div class="hero__content">
+          <!-- Avatar -->
+          <div class="hero__avatar-ring">
+            <div class="hero__avatar">
+              <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="hero__avatar-icon" aria-hidden="true">
+                <circle cx="40" cy="30" r="14" fill="rgba(255,255,255,0.15)" />
+                <ellipse cx="40" cy="62" rx="22" ry="14" fill="rgba(255,255,255,0.15)" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Badge -->
+          <Badge variant="ai">🚀 Portfolio 2026</Badge>
+
+          <!-- Title -->
+          <h1 class="hero__title">
+            <span class="hero__title-line">Senior Full Stack Developer</span>
+            <span class="hero__title-amp">&amp;</span>
+            <span class="hero__title-gradient">AI Solutions Engineer</span>
+          </h1>
+
+          <!-- Tagline -->
+          <p class="hero__tagline">
+            Orquestador de sistemas autónomos y ecosistemas digitales
+          </p>
+
+          <!-- Tech pills -->
+          <div class="hero__pills">
+            {['Astro 6', 'React', 'Three.js', 'Tailwind CSS 4', 'Cloudflare'].map((tech, i) => (
+              <span class="hero__pill" style={`--stagger-index: ${i}`} data-animate="fade-up">
+                {tech}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
+    </section>
 
-      <!-- Badge -->
-      <span class="badge">🚀 En construcción</span>
+    <!-- ==================== PROJECTS ==================== -->
+    <section id="projects" slot="projects">
+      <SectionHeader
+        number="01."
+        title="Proyectos"
+        subtitle="Casos reales con impacto medible"
+      />
 
-      <!-- Heading -->
-      <h1 class="title">
-        <span class="title-line-1">Senior Full Stack Developer</span>
-        <span class="title-ampersand">&amp;</span>
-        <span class="title-line-2">AI Solutions Engineer</span>
-      </h1>
-
-      <!-- Tagline -->
-      <p class="tagline">
-        Orquestador de sistemas autónomos y ecosistemas digitales
-      </p>
-
-      <!-- Status card -->
-      <div class="status-card glass">
-        <div class="status-dot"></div>
-        <span class="status-text">Construyendo algo extraordinario...</span>
+      <div class="projects-grid">
+        {projects.filter(p => p.featured).map((project, i) => (
+          <div data-animate="fade-up" style={`--stagger-index: ${i}`}>
+            <Card variant={project.order === 1 ? 'featured' : 'default'} tag={project.category}>
+              <h3 class="project-card__title">{project.title.es}</h3>
+              <p class="project-card__subtitle">{project.subtitle.es}</p>
+              <div class="project-card__techs">
+                {project.technologies.slice(0, 4).map(tech => (
+                  <Badge variant={project.category === 'ai' ? 'ai' : project.category === 'mobile' ? 'dev' : project.category === 'devops' ? 'infra' : 'default'} size="sm">
+                    {tech}
+                  </Badge>
+                ))}
+              </div>
+            </Card>
+          </div>
+        ))}
       </div>
+    </section>
 
-      <!-- Tech stack pills -->
-      <div class="tech-pills">
-        <span class="pill">Astro 6</span>
-        <span class="pill">React</span>
-        <span class="pill">Three.js</span>
-        <span class="pill">Tailwind CSS 4</span>
-        <span class="pill">Cloudflare</span>
+    <!-- ==================== SKILLS ==================== -->
+    <section id="skills" slot="skills">
+      <SectionHeader
+        number="02."
+        title="Skills"
+        subtitle="Clusters semánticos"
+      />
+
+      <div class="skills-list">
+        {skillClusters.map((cluster, ci) => (
+          <div class="skills-cluster" data-animate="fade-up" style={`--stagger-index: ${ci}`}>
+            <h4 class="skills-cluster__title">
+              <span class="skills-cluster__dot" style={`background: ${cluster.color}`} aria-hidden="true"></span>
+              {cluster.title.es}
+            </h4>
+            <div class="skills-cluster__tags">
+              {cluster.skills.map(skill => (
+                <Badge variant={cluster.id === 'ai' ? 'ai' : cluster.id === 'development' ? 'dev' : 'infra'} size="sm">
+                  {skill.name}
+                </Badge>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
+    </section>
 
-      <!-- Social links -->
-      <div class="social-links">
+    <!-- ==================== EXPERIENCE ==================== -->
+    <section id="experience" slot="experience">
+      <SectionHeader
+        number="03."
+        title="Experiencia"
+        subtitle="Trayectoria profesional"
+      />
+
+      <Card data-animate="fade-up">
+        <div class="experience-placeholder">
+          <div class="experience-placeholder__dot"></div>
+          <div class="experience-placeholder__content">
+            <p class="experience-placeholder__role">Senior Full Stack Developer & AI Solutions Engineer</p>
+            <p class="experience-placeholder__company">Freelance / Consultoría</p>
+            <p class="experience-placeholder__period">Actualidad</p>
+            <ul class="experience-placeholder__list">
+              <li>Diseño e implementación de arquitecturas multi-servidor</li>
+              <li>Automatización de flujos empresariales con IA</li>
+              <li>Gestión de infraestructura cloud-native</li>
+            </ul>
+          </div>
+        </div>
+      </Card>
+    </section>
+
+    <!-- ==================== CONTACT ==================== -->
+    <section id="contact" slot="contact">
+      <SectionHeader
+        number="04."
+        title="Contacto"
+        subtitle="Hablemos"
+        align="center"
+      />
+
+      <div class="contact-links" data-animate="fade-up">
         <a
           href="https://github.com/zelinkavo"
           target="_blank"
           rel="noopener noreferrer"
-          class="social-link"
+          class="contact-link"
           aria-label="GitHub"
-          id="social-github"
+          id="contact-github"
         >
-          <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28" aria-hidden="true">
             <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
           </svg>
+          <span>GitHub</span>
         </a>
         <a
           href="https://linkedin.com/in/zelinkavo"
           target="_blank"
           rel="noopener noreferrer"
-          class="social-link"
+          class="contact-link"
           aria-label="LinkedIn"
-          id="social-linkedin"
+          id="contact-linkedin"
         >
-          <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28" aria-hidden="true">
             <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
           </svg>
+          <span>LinkedIn</span>
         </a>
       </div>
-    </div>
-  </main>
+    </section>
+  </BentoLayout>
 </BaseLayout>
 
 <style>
-  .coming-soon {
+  /* ==================== HERO ==================== */
+  .hero {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100dvh;
+    min-height: calc(100dvh - var(--nav-height));
+    padding: var(--space-3xl) var(--space-xl);
     overflow: hidden;
-    padding: var(--space-xl);
   }
 
-  /* ---- Animated Background Orbs ---- */
-  .bg-orbs {
+  /* Animated Background Orbs */
+  .hero__orbs {
     position: absolute;
     inset: 0;
     z-index: 0;
     overflow: hidden;
   }
 
-  .orb {
+  .hero__orb {
     position: absolute;
     border-radius: 50%;
     filter: blur(100px);
-    opacity: 0.4;
+    opacity: 0.35;
   }
 
-  .orb-1 {
-    width: 500px;
-    height: 500px;
+  .hero__orb--1 {
+    width: 450px;
+    height: 450px;
     background: var(--color-accent-primary);
     top: -15%;
-    right: -10%;
+    right: -8%;
     animation: float-1 15s ease-in-out infinite;
   }
 
-  .orb-2 {
-    width: 400px;
-    height: 400px;
+  .hero__orb--2 {
+    width: 350px;
+    height: 350px;
     background: var(--color-accent-secondary);
     bottom: -10%;
-    left: -10%;
+    left: -8%;
     animation: float-2 18s ease-in-out infinite;
   }
 
-  .orb-3 {
-    width: 300px;
-    height: 300px;
+  .hero__orb--3 {
+    width: 250px;
+    height: 250px;
     background: var(--color-accent-tertiary);
     top: 40%;
     left: 50%;
@@ -165,8 +262,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     50% { transform: translate(-30px, -30px) scale(1.15); }
   }
 
-  /* ---- Grid Pattern ---- */
-  .grid-pattern {
+  /* Grid Pattern Overlay */
+  .hero__grid-pattern {
     position: absolute;
     inset: 0;
     z-index: 1;
@@ -178,8 +275,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
   }
 
-  /* ---- Content ---- */
-  .content {
+  /* Hero Content */
+  .hero__content {
     position: relative;
     z-index: 2;
     display: flex;
@@ -190,15 +287,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     max-width: 640px;
   }
 
-  /* ---- Avatar ---- */
-  .avatar-ring {
+  /* Avatar */
+  .hero__avatar-ring {
     padding: 3px;
     border-radius: var(--radius-full);
     background: var(--gradient-hero);
     animation: pulse-glow 4s ease-in-out infinite;
   }
 
-  .avatar {
+  .hero__avatar {
     width: 100px;
     height: 100px;
     border-radius: var(--radius-full);
@@ -209,26 +306,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     border: 3px solid var(--color-bg-primary);
   }
 
-  .avatar-icon {
+  .hero__avatar-icon {
     width: 56px;
     height: 56px;
   }
 
-  /* ---- Badge ---- */
-  .badge {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--color-accent-secondary);
-    background: rgba(108, 99, 255, 0.1);
-    border: 1px solid var(--color-border-accent);
-    padding: var(--space-xs) var(--space-md);
-    border-radius: var(--radius-full);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-
-  /* ---- Title ---- */
-  .title {
+  /* Title */
+  .hero__title {
     display: flex;
     flex-direction: column;
     gap: var(--space-xs);
@@ -236,11 +320,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     font-weight: 700;
   }
 
-  .title-line-1 {
+  .hero__title-line {
     color: var(--color-text-primary);
   }
 
-  .title-ampersand {
+  .hero__title-amp {
     font-size: 0.75em;
     background: var(--gradient-hero);
     background-size: 200% 200%;
@@ -250,7 +334,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     background-clip: text;
   }
 
-  .title-line-2 {
+  .hero__title-gradient {
     background: var(--gradient-hero);
     background-size: 200% 200%;
     animation: gradient-shift 6s ease infinite;
@@ -259,50 +343,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     background-clip: text;
   }
 
-  /* ---- Tagline ---- */
-  .tagline {
+  .hero__tagline {
     font-size: 1.1rem;
     color: var(--color-text-secondary);
     max-width: 480px;
     line-height: 1.6;
   }
 
-  /* ---- Status Card ---- */
-  .status-card {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    padding: var(--space-sm) var(--space-lg);
-    border-radius: var(--radius-full);
-  }
-
-  .status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #22c55e;
-    animation: pulse-dot 2s ease-in-out infinite;
-  }
-
-  @keyframes pulse-dot {
-    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
-    50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
-  }
-
-  .status-text {
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-  }
-
-  /* ---- Tech Pills ---- */
-  .tech-pills {
+  /* Tech Pills */
+  .hero__pills {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: var(--space-sm);
+    margin-top: var(--space-sm);
   }
 
-  .pill {
+  .hero__pill {
     font-family: var(--font-mono);
     font-size: 0.75rem;
     color: var(--color-text-muted);
@@ -313,62 +370,199 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     transition: all var(--transition-fast);
   }
 
-  .pill:hover {
+  .hero__pill:hover {
     color: var(--color-accent-primary);
     border-color: var(--color-accent-primary);
     box-shadow: 0 0 12px rgba(108, 99, 255, 0.2);
   }
 
-  /* ---- Social Links ---- */
-  .social-links {
+  /* ==================== PROJECTS ==================== */
+  .projects-grid {
     display: flex;
-    gap: var(--space-md);
-    margin-top: var(--space-sm);
+    flex-direction: column;
+    gap: var(--bento-gap);
   }
 
-  .social-link {
+  .project-card__title {
+    font-size: 1.15rem;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-xs);
+  }
+
+  .project-card__subtitle {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-md);
+    line-height: 1.5;
+  }
+
+  .project-card__techs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  /* ==================== SKILLS ==================== */
+  .skills-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .skills-cluster {
+    border-left: 2px solid var(--color-border-subtle);
+    padding-left: var(--space-lg);
+  }
+
+  .skills-cluster__title {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    border-radius: var(--radius-full);
+    gap: var(--space-sm);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+  }
+
+  .skills-cluster__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .skills-cluster__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  /* ==================== EXPERIENCE ==================== */
+  .experience-placeholder {
+    display: flex;
+    gap: var(--space-lg);
+  }
+
+  .experience-placeholder__dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--color-accent-primary);
+    flex-shrink: 0;
+    margin-top: 6px;
+    box-shadow: 0 0 12px rgba(108, 99, 255, 0.4);
+  }
+
+  .experience-placeholder__role {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-xs);
+  }
+
+  .experience-placeholder__company {
+    font-size: 0.9rem;
+    color: var(--color-accent-secondary);
+    margin-bottom: var(--space-xs);
+  }
+
+  .experience-placeholder__period {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
     color: var(--color-text-muted);
+    margin-bottom: var(--space-md);
+  }
+
+  .experience-placeholder__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .experience-placeholder__list li {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    padding-left: var(--space-lg);
+    position: relative;
+  }
+
+  .experience-placeholder__list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--color-accent-tertiary);
+  }
+
+  /* ==================== CONTACT ==================== */
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
     background: var(--color-bg-card);
     border: 1px solid var(--color-border-subtle);
-    transition: all var(--transition-fast);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: all var(--transition-base);
+    min-width: 140px;
   }
 
-  .social-link:hover {
+  .contact-link:hover {
     color: var(--color-accent-primary);
     border-color: var(--color-accent-primary);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(108, 99, 255, 0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(108, 99, 255, 0.15);
   }
 
-  .social-link svg {
-    width: 20px;
-    height: 20px;
+  .contact-link span {
+    font-size: 0.9rem;
+    font-weight: 500;
   }
 
-  /* ---- Responsive ---- */
+  /* ==================== SECTIONS SPACING ==================== */
+  section {
+    padding-top: var(--section-padding);
+    padding-bottom: var(--section-padding);
+  }
+
+  section#hero {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  /* ==================== RESPONSIVE ==================== */
   @media (max-width: 640px) {
-    .coming-soon {
-      padding: var(--space-lg);
+    .hero {
+      padding: var(--space-2xl) var(--space-md);
     }
 
-    .avatar {
+    .hero__avatar {
       width: 80px;
       height: 80px;
     }
 
-    .avatar-icon {
+    .hero__avatar-icon {
       width: 44px;
       height: 44px;
     }
 
-    .orb-1 { width: 300px; height: 300px; }
-    .orb-2 { width: 250px; height: 250px; }
-    .orb-3 { width: 200px; height: 200px; }
+    .hero__orb--1 { width: 280px; height: 280px; }
+    .hero__orb--2 { width: 220px; height: 220px; }
+    .hero__orb--3 { width: 180px; height: 180px; }
+
+    .contact-link {
+      flex: 1;
+      min-width: 120px;
+    }
   }
 </style>

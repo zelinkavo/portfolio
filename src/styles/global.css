@@ -21,8 +21,8 @@
   --color-accent-tertiary: #38bdf8;
 
   --color-text-primary: #f0f0f5;
-  --color-text-secondary: #a0a0b8;
-  --color-text-muted: #6b6b80;
+  --color-text-secondary: #b8b8d0; /* ↑ contrast fix: was #a0a0b8 */
+  --color-text-muted: #8585a0;     /* ↑ contrast fix: was #6b6b80 */
 
   --color-border-subtle: #2a2a3e;
   --color-border-accent: #6c63ff33;
@@ -47,6 +47,12 @@
   --space-3xl: 4rem;
   --space-4xl: 6rem;
 
+  /* ---- Layout ---- */
+  --nav-height: 4rem;
+  --section-padding: clamp(3rem, 8vw, 6rem);
+  --content-max-width: 1200px;
+  --bento-gap: 1.25rem;
+
   /* ---- Border Radius ---- */
   --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
@@ -58,6 +64,7 @@
   --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3);
   --shadow-glow: 0 0 40px rgba(108, 99, 255, 0.15);
   --shadow-glow-strong: 0 0 60px rgba(108, 99, 255, 0.25);
+  --shadow-elevation: 0 8px 32px rgba(0, 0, 0, 0.4);
 
   /* ---- Transitions ---- */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -69,6 +76,7 @@
   --z-base: 0;
   --z-card: 10;
   --z-nav: 100;
+  --z-overlay: 500;
   --z-modal: 1000;
 }
 
@@ -88,6 +96,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-height);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -132,6 +141,45 @@ a:hover {
 
 /*
  * ============================================
+ * ACCESSIBILITY UTILITIES
+ * ============================================
+ */
+
+/* Screen reader only — visually hidden but accessible */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Skip to content link */
+.skip-to-content {
+  position: fixed;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: calc(var(--z-modal) + 1);
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--color-accent-primary);
+  color: var(--color-text-primary);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  transition: top var(--transition-fast);
+}
+
+.skip-to-content:focus {
+  top: var(--space-md);
+  color: var(--color-text-primary);
+}
+
+/*
+ * ============================================
  * GLASSMORPHISM UTILITIES
  * ============================================
  */
@@ -151,7 +199,50 @@ a:hover {
 
 /*
  * ============================================
- * ANIMATION UTILITIES
+ * SCROLL-REVEAL ANIMATION SYSTEM
+ * ============================================
+ * Usage: <div data-animate="fade-up"> or
+ *        <div data-animate="fade-in">
+ *
+ * Elements start hidden and transition in
+ * when .is-visible is added via IntersectionObserver.
+ * Stagger: set --stagger-index via JS for delays.
+ */
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-animate] {
+    opacity: 0;
+    transition:
+      opacity var(--transition-slow) ease-out,
+      transform var(--transition-slow) ease-out;
+    transition-delay: calc(var(--stagger-index, 0) * 80ms);
+  }
+
+  [data-animate="fade-up"] {
+    transform: translateY(24px);
+  }
+
+  [data-animate="fade-in"] {
+    transform: none;
+  }
+
+  [data-animate="scale-in"] {
+    transform: scale(0.95);
+  }
+
+  [data-animate="slide-right"] {
+    transform: translateX(-24px);
+  }
+
+  [data-animate].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/*
+ * ============================================
+ * KEYFRAME ANIMATIONS
  * ============================================
  */
 
@@ -217,5 +308,10 @@ a:hover {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  [data-animate] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

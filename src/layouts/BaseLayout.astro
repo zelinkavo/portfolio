@@ -1,9 +1,25 @@
 ---
+/**
+ * BaseLayout.astro — HTML shell with SEO, optimized fonts, and A11y
+ *
+ * Features:
+ * - Async Google Fonts (non-render-blocking)
+ * - JSON-LD structured data
+ * - Open Graph and Twitter Cards
+ * - Nav + Footer integration
+ * - Skip-to-content link
+ */
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import { generatePersonJsonLd, generateWebsiteJsonLd } from '../lib/seo';
+
 interface Props {
   title: string;
   description?: string;
   lang?: 'es' | 'en';
   ogImage?: string;
+  includeNav?: boolean;
+  includeFooter?: boolean;
 }
 
 const {
@@ -11,9 +27,13 @@ const {
   description = 'Senior Full Stack Developer & AI Solutions Engineer — Orquestador de sistemas autónomos y ecosistemas digitales',
   lang = 'es',
   ogImage = '/og-default.png',
+  includeNav = true,
+  includeFooter = true,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const personJsonLd = generatePersonJsonLd(lang);
+const websiteJsonLd = generateWebsiteJsonLd();
 ---
 
 <!doctype html>
@@ -45,20 +65,45 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Fonts — Google Fonts CDN with preconnect -->
+    <!-- Fonts — Non-render-blocking strategy -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
+    />
+    <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
 
-    <!-- Global Styles -->
-    <style>
-      @import '../styles/global.css';
-    </style>
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
   </head>
   <body>
-    <slot />
+    {includeNav && <Navigation lang={lang} />}
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    {includeFooter && <Footer lang={lang} />}
+
+    <!-- Scroll reveal animations -->
+    <script>
+      import { setupScrollAnimations } from '../lib/animations';
+      document.addEventListener('astro:page-load', setupScrollAnimations);
+      setupScrollAnimations();
+    </script>
   </body>
 </html>

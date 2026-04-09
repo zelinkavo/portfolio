@@ -1,0 +1,118 @@
+---
+/**
+ * Button.astro — Multi-variant button component
+ *
+ * Renders as <a> when href is provided, <button> otherwise.
+ */
+interface Props {
+  variant?: 'primary' | 'secondary' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  class?: string;
+  id?: string;
+  [key: string]: any;
+}
+
+const { variant = 'primary', size = 'md', href, class: className, id, ...rest } = Astro.props;
+
+const Tag = href ? 'a' : 'button';
+const linkProps = href
+  ? {
+      href,
+      target: href.startsWith('http') ? '_blank' : undefined,
+      rel: href.startsWith('http') ? 'noopener noreferrer' : undefined,
+    }
+  : { type: 'button' };
+---
+
+<Tag
+  class:list={['btn', `btn--${variant}`, `btn--${size}`, className]}
+  id={id}
+  {...linkProps}
+  {...rest}
+>
+  <slot />
+</Tag>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    font-family: var(--font-body);
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      transform var(--transition-fast),
+      box-shadow var(--transition-fast),
+      background var(--transition-fast),
+      border-color var(--transition-fast);
+    line-height: 1;
+  }
+
+  .btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .btn:active {
+    transform: translateY(0);
+  }
+
+  /* ---- Sizes ---- */
+  .btn--sm {
+    font-size: 0.8rem;
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-sm);
+  }
+
+  .btn--md {
+    font-size: 0.9rem;
+    padding: var(--space-sm) var(--space-lg);
+  }
+
+  .btn--lg {
+    font-size: 1rem;
+    padding: var(--space-md) var(--space-xl);
+  }
+
+  /* ---- Primary: gradient fill ---- */
+  .btn--primary {
+    background: var(--gradient-hero);
+    background-size: 200% 200%;
+    color: white;
+  }
+
+  .btn--primary:hover {
+    box-shadow: 0 4px 20px rgba(108, 99, 255, 0.35);
+    color: white;
+  }
+
+  /* ---- Secondary: outline ---- */
+  .btn--secondary {
+    background: transparent;
+    color: var(--color-accent-primary);
+    border: 1px solid var(--color-accent-primary);
+  }
+
+  .btn--secondary:hover {
+    background: rgba(108, 99, 255, 0.08);
+    box-shadow: 0 0 16px rgba(108, 99, 255, 0.15);
+    color: var(--color-accent-secondary);
+  }
+
+  /* ---- Ghost: minimal ---- */
+  .btn--ghost {
+    background: transparent;
+    color: var(--color-text-secondary);
+  }
+
+  .btn--ghost:hover {
+    color: var(--color-text-primary);
+    background: rgba(255, 255, 255, 0.05);
+  }
+</style>

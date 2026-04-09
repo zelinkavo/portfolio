@@ -30,7 +30,7 @@ export function generatePersonJsonLd(lang: 'es' | 'en' = 'es') {
       lang === 'es'
         ? 'Orquestador de sistemas autónomos y ecosistemas digitales'
         : 'Orchestrator of autonomous systems and digital ecosystems',
-    url: 'https://portfolio.pages.dev',
+    url: 'https://davidoliver-ai.pages.dev',
     sameAs: [
       'https://github.com/zelinkavo',
       'https://linkedin.com/in/zelinkavo',
@@ -53,7 +53,7 @@ export function generateWebsiteJsonLd() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'Portfolio Senior 2026',
-    url: 'https://portfolio.pages.dev',
+    url: 'https://davidoliver-ai.pages.dev',
     inLanguage: ['es', 'en'],
   };
 }

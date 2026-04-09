@@ -1,0 +1,70 @@
+---
+/**
+ * SectionHeader.astro — Section title with decorative accent line
+ *
+ * Features: numbered sections, i18n support, gradient accent line.
+ */
+interface Props {
+  title: string;
+  subtitle?: string;
+  number?: string;
+  align?: 'left' | 'center';
+  class?: string;
+}
+
+const { title, subtitle, number, align = 'left', class: className } = Astro.props;
+---
+
+<header class:list={['section-header', `section-header--${align}`, className]}>
+  {number && <span class="section-header__number">{number}</span>}
+  <h2 class="section-header__title">{title}</h2>
+  {subtitle && <p class="section-header__subtitle">{subtitle}</p>}
+  <div class="section-header__line" aria-hidden="true"></div>
+</header>
+
+<style>
+  .section-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .section-header--center {
+    align-items: center;
+    text-align: center;
+  }
+
+  .section-header__number {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--color-accent-primary);
+    letter-spacing: 0.1em;
+  }
+
+  .section-header__title {
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    color: var(--color-text-primary);
+    line-height: 1.2;
+  }
+
+  .section-header__subtitle {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    max-width: 500px;
+    line-height: 1.5;
+  }
+
+  .section-header__line {
+    width: 48px;
+    height: 3px;
+    border-radius: var(--radius-full);
+    background: var(--gradient-hero);
+    margin-top: var(--space-xs);
+  }
+
+  .section-header--center .section-header__line {
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>

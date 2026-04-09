@@ -1,0 +1,331 @@
+---
+/**
+ * Navigation.astro — Sticky glassmorphism navigation
+ *
+ * Features:
+ * - Glass backdrop on scroll
+ * - Mobile hamburger (CSS-only toggle, JS for aria)
+ * - Active section indicator via IntersectionObserver
+ * - Skip-to-content for a11y
+ */
+interface Props {
+  lang?: 'es' | 'en';
+}
+
+const { lang = 'es' } = Astro.props;
+
+const navItems = [
+  { href: '#hero', label: { es: 'Inicio', en: 'Home' } },
+  { href: '#projects', label: { es: 'Proyectos', en: 'Projects' } },
+  { href: '#skills', label: { es: 'Skills', en: 'Skills' } },
+  { href: '#experience', label: { es: 'Experiencia', en: 'Experience' } },
+  { href: '#contact', label: { es: 'Contacto', en: 'Contact' } },
+];
+---
+
+<a href="#main-content" class="skip-to-content">
+  {lang === 'es' ? 'Saltar al contenido' : 'Skip to content'}
+</a>
+
+<nav class="nav" id="main-nav" aria-label={lang === 'es' ? 'Navegación principal' : 'Main navigation'}>
+  <div class="nav__inner">
+    <!-- Logo -->
+    <a href="#hero" class="nav__logo" aria-label="Ir al inicio">
+      <span class="nav__logo-text">zelinkavo</span>
+      <span class="nav__logo-dot" aria-hidden="true">.</span>
+    </a>
+
+    <!-- Desktop navigation links -->
+    <ul class="nav__links" id="nav-links" role="list">
+      {navItems.map((item) => (
+        <li>
+          <a href={item.href} class="nav__link">
+            {item.label[lang]}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Mobile hamburger button -->
+    <button
+      class="nav__hamburger"
+      id="nav-toggle"
+      aria-expanded="false"
+      aria-controls="nav-mobile"
+      aria-label={lang === 'es' ? 'Abrir menú' : 'Open menu'}
+    >
+      <span class="nav__hamburger-line" aria-hidden="true"></span>
+      <span class="nav__hamburger-line" aria-hidden="true"></span>
+      <span class="nav__hamburger-line" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <!-- Mobile menu overlay -->
+  <div class="nav__mobile" id="nav-mobile" aria-hidden="true">
+    <ul class="nav__mobile-links" role="list">
+      {navItems.map((item) => (
+        <li>
+          <a href={item.href} class="nav__mobile-link">
+            {item.label[lang]}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</nav>
+
+<script>
+  // Navigation scroll behavior & mobile menu
+  function initNav() {
+    const nav = document.getElementById('main-nav');
+    const toggle = document.getElementById('nav-toggle');
+    const mobile = document.getElementById('nav-mobile');
+    if (!nav || !toggle || !mobile) return;
+
+    // Glass effect on scroll
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          nav.classList.toggle('nav--scrolled', window.scrollY > 40);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Mobile menu toggle
+    toggle.addEventListener('click', () => {
+      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!isOpen));
+      mobile.setAttribute('aria-hidden', String(isOpen));
+      nav.classList.toggle('nav--mobile-open', !isOpen);
+      toggle.setAttribute('aria-label', !isOpen
+        ? (document.documentElement.lang === 'es' ? 'Cerrar menú' : 'Close menu')
+        : (document.documentElement.lang === 'es' ? 'Abrir menú' : 'Open menu')
+      );
+    });
+
+    // Close mobile menu on link click
+    mobile.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        toggle.setAttribute('aria-expanded', 'false');
+        mobile.setAttribute('aria-hidden', 'true');
+        nav.classList.remove('nav--mobile-open');
+      });
+    });
+
+    // Active section tracking
+    const sections = document.querySelectorAll('section[id]');
+    const allLinks = nav.querySelectorAll('.nav__link, .nav__mobile-link');
+
+    if (sections.length > 0) {
+      const sectionObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const id = entry.target.id;
+              allLinks.forEach((link) => {
+                link.classList.toggle(
+                  'nav__link--active',
+                  link.getAttribute('href') === `#${id}`,
+                );
+              });
+            }
+          });
+        },
+        { threshold: 0.3, rootMargin: '-80px 0px -40% 0px' },
+      );
+      sections.forEach((section) => sectionObserver.observe(section));
+    }
+  }
+
+  // Run on initial load and Astro page transitions
+  document.addEventListener('astro:page-load', initNav);
+  initNav();
+</script>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-nav);
+    height: var(--nav-height);
+    transition: background var(--transition-base), box-shadow var(--transition-base);
+  }
+
+  .nav--scrolled {
+    background: rgba(10, 10, 15, 0.8);
+    backdrop-filter: blur(20px) saturate(1.5);
+    -webkit-backdrop-filter: blur(20px) saturate(1.5);
+    box-shadow: 0 1px 0 var(--color-border-subtle);
+  }
+
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 0 var(--space-xl);
+    height: 100%;
+  }
+
+  /* ---- Logo ---- */
+  .nav__logo {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    text-decoration: none;
+    display: flex;
+    align-items: baseline;
+    gap: 0;
+  }
+
+  .nav__logo:hover {
+    color: var(--color-text-primary);
+  }
+
+  .nav__logo-dot {
+    color: var(--color-accent-primary);
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+
+  /* ---- Desktop Links ---- */
+  .nav__links {
+    display: flex;
+    gap: var(--space-lg);
+    list-style: none;
+  }
+
+  .nav__link {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    padding: var(--space-xs) 0;
+    position: relative;
+    transition: color var(--transition-fast);
+  }
+
+  .nav__link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-hero);
+    border-radius: var(--radius-full);
+    transition: width var(--transition-base);
+  }
+
+  .nav__link:hover,
+  .nav__link--active {
+    color: var(--color-text-primary);
+  }
+
+  .nav__link:hover::after,
+  .nav__link--active::after {
+    width: 100%;
+  }
+
+  /* ---- Hamburger ---- */
+  .nav__hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+  }
+
+  .nav__hamburger-line {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--color-text-primary);
+    border-radius: var(--radius-full);
+    transition: transform var(--transition-base), opacity var(--transition-fast);
+    transform-origin: center;
+  }
+
+  /* Hamburger → X animation */
+  .nav--mobile-open .nav__hamburger-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .nav--mobile-open .nav__hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav--mobile-open .nav__hamburger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* ---- Mobile Menu ---- */
+  .nav__mobile {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(10, 10, 15, 0.95);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-base), visibility var(--transition-base);
+  }
+
+  .nav--mobile-open .nav__mobile {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav__mobile-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2xl);
+  }
+
+  .nav__mobile-link {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .nav__mobile-link:hover,
+  .nav__mobile-link.nav__link--active {
+    color: var(--color-text-primary);
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 768px) {
+    .nav__links {
+      display: none;
+    }
+
+    .nav__hamburger {
+      display: flex;
+    }
+  }
+</style>

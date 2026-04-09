@@ -1,0 +1,94 @@
+---
+/**
+ * Card.astro — Glassmorphism card component
+ *
+ * Variants: default, featured, ghost
+ * If `href` is provided, renders as a link.
+ */
+interface Props {
+  variant?: 'default' | 'featured' | 'ghost';
+  href?: string;
+  tag?: string;
+  class?: string;
+}
+
+const { variant = 'default', href, tag, class: className } = Astro.props;
+
+const Tag = href ? 'a' : 'div';
+const linkProps = href ? { href, target: href.startsWith('http') ? '_blank' : undefined, rel: href.startsWith('http') ? 'noopener noreferrer' : undefined } : {};
+---
+
+<Tag
+  class:list={['card', `card--${variant}`, className]}
+  {...linkProps}
+>
+  {tag && <span class="card__tag">{tag}</span>}
+  <slot />
+</Tag>
+
+<style>
+  .card {
+    position: relative;
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border-subtle);
+    transition:
+      transform var(--transition-base),
+      box-shadow var(--transition-base),
+      border-color var(--transition-base);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+    border-color: var(--color-border-accent);
+  }
+
+  /* Featured variant — accent border glow */
+  .card--featured {
+    border-color: var(--color-accent-primary);
+    background: linear-gradient(
+      145deg,
+      rgba(108, 99, 255, 0.06) 0%,
+      var(--color-bg-card) 40%
+    );
+  }
+
+  .card--featured:hover {
+    box-shadow:
+      var(--shadow-card),
+      0 0 24px rgba(108, 99, 255, 0.12);
+  }
+
+  /* Ghost variant — transparent background */
+  .card--ghost {
+    background: transparent;
+    border-color: transparent;
+  }
+
+  .card--ghost:hover {
+    background: rgba(26, 26, 40, 0.4);
+    border-color: var(--color-border-subtle);
+  }
+
+  /* Tag badge in corner */
+  .card__tag {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-accent-secondary);
+    background: rgba(108, 99, 255, 0.1);
+    border: 1px solid var(--color-border-accent);
+    padding: 2px var(--space-sm);
+    border-radius: var(--radius-full);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+</style>
