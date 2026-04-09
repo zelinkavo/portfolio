@@ -1,0 +1,26 @@
+/* Google Fonts — Preloaded in BaseLayout.astro */
+
+/*
+ * Font Stack:
+ * - Outfit: Headings (geometric, modern)
+ * - Inter: Body (high legibility, variable)
+ * - JetBrains Mono: Code blocks
+ *
+ * Loading strategy: font-display: swap for CLS optimization
+ */
+
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+}
