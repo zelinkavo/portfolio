@@ -21,7 +21,7 @@ export function generatePersonJsonLd(lang: 'es' | 'en' = 'es') {
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    name: 'zelinkavo',
+    name: 'David Oliver',
     jobTitle:
       lang === 'es'
         ? 'Senior Full Stack Developer & AI Solutions Engineer'
