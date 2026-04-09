@@ -1,0 +1,130 @@
+---
+/**
+ * Global 404 Error Page
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="404 — Página no encontrada | David Oliver"
+  description="La página que buscas no existe o ha sido movida."
+>
+  <div class="error-page">
+    <div class="error-page__grid" aria-hidden="true"></div>
+    <div class="error-page__glow" aria-hidden="true"></div>
+
+    <div class="error-content" data-animate="fade-up">
+      <div class="error-code">404</div>
+      <h1 class="error-title">Recurso no encontrado</h1>
+      <p class="error-message">
+        Parece que esta ruta se ha perdido en el void.<br>
+        O quizás nunca existió.
+      </p>
+      <a href="/" class="btn btn--primary">
+        Volver a la base
+      </a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .error-page {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100dvh - var(--nav-height) - 100px); /* Approx footer height */
+    overflow: hidden;
+  }
+
+  .error-page__grid {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: radial-gradient(circle, rgba(212, 162, 78, 0.05) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse at center, black 10%, transparent 60%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 10%, transparent 60%);
+  }
+
+  .error-page__glow {
+    position: absolute;
+    width: 600px;
+    height: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+      ellipse,
+      rgba(212, 162, 78, 0.04) 0%,
+      transparent 70%
+    );
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .error-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .error-code {
+    font-family: var(--font-heading);
+    font-size: clamp(6rem, 15vw, 12rem);
+    font-weight: 800;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--color-border-subtle);
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    background-clip: text;
+    opacity: 0.8;
+  }
+
+  .error-title {
+    font-size: 2rem;
+    color: var(--color-text-primary);
+  }
+
+  .error-message {
+    color: var(--color-text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    font-family: var(--font-body);
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      transform var(--transition-fast),
+      box-shadow var(--transition-fast),
+      background var(--transition-fast),
+      border-color var(--transition-fast);
+    line-height: 1;
+    font-size: 0.9rem;
+    padding: var(--space-sm) var(--space-lg);
+    background: var(--gradient-accent);
+    color: var(--color-bg-primary);
+  }
+
+  .btn:hover {
+    box-shadow: 0 4px 20px rgba(212, 162, 78, 0.3);
+    color: var(--color-bg-primary);
+    transform: translateY(-1px);
+  }
+</style>

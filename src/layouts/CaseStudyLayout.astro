@@ -1,0 +1,200 @@
+---
+/**
+ * CaseStudyLayout.astro
+ * 
+ * Shared layout for individual project detail pages.
+ * Integrates directly with BaseLayout.
+ */
+import BaseLayout from './BaseLayout.astro';
+import Badge from '../components/ui/Badge.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  category: 'ai' | 'mobile' | 'gamedev' | 'devops';
+  projectContext: string;
+}
+
+const { title, description, category, projectContext } = Astro.props;
+---
+
+<BaseLayout title={`${title} — Proyectos | David Oliver`} description={description}>
+  
+  <article class="case-study">
+    <!-- Breadcrumb Nav -->
+    <nav class="case-study__nav" aria-label="Breadcrumb">
+      <div class="container">
+        <a href="/#projects" class="back-link">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Proyectos
+        </a>
+      </div>
+    </nav>
+
+    <!-- Case Study Hero -->
+    <header class="case-study__header">
+      <div class="container container--narrow text-center">
+        <div class="case-study__meta" data-animate="fade-up">
+          <Badge variant={category === 'ai' ? 'ai' : category === 'mobile' ? 'dev' : category === 'devops' ? 'infra' : 'default'}>
+            {category}
+          </Badge>
+          <span class="case-study__context">{projectContext}</span>
+        </div>
+        <h1 class="case-study__title" data-animate="fade-up" style="--stagger-index: 1">{title}</h1>
+        <p class="case-study__subtitle" data-animate="fade-up" style="--stagger-index: 2">{description}</p>
+      </div>
+    </header>
+
+    <!-- Case Study Main Content -->
+    <main class="case-study__content container container--narrow">
+      <slot />
+    </main>
+
+    <!-- Bottom Navigation -->
+    <footer class="case-study__footer container">
+      <div class="footer-nav">
+        <a href="/#projects" class="btn btn--secondary">
+          ← Volver a Proyectos
+        </a>
+      </div>
+    </footer>
+  </article>
+
+</BaseLayout>
+
+<style>
+  .container {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 0 var(--space-xl);
+  }
+
+  .container--narrow {
+    max-width: 800px;
+  }
+
+  .case-study {
+    padding-top: calc(var(--nav-height) + var(--space-xl));
+    padding-bottom: var(--space-4xl);
+  }
+
+  /* Navigation */
+  .case-study__nav {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    transition: color var(--transition-fast);
+  }
+
+  .back-link:hover {
+    color: var(--color-accent-primary);
+  }
+
+  /* Header */
+  .case-study__header {
+    margin-bottom: var(--space-4xl);
+  }
+
+  .case-study__meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+
+  .case-study__context {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+
+  .case-study__title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: var(--space-md);
+    color: var(--color-text-primary);
+  }
+
+  .case-study__subtitle {
+    font-size: 1.15rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Content */
+  .case-study__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xl);
+  }
+
+  .case-study__content :global(h2) {
+    font-size: 1.75rem;
+    color: var(--color-accent-primary);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .case-study__content :global(h3) {
+    font-size: 1.25rem;
+    margin-bottom: var(--space-md);
+    color: var(--color-text-primary);
+  }
+
+  .case-study__content :global(p) {
+    font-size: 1.05rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-lg);
+  }
+
+  .case-study__content :global(ul) {
+    list-style: disc;
+    padding-left: var(--space-xl);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-lg);
+  }
+
+  .case-study__content :global(li) {
+    margin-bottom: var(--space-xs);
+  }
+  
+  /* Feature / Highlight Callouts */
+  .case-study__content :global(.callout) {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border-subtle);
+    border-left: 4px solid var(--color-accent-primary);
+    padding: var(--space-xl);
+    border-radius: var(--radius-md);
+    margin: var(--space-lg) 0;
+  }
+
+  /* Footer */
+  .case-study__footer {
+    margin-top: var(--space-4xl);
+    padding-top: var(--space-2xl);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .footer-nav {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 var(--space-md);
+    }
+  }
+</style>

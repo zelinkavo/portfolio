@@ -1,0 +1,68 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+import Badge from '../../components/ui/Badge.astro';
+---
+
+<CaseStudyLayout
+  title="Infraestructura & Automatización"
+  description="Gestión Serverless, orquestación on-premise con VPS, CD/CI y flujos de datos automatizados multiplataforma."
+  category="devops"
+  projectContext="Soluciones Transversales — Continuo"
+>
+  <section class="challenge">
+    <h2>El Reto</h2>
+    <p>
+      El crecimiento de proyectos modernos a menudo trae consigo una fricción técnica significativa: dependencias de pago por uso costosas (Vercel, AWS), dificultades en el despliegue iterativo de aplicaciones, y silos de datos manuales entre áreas de soporte, desarrollo y negocio.
+    </p>
+    <div class="callout">
+      <strong>Objetivo:</strong> Diseñar una infraestructura resiliente, de bajo coste y alta controlabilidad (self-hosted / serverless), estableciendo canalizaciones de despliegue automatizado y conectando los servicios dispares a un hub de automatización central.
+    </div>
+  </section>
+
+  <section class="action">
+    <h2>La Solución</h2>
+    <p>
+      La filosofía implementada es Cloud-Native e Híbrida: externalización de estáticos y computación ligera a la capa Edge (Edge Computing), mientras se retiene el control de las aplicaciones pesadas, bases de datos y la automatización lógica en Virtual Private Servers (VPS).
+    </p>
+    
+    <h3>Pilares de Infraestructura</h3>
+    <ul>
+      <li><strong>Despliegue y Orquestación (Dokploy):</strong> Sustitución de servicios PaaS caros por un ecosistema gestionado a través de Dokploy (alternativa a Coolify/Vercel) en un servidor propio, facilitando despliegues con un clic desde repositorios Git, SSL automatizado con Traefik, y gestión visual de contenedores Docker.</li>
+      <li><strong>Edge Computing & CDN:</strong> Uso exhaustivo de Cloudflare. Desde el alojamiento de sitios estáticos (Cloudflare Pages) con latencia global mínima, hasta el filtrado WAF (Web Application Firewall) para protección contra DDoS y la interceptación de tráfico en el edge con Workers.</li>
+      <li><strong>Automatización (n8n):</strong> Despliegue de una instancia privada de n8n para orquestar la comunicación entre APIs. Creación de nodos lógicos para sincronización de CRMs, webhooks de Stripe a bases de datos relacionales y alertas de infraestructura hacia Telegram y Slack.</li>
+      <li><strong>Telefonía y SMS Fallback:</strong> Red de seguridad técnica configurada mediante Troncales SIP y Twilio, que permite emitir notificaciones críticas de sistema fuera del entorno de red estándar mediante SMS transaccionales.</li>
+    </ul>
+
+    <!-- Placeholder for Mermaid Architecture Diagram in Phase 3 -->
+    <div class="interactive-placeholder" style="margin: 3rem 0; padding: 4rem; background: var(--color-bg-secondary); border: 1px dashed var(--color-border-subtle); border-radius: var(--radius-lg); text-align: center; color: var(--color-text-muted);">
+      <p>[ Interactive Architecture Diagram (Mermaid) Placeholder — Phase 3 ]</p>
+    </div>
+  </section>
+
+  <section class="result">
+    <h2>Resultados</h2>
+    <p>
+      Robustez y ahorro de costes sostenidos bajo una infraestructura escalable que agiliza drásticamente el desarrollo de nuevos proyectos.
+    </p>
+    <ul>
+      <li>Reducción del <strong>80%</strong> de los costes mensuales recurrentes respecto a arquitecturas equivalentes en AWS tradicional / Heroku.</li>
+      <li>Implementación de entornos Staging/Producción aislados en menos de 5 minutos mediante pipeline CI/CD en Dokploy.</li>
+      <li>Monitoreo y respuesta automática ante fallos de APIs de terceros (SMS fallbacks automáticos garantizando 99.9% de uptime real para notificaciones).</li>
+    </ul>
+  </section>
+
+  <!-- Side Stack -->
+  <aside style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--color-border-subtle);">
+    <h3>Stack Tecnológico</h3>
+    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
+      <Badge variant="infra">Cloudflare Pages & Workers</Badge>
+      <Badge variant="infra">Dokploy (PaaS)</Badge>
+      <Badge variant="infra">Docker / Traefik</Badge>
+      <Badge variant="ai">n8n Automation</Badge>
+      <Badge variant="infra">Linux VPS (Ubuntu)</Badge>
+      <Badge variant="infra">SIP / Twilio</Badge>
+      <Badge variant="dev">Bash Scripting</Badge>
+    </div>
+  </aside>
+
+</CaseStudyLayout>

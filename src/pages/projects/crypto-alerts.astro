@@ -1,0 +1,67 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+import Badge from '../../components/ui/Badge.astro';
+---
+
+<CaseStudyLayout
+  title="Simple Crypto Alerts"
+  description="Aplicación móvil nativa en tiendas para monitoreo de precios y alertas push en tiempo real de criptomonedas."
+  category="mobile"
+  projectContext="Proyecto Propio — 2024"
+>
+  <section class="challenge">
+    <h2>El Reto</h2>
+    <p>
+      El ecosistema de aplicaciones crypto suele ser denso, enfocado a traders profesionales y lleno de gráficos incomprensibles para el usuario promedio que solo quiere saber cuándo Bitcoin o Ethereum alcanzan un precio objetivo. La mayoría de estas apps requieren registros pesados o cobran suscripciones mensuales solo por enviar notificaciones push.
+    </p>
+    <div class="callout">
+      <strong>Objetivo:</strong> Construir una app móvil multiplataforma (iOS y Android) estéticamente impecable, de uso anónimo y completamente centrada en crear notificaciones de precio de forma intuitiva, sin ruido visual.
+    </div>
+  </section>
+
+  <section class="action">
+    <h2>La Solución</h2>
+    <p>
+      Elegí React Native con Expo para lograr un desarrollo ágil y mantener un único codebase. La app se diseñó con un fuerte enfoque en UX, utilizando interacciones hápticas y animaciones fluidas con Reanimated.
+    </p>
+    
+    <h3>Ingeniería y Backend</h3>
+    <ul>
+      <li><strong>Arquitectura de Estado:</strong> Implementación de Zustand para gestión de estado local persistente, garantizando que la app retenga las alertas y favoritos incluso sin conexión.</li>
+      <li><strong>Data Polling:</strong> Integración robusta con la API de CoinGecko, implementando una caché inteligente y un sistema de backoff exponencial en caso de límites de rate de la API para asegurar actualizaciones precisas del mercado sin saturar los servicios.</li>
+      <li><strong>Motor de Notificaciones:</strong> Uso del sistema de notificaciones locales de Expo en combinación con tareas en segundo plano (Background Fetch) para verificar precios aunque la app esté cerrada, validando si se cruzan los thresholds del usuario.</li>
+    </ul>
+
+    <!-- Placeholder for Mockup in Phase 3 -->
+    <div class="interactive-placeholder" style="margin: 3rem 0; padding: 4rem; background: var(--color-bg-secondary); border: 1px dashed var(--color-border-subtle); border-radius: var(--radius-lg); text-align: center; color: var(--color-text-muted);">
+      <p>[ Interactive Phone Mockup Placeholder — Phase 3 ]</p>
+    </div>
+  </section>
+
+  <section class="result">
+    <h2>Resultados</h2>
+    <p>
+      El proyecto superó las validaciones de las tiendas oficiales, incluyendo las rigurosas políticas de revisión de Apple App Store respecto a la temática crypto.
+    </p>
+    <ul>
+      <li>Publicación exitosa nativa tanto en Google Play Console como en Apple App Store.</li>
+      <li>Implementación de CI/CD automatizado mediante EAS (Expo Application Services) para la construcción en la nube de los bundles binarios (AAB e IPA).</li>
+      <li>Adopción por un grupo de prueba orgánico con feedback excepcionalmente positivo sobre la claridad de la interfaz frente a alternativas como Binance o CoinMarketCap.</li>
+    </ul>
+  </section>
+
+  <!-- Side Stack -->
+  <aside style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--color-border-subtle);">
+    <h3>Stack Tecnológico</h3>
+    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
+      <Badge variant="dev">React Native</Badge>
+      <Badge variant="dev">Expo</Badge>
+      <Badge variant="dev">TypeScript</Badge>
+      <Badge variant="dev">Zustand</Badge>
+      <Badge variant="infra">EAS Build</Badge>
+      <Badge variant="ai">CoinGecko API</Badge>
+      <Badge variant="dev">Reanimated</Badge>
+    </div>
+  </aside>
+
+</CaseStudyLayout>

@@ -37,7 +37,7 @@ import { skillClusters } from '../data/skills';
       <div class="projects-grid">
         {projects.filter(p => p.featured).map((project, i) => (
           <div data-animate="fade-up" style={`--stagger-index: ${i}`}>
-            <Card variant={project.order === 1 ? 'featured' : 'default'} tag={project.category}>
+            <Card variant={project.order === 1 ? 'featured' : 'default'} tag={project.category} href={`/projects/${project.slug}`}>
               <div class="project-card">
                 <div class="project-card__category">
                   <span class="project-card__icon" aria-hidden="true">

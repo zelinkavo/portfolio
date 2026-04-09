@@ -1,0 +1,70 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+import Badge from '../../components/ui/Badge.astro';
+---
+
+<CaseStudyLayout
+  title="Enterprise Appointment Orchestration"
+  description="Automatización end-to-end de agendas médicas, gestión de citas y notificaciones multicanal para Clínicas Svenson."
+  category="ai"
+  projectContext="Clínicas Svenson — 2024"
+>
+  <section class="challenge">
+    <h2>El Reto</h2>
+    <p>
+      Svenson enfrentaba un volumen inmanejable de llamadas entrantes para citas, cancelaciones y reubicaciones. Su sistema manual provocaba cuellos de botella en atención al cliente, tiempos de espera elevados y altas tasas de ausentismo (no-shows) por falta de confirmaciones estructuradas.
+    </p>
+    <div class="callout">
+      <strong>Objetivo:</strong> Diseñar un asistente virtual inteligente capaz de interactuar por teléfono y WhatsApp de forma natural para gestionar citas directamente contra su CRM, reduciendo la carga del call center en un 40%.
+    </div>
+  </section>
+
+  <section class="action">
+    <h2>La Solución</h2>
+    <p>
+      Implementé una arquitectura serverless basada en Cloudflare Workers y n8n (self-hosted en VPS propio) para orquestar la integración entre los distintos proveedores y el backend de la clínica (Salesforce/CRM propietario).
+    </p>
+    
+    <h3>Flujo de Trabajo del Agente</h3>
+    <ul>
+      <li><strong>Canal Omnicanal:</strong> Integración de WhatsApp Business API via Twilio y PBX SIP para llamadas telefónicas.</li>
+      <li><strong>NLU (Natural Language Understanding):</strong> El bot transcribe el audio, lo procesa mediante OpenAI GPT-4 ajustado para el dominio médico, y determina la intención (nueva cita, cambio, cancelación).</li>
+      <li><strong>Resolución de Conflictos:</strong> El sistema detecta y sugiere slots disponibles consultando en tiempo real la base de datos MySQL de agendas.</li>
+      <li><strong>Notificaciones:</strong> Confirmaciones automáticas proactivas 24h y 2h antes de la cita mediante SMS fallback y WhatsApp.</li>
+    </ul>
+
+    <!-- Placeholder for Architecture Diagram in Phase 3 -->
+    <div class="interactive-placeholder" style="margin: 3rem 0; padding: 4rem; background: var(--color-bg-secondary); border: 1px dashed var(--color-border-subtle); border-radius: var(--radius-lg); text-align: center; color: var(--color-text-muted);">
+      <p>[ React Flow Architecture Diagram Placeholder — Phase 3 ]</p>
+    </div>
+  </section>
+
+  <section class="result">
+    <h2>Resultados</h2>
+    <p>
+      La implementación fue un éxito medible en los primeros 3 meses de producción. El impacto directo en el negocio fue evidente desde el primer mes completo de operación.
+    </p>
+    <ul>
+      <li>Reducción del <strong>45%</strong> del tiempo de los agentes en llamadas de agenda rutinarias.</li>
+      <li>Reducción del <strong>30%</strong> en "no-shows" gracias al sistema de recordatorios estructurado.</li>
+      <li>Capacidad de agendar 24/7 sin dependencias humanas, atrayendo leads fuera de horario laboral.</li>
+      <li>Tiempos de respuesta (SLA) de WhatsApp reducidos de 45 minutos a &lt;5 segundos.</li>
+    </ul>
+  </section>
+
+  <!-- Side Stack -->
+  <aside style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--color-border-subtle);">
+    <h3>Stack Tecnológico</h3>
+    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
+      <Badge variant="ai">n8n (Self-Hosted)</Badge>
+      <Badge variant="dev">Node.js</Badge>
+      <Badge variant="infra">Cloudflare Workers</Badge>
+      <Badge variant="ai">OpenAI GPT-4</Badge>
+      <Badge variant="infra">Twilio API</Badge>
+      <Badge variant="infra">Meta WhatsApp API</Badge>
+      <Badge variant="dev">MySQL</Badge>
+      <Badge variant="dev">TypeScript</Badge>
+    </div>
+  </aside>
+
+</CaseStudyLayout>

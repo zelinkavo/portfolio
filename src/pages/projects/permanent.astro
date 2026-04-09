@@ -1,0 +1,67 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+import Badge from '../../components/ui/Badge.astro';
+---
+
+<CaseStudyLayout
+  title="Permanent — Hope & Vacuum"
+  description="Desarrollo integral de un videojuego de terror psicológico en primera persona empleando Unreal Engine 5."
+  category="gamedev"
+  projectContext="Indie GameDev — 2023"
+>
+  <section class="challenge">
+    <h2>El Reto</h2>
+    <p>
+      El género del terror psicológico indie requiere un delicado equilibrio entre atmósfera inmersiva, rendimiento técnico y sistemas lógicos de juego tensos pero justos. Abordar en solitario el desarrollo de un título 3D completo implica abarcar programación, narrativa, diseño de nivel, iluminación e integración de audio en un motor de nivel AAA como es Unreal Engine.
+    </p>
+    <div class="callout">
+      <strong>Objetivo:</strong> Diseñar y programar un juego completo en primera persona con mecánicas de sigilo, resolución de puzles de entorno dinámico y una IA básica para entidades hostiles, empacado en una atmósfera estresante y limitando los recursos hardware.
+    </div>
+  </section>
+
+  <section class="action">
+    <h2>La Solución</h2>
+    <p>
+      Adopté Unreal Engine 5 como motor, aprovechando Lumen para la iluminación global en tiempo real (esencial para el terror) y el sistema de Blueprints para la programación orientada a eventos.
+    </p>
+    
+    <h3>Sistemas Principales</h3>
+    <ul>
+      <li><strong>Game Loop & Lógica (Blueprints):</strong> Implementación visual robusta mediante el sistema Blueprints de UE5, controlando estados del jugador (sanidad, stamina, inventario) e iterando rápidamente sin tiempos de compilación excesivos en C++.</li>
+      <li><strong>Mecánicas Core:</strong> Sistema de ocultación dinámico basado en colisiones y linea de visión, un sistema modular de interacción con objetos físicos y puzles de lógica vinculados a componentes del mapa.</li>
+      <li><strong>Inteligencia Artificial:</strong> Configuración de Behavior Trees y Blackboard para controlar las patrullas de las entidades enemigas, con percepciones de sonido y visión vinculadas a las acciones del jugador.</li>
+      <li><strong>Marketing Web:</strong> Creación paralela de la página promocional del juego (landing page y press kit) desarrollada sobre WordPress con un custom theme optimizado.</li>
+    </ul>
+
+    <!-- Placeholder for Multimedia Gallery in Phase 3 -->
+    <div class="interactive-placeholder" style="margin: 3rem 0; padding: 4rem; background: var(--color-bg-secondary); border: 1px dashed var(--color-border-subtle); border-radius: var(--radius-lg); text-align: center; color: var(--color-text-muted);">
+      <p>[ Image / Video Gallery Placeholder — Phase 3 ]</p>
+    </div>
+  </section>
+
+  <section class="result">
+    <h2>Resultados</h2>
+    <p>
+      Una vertical slice jugable y de alta fidelidad visual completa, sirviendo como demostración técnica de capacidades en motores gráficos e iteración rápida en mecánicas interactivas.
+    </p>
+    <ul>
+      <li>Dominio profundo de la pipeline de desarrollo 3D (desde bloqueo de nivel hasta empaquetado final de binarios).</li>
+      <li>Optimización de recursos gráficos logrando mantener 60 FPS consistentes con Lumen activado en hardware de gama media.</li>
+      <li>Ecosistema digital completo: Integración de la landing page (WordPress) con analíticas tempranas para medir la tracción orgánica del título en foros indie.</li>
+    </ul>
+  </section>
+
+  <!-- Side Stack -->
+  <aside style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--color-border-subtle);">
+    <h3>Stack Tecnológico</h3>
+    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
+      <Badge variant="infra">Unreal Engine 5</Badge>
+      <Badge variant="dev">Blueprints Visual Scripting</Badge>
+      <Badge variant="dev">Behavior Trees (AI)</Badge>
+      <Badge variant="ai">Lumen G.I.</Badge>
+      <Badge variant="dev">WordPress</Badge>
+      <Badge variant="infra">Level Design</Badge>
+    </div>
+  </aside>
+
+</CaseStudyLayout>
