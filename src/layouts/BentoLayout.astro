@@ -3,7 +3,9 @@
  * BentoLayout.astro — Asymmetric Bento Grid layout
  *
  * Named grid areas for composing the portfolio sections:
- * hero, projects, skills, experience, contact
+ * projects, skills, experience, contact
+ *
+ * Hero is rendered full-bleed OUTSIDE this grid.
  *
  * Mobile: single column stack
  * Tablet: 2 columns
@@ -17,10 +19,6 @@ const { class: className } = Astro.props;
 ---
 
 <div class:list={['bento', className]}>
-  <div class="bento__area bento__hero">
-    <slot name="hero" />
-  </div>
-
   <div class="bento__area bento__projects">
     <slot name="projects" />
   </div>
@@ -53,10 +51,8 @@ const { class: className } = Astro.props;
 
   /*
    * ---- Desktop: Asymmetric Bento Grid ----
-   * Layout:
-   * ┌──────────────────────────────────┐
-   * │           HERO (full width)      │
-   * ├──────────────────┬───────────────┤
+   * Layout (Hero is above, outside this grid):
+   * ┌──────────────────┬───────────────┐
    * │                  │               │
    * │    PROJECTS      │    SKILLS     │
    * │    (2/3)         │    (1/3)      │
@@ -71,13 +67,11 @@ const { class: className } = Astro.props;
     .bento {
       grid-template-columns: 2fr 1fr;
       grid-template-areas:
-        "hero      hero"
         "projects  skills"
         "experience experience"
         "contact   contact";
     }
 
-    .bento__hero       { grid-area: hero; }
     .bento__projects   { grid-area: projects; }
     .bento__skills     { grid-area: skills; }
     .bento__experience { grid-area: experience; }
@@ -91,13 +85,11 @@ const { class: className } = Astro.props;
     .bento {
       grid-template-columns: 1fr 1fr;
       grid-template-areas:
-        "hero       hero"
         "projects   projects"
         "skills     experience"
         "contact    contact";
     }
 
-    .bento__hero       { grid-area: hero; }
     .bento__projects   { grid-area: projects; }
     .bento__skills     { grid-area: skills; }
     .bento__experience { grid-area: experience; }
@@ -111,14 +103,12 @@ const { class: className } = Astro.props;
     .bento {
       grid-template-columns: 1fr;
       grid-template-areas:
-        "hero"
         "projects"
         "skills"
         "experience"
         "contact";
     }
 
-    .bento__hero       { grid-area: hero; }
     .bento__projects   { grid-area: projects; }
     .bento__skills     { grid-area: skills; }
     .bento__experience { grid-area: experience; }

@@ -19,9 +19,8 @@ import { skillClusters } from '../data/skills';
   title="zelinkavo — Senior Full Stack Developer & AI Solutions Engineer"
   description="Orquestador de sistemas autónomos y ecosistemas digitales. Portfolio técnico 2026."
 >
-  <BentoLayout>
-    <!-- ==================== HERO ==================== -->
-    <section id="hero" slot="hero" data-animate="fade-in">
+  <!-- ==================== HERO (full-bleed, outside Bento) ==================== -->
+  <section id="hero" data-animate="fade-in">
       <div class="hero">
         <!-- Animated background orbs -->
         <div class="hero__orbs" aria-hidden="true">
@@ -69,8 +68,9 @@ import { skillClusters } from '../data/skills';
           </div>
         </div>
       </div>
-    </section>
+  </section>
 
+  <BentoLayout>
     <!-- ==================== PROJECTS ==================== -->
     <section id="projects" slot="projects">
       <SectionHeader
@@ -109,10 +109,10 @@ import { skillClusters } from '../data/skills';
       <div class="skills-list">
         {skillClusters.map((cluster, ci) => (
           <div class="skills-cluster" data-animate="fade-up" style={`--stagger-index: ${ci}`}>
-            <h4 class="skills-cluster__title">
+            <h3 class="skills-cluster__title">
               <span class="skills-cluster__dot" style={`background: ${cluster.color}`} aria-hidden="true"></span>
               {cluster.title.es}
-            </h4>
+            </h3>
             <div class="skills-cluster__tags">
               {cluster.skills.map(skill => (
                 <Badge variant={cluster.id === 'ai' ? 'ai' : cluster.id === 'development' ? 'dev' : 'infra'} size="sm">
