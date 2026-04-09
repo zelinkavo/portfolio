@@ -49,12 +49,12 @@ const linkProps = href ? { href, target: href.startsWith('http') ? '_blank' : un
     border-color: var(--color-border-accent);
   }
 
-  /* Featured variant — accent border glow */
+  /* Featured variant — warm gold accent glow */
   .card--featured {
     border-color: var(--color-accent-primary);
     background: linear-gradient(
       145deg,
-      rgba(108, 99, 255, 0.06) 0%,
+      rgba(212, 162, 78, 0.06) 0%,
       var(--color-bg-card) 40%
     );
   }
@@ -62,7 +62,7 @@ const linkProps = href ? { href, target: href.startsWith('http') ? '_blank' : un
   .card--featured:hover {
     box-shadow:
       var(--shadow-card),
-      0 0 24px rgba(108, 99, 255, 0.12);
+      0 0 24px rgba(212, 162, 78, 0.10);
   }
 
   /* Ghost variant — transparent background */
@@ -72,7 +72,7 @@ const linkProps = href ? { href, target: href.startsWith('http') ? '_blank' : un
   }
 
   .card--ghost:hover {
-    background: rgba(26, 26, 40, 0.4);
+    background: rgba(23, 27, 36, 0.4);
     border-color: var(--color-border-subtle);
   }
 
@@ -84,7 +84,7 @@ const linkProps = href ? { href, target: href.startsWith('http') ? '_blank' : un
     font-family: var(--font-mono);
     font-size: 0.7rem;
     color: var(--color-accent-secondary);
-    background: rgba(108, 99, 255, 0.1);
+    background: rgba(124, 149, 196, 0.1);
     border: 1px solid var(--color-border-accent);
     padding: 2px var(--space-sm);
     border-radius: var(--radius-full);

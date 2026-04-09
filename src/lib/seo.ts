@@ -33,7 +33,7 @@ export function generatePersonJsonLd(lang: 'es' | 'en' = 'es') {
     url: 'https://davidoliver-ai.pages.dev',
     sameAs: [
       'https://github.com/zelinkavo',
-      'https://linkedin.com/in/zelinkavo',
+      'https://www.linkedin.com/in/david-oliver-16729971/',
     ],
     knowsAbout: [
       'Artificial Intelligence',
