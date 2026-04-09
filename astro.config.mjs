@@ -6,7 +6,7 @@ import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://portfolio.pages.dev',
+  site: 'https://davidoliver-ai.zelinkavo.workers.dev',
 
   integrations: [
     react(),
