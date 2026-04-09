@@ -32,9 +32,48 @@ import Badge from '../../components/ui/Badge.astro';
       <li><strong>Motor de Notificaciones:</strong> Uso del sistema de notificaciones locales de Expo en combinación con tareas en segundo plano (Background Fetch) para verificar precios aunque la app esté cerrada, validando si se cruzan los thresholds del usuario.</li>
     </ul>
 
-    <!-- Placeholder for Mockup in Phase 3 -->
-    <div class="interactive-placeholder" style="margin: 3rem 0; padding: 4rem; background: var(--color-bg-secondary); border: 1px dashed var(--color-border-subtle); border-radius: var(--radius-lg); text-align: center; color: var(--color-text-muted);">
-      <p>[ Interactive Phone Mockup Placeholder — Phase 3 ]</p>
+    <!-- App Feature Showcase -->
+    <div class="app-showcase" data-animate="fade-up">
+      <div class="app-showcase__screen">
+        <div class="app-showcase__header">
+          <span class="app-showcase__status">● LIVE</span>
+          <span class="app-showcase__title-bar">Simple Crypto Alerts</span>
+        </div>
+        <div class="app-showcase__features">
+          <div class="app-showcase__feature">
+            <span class="app-showcase__icon">🔔</span>
+            <div>
+              <strong>Alertas de Precio</strong>
+              <p>Configura umbrales para cualquier crypto. Notificación push cuando se crucen.</p>
+            </div>
+          </div>
+          <div class="app-showcase__feature">
+            <span class="app-showcase__icon">📊</span>
+            <div>
+              <strong>Monitoreo 24/7</strong>
+              <p>Background Fetch verifica precios incluso con la app cerrada.</p>
+            </div>
+          </div>
+          <div class="app-showcase__feature">
+            <span class="app-showcase__icon">⚡</span>
+            <div>
+              <strong>Modo Pro</strong>
+              <p>Alertas ilimitadas, intervalos de 1 minuto, prioridad alta.</p>
+            </div>
+          </div>
+          <div class="app-showcase__feature">
+            <span class="app-showcase__icon">🔒</span>
+            <div>
+              <strong>Uso Anónimo</strong>
+              <p>Sin registro. Sin datos personales. Todo local en el dispositivo.</p>
+            </div>
+          </div>
+        </div>
+        <div class="app-showcase__stores">
+          <span class="app-showcase__badge-store">▶ Google Play</span>
+          <span class="app-showcase__badge-store"> App Store</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -65,3 +104,93 @@ import Badge from '../../components/ui/Badge.astro';
   </aside>
 
 </CaseStudyLayout>
+
+<style>
+  .app-showcase {
+    margin: 2rem 0;
+  }
+
+  .app-showcase__screen {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .app-showcase__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-lg);
+    border-bottom: 1px solid var(--color-border-subtle);
+    background: var(--color-bg-card);
+  }
+
+  .app-showcase__status {
+    font-size: 0.7rem;
+    color: var(--color-accent-tertiary);
+    font-family: var(--font-mono);
+  }
+
+  .app-showcase__title-bar {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  .app-showcase__features {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-md);
+    gap: var(--space-md);
+  }
+
+  .app-showcase__feature {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border-subtle);
+  }
+
+  .app-showcase__feature strong {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--color-text-primary);
+    margin-bottom: 2px;
+  }
+
+  .app-showcase__feature p {
+    font-size: 0.75rem !important;
+    color: var(--color-text-muted) !important;
+    line-height: 1.4 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .app-showcase__icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .app-showcase__stores {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .app-showcase__badge-store {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-accent-secondary);
+    padding: var(--space-xs) var(--space-md);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-sm);
+  }
+</style>

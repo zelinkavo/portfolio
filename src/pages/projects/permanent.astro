@@ -33,9 +33,30 @@ import Badge from '../../components/ui/Badge.astro';
       <li><strong>Marketing Web:</strong> Creación paralela de la página promocional del juego (landing page y press kit) desarrollada sobre WordPress con un custom theme optimizado.</li>
     </ul>
 
-    <!-- Placeholder for Multimedia Gallery in Phase 3 -->
-    <div class="interactive-placeholder" style="margin: 3rem 0; padding: 4rem; background: var(--color-bg-secondary); border: 1px dashed var(--color-border-subtle); border-radius: var(--radius-lg); text-align: center; color: var(--color-text-muted);">
-      <p>[ Image / Video Gallery Placeholder — Phase 3 ]</p>
+    <!-- Game Systems Showcase -->
+    <div class="game-systems" data-animate="fade-up">
+      <div class="game-systems__grid">
+        <div class="game-systems__card">
+          <span class="game-systems__icon">🎭</span>
+          <h4>Sistema de Sanidad</h4>
+          <p>Estado mental del jugador que afecta filtros visuales, audio y comportamiento de la IA enemiga.</p>
+        </div>
+        <div class="game-systems__card">
+          <span class="game-systems__icon">👁️</span>
+          <h4>IA Perceptiva</h4>
+          <p>Behavior Trees con percepción de sonido y visión. La IA reacciona al ruido y al campo de visión del jugador.</p>
+        </div>
+        <div class="game-systems__card">
+          <span class="game-systems__icon">🔦</span>
+          <h4>Lumen Real-Time GI</h4>
+          <p>Iluminación global dinámica que reacciona a acciones del jugador, crítica para generar la atmósfera del juego.</p>
+        </div>
+        <div class="game-systems__card">
+          <span class="game-systems__icon">🧩</span>
+          <h4>Puzles Modulares</h4>
+          <p>Sistema de interacción con el entorno basado en componentes reutilizables conectados por eventos.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -65,3 +86,52 @@ import Badge from '../../components/ui/Badge.astro';
   </aside>
 
 </CaseStudyLayout>
+
+<style>
+  .game-systems {
+    margin: 2rem 0;
+  }
+
+  .game-systems__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  .game-systems__card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    transition: border-color var(--transition-fast);
+  }
+
+  .game-systems__card:hover {
+    border-color: var(--color-border-accent);
+  }
+
+  .game-systems__icon {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: var(--space-sm);
+  }
+
+  .game-systems__card h4 {
+    font-size: 0.9rem;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-xs);
+  }
+
+  .game-systems__card p {
+    font-size: 0.75rem !important;
+    color: var(--color-text-muted) !important;
+    line-height: 1.5 !important;
+    margin-bottom: 0 !important;
+  }
+
+  @media (max-width: 480px) {
+    .game-systems__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

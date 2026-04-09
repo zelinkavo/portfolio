@@ -33,9 +33,54 @@ import Badge from '../../components/ui/Badge.astro';
       <li><strong>Telefonía y SMS Fallback:</strong> Red de seguridad técnica configurada mediante Troncales SIP y Twilio, que permite emitir notificaciones críticas de sistema fuera del entorno de red estándar mediante SMS transaccionales.</li>
     </ul>
 
-    <!-- Placeholder for Mermaid Architecture Diagram in Phase 3 -->
-    <div class="interactive-placeholder" style="margin: 3rem 0; padding: 4rem; background: var(--color-bg-secondary); border: 1px dashed var(--color-border-subtle); border-radius: var(--radius-lg); text-align: center; color: var(--color-text-muted);">
-      <p>[ Interactive Architecture Diagram (Mermaid) Placeholder — Phase 3 ]</p>
+    <!-- Infrastructure Architecture Diagram -->
+    <div class="infra-diagram" data-animate="fade-up">
+      <div class="infra-diagram__container">
+        <div class="infra-diagram__layer">
+          <span class="infra-diagram__label">Edge Layer</span>
+          <div class="infra-diagram__nodes">
+            <div class="infra-diagram__node infra-diagram__node--teal">
+              <span>☁️</span> Cloudflare Pages
+            </div>
+            <div class="infra-diagram__node infra-diagram__node--teal">
+              <span>⚡</span> Workers (Edge)
+            </div>
+            <div class="infra-diagram__node infra-diagram__node--teal">
+              <span>🛡️</span> WAF / DDoS
+            </div>
+          </div>
+        </div>
+        <div class="infra-diagram__connector" aria-hidden="true">↓ HTTPS ↓</div>
+        <div class="infra-diagram__layer">
+          <span class="infra-diagram__label">VPS Layer</span>
+          <div class="infra-diagram__nodes">
+            <div class="infra-diagram__node infra-diagram__node--gold">
+              <span>🐳</span> Docker / Traefik
+            </div>
+            <div class="infra-diagram__node infra-diagram__node--gold">
+              <span>🚀</span> Dokploy (PaaS)
+            </div>
+            <div class="infra-diagram__node infra-diagram__node--steel">
+              <span>🗄️</span> MySQL / Redis
+            </div>
+          </div>
+        </div>
+        <div class="infra-diagram__connector" aria-hidden="true">↓ Webhooks ↓</div>
+        <div class="infra-diagram__layer">
+          <span class="infra-diagram__label">Automation Layer</span>
+          <div class="infra-diagram__nodes">
+            <div class="infra-diagram__node infra-diagram__node--gold">
+              <span>🔄</span> n8n Workflows
+            </div>
+            <div class="infra-diagram__node infra-diagram__node--steel">
+              <span>📱</span> Twilio SMS
+            </div>
+            <div class="infra-diagram__node infra-diagram__node--steel">
+              <span>💬</span> Telegram / Slack
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -66,3 +111,86 @@ import Badge from '../../components/ui/Badge.astro';
   </aside>
 
 </CaseStudyLayout>
+
+<style>
+  .infra-diagram {
+    margin: 2rem 0;
+  }
+
+  .infra-diagram__container {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .infra-diagram__layer {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+  }
+
+  .infra-diagram__label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-md);
+  }
+
+  .infra-diagram__nodes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .infra-diagram__node {
+    font-size: 0.8rem;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-subtle);
+    color: var(--color-text-secondary);
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    transition: border-color var(--transition-fast);
+  }
+
+  .infra-diagram__node:hover {
+    border-color: var(--color-border-accent);
+  }
+
+  .infra-diagram__node--gold {
+    border-color: rgba(212, 162, 78, 0.2);
+  }
+
+  .infra-diagram__node--steel {
+    border-color: rgba(124, 149, 196, 0.2);
+  }
+
+  .infra-diagram__node--teal {
+    border-color: rgba(91, 184, 166, 0.2);
+  }
+
+  .infra-diagram__connector {
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    padding: var(--space-xs) 0;
+    letter-spacing: 0.1em;
+  }
+
+  @media (max-width: 480px) {
+    .infra-diagram__nodes {
+      flex-direction: column;
+    }
+  }
+</style>
