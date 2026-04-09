@@ -145,7 +145,7 @@ export const projects: Project[] = [
     },
     technologies: ['Docker', 'Dokploy', 'n8n', 'Cloudflare Workers', 'MySQL'],
     category: 'devops',
-    featured: false,
+    featured: true,
     order: 4,
   },
 ];

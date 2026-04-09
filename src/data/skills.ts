@@ -28,7 +28,7 @@ export const skillClusters: SkillCluster[] = [
       es: 'IA & Agentes',
       en: 'AI & Agents',
     },
-    color: '#6c63ff',
+    color: '#d4a24e',
     skills: [
       { name: 'Agentic Workflows', level: 85, cluster: 'ai' },
       { name: 'RAG', level: 80, cluster: 'ai' },
@@ -43,7 +43,7 @@ export const skillClusters: SkillCluster[] = [
       es: 'Desarrollo',
       en: 'Development',
     },
-    color: '#a78bfa',
+    color: '#7c95c4',
     skills: [
       { name: 'Full Stack Architecture', level: 92, cluster: 'development' },
       { name: 'API Middleware', level: 88, cluster: 'development' },
@@ -59,7 +59,7 @@ export const skillClusters: SkillCluster[] = [
       es: 'Infraestructura',
       en: 'Infrastructure',
     },
-    color: '#38bdf8',
+    color: '#5bb8a6',
     skills: [
       { name: 'Docker', level: 85, cluster: 'infrastructure' },
       { name: 'Dokploy', level: 80, cluster: 'infrastructure' },
