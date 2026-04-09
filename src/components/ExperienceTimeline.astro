@@ -1,8 +1,9 @@
 ---
 /**
  * ExperienceTimeline.astro
- * 
- * Reusable component for the experience timeline.
+ *
+ * Interactive timeline with expand/collapse (pure CSS details/summary).
+ * No React island needed — zero client JS.
  */
 import { experience } from '../data/experience';
 import Badge from './ui/Badge.astro';
@@ -16,22 +17,33 @@ import Badge from './ui/Badge.astro';
         {i < experience.length - 1 && <div class="timeline__line" aria-hidden="true"></div>}
       </div>
       <div class="timeline__content">
-        <div class="timeline__header">
-          <h3 class="timeline__role">{entry.role.es}</h3>
-          <p class="timeline__company">{entry.company}</p>
-          <span class="timeline__period">{entry.period.es}</span>
-        </div>
-        <p class="timeline__description">{entry.description.es}</p>
-        <ul class="timeline__achievements">
-          {entry.achievements.es.map(a => (
-            <li>{a}</li>
-          ))}
-        </ul>
-        <div class="timeline__techs">
-          {entry.technologies.map(tech => (
-            <Badge variant="default" size="sm">{tech}</Badge>
-          ))}
-        </div>
+        <details class="timeline__details" open={entry.current}>
+          <summary class="timeline__summary">
+            <div class="timeline__header">
+              <h3 class="timeline__role">{entry.role.es}</h3>
+              <p class="timeline__company">{entry.company}</p>
+              <span class="timeline__period">{entry.period.es}</span>
+            </div>
+            <span class="timeline__toggle" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="timeline__body">
+            <p class="timeline__description">{entry.description.es}</p>
+            <ul class="timeline__achievements">
+              {entry.achievements.es.map(a => (
+                <li>{a}</li>
+              ))}
+            </ul>
+            <div class="timeline__techs">
+              {entry.technologies.map(tech => (
+                <Badge variant="default" size="sm">{tech}</Badge>
+              ))}
+            </div>
+          </div>
+        </details>
       </div>
     </div>
   ))}
@@ -41,7 +53,6 @@ import Badge from './ui/Badge.astro';
   .timeline {
     display: flex;
     flex-direction: column;
-    gap: 0;
   }
 
   .timeline__entry {
@@ -67,6 +78,7 @@ import Badge from './ui/Badge.astro';
     flex-shrink: 0;
     margin-top: 6px;
     z-index: 1;
+    transition: all var(--transition-fast);
   }
 
   .timeline__dot--active {
@@ -83,13 +95,59 @@ import Badge from './ui/Badge.astro';
   }
 
   .timeline__content {
-    padding-bottom: var(--space-2xl);
+    padding-bottom: var(--space-xl);
     flex: 1;
     min-width: 0;
   }
 
+  /* Details / Summary */
+  .timeline__details {
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    transition: border-color var(--transition-fast);
+  }
+
+  .timeline__details[open] {
+    border-color: var(--color-border-subtle);
+    background: rgba(23, 27, 36, 0.3);
+  }
+
+  .timeline__summary {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    cursor: pointer;
+    list-style: none;
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    transition: background var(--transition-fast);
+  }
+
+  .timeline__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .timeline__summary::marker {
+    content: '';
+  }
+
+  .timeline__summary:hover {
+    background: rgba(23, 27, 36, 0.4);
+  }
+
+  .timeline__toggle {
+    color: var(--color-text-muted);
+    transition: transform var(--transition-base);
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .timeline__details[open] .timeline__toggle {
+    transform: rotate(180deg);
+  }
+
   .timeline__header {
-    margin-bottom: var(--space-sm);
+    flex: 1;
   }
 
   .timeline__role {
@@ -109,6 +167,11 @@ import Badge from './ui/Badge.astro';
     font-family: var(--font-mono);
     font-size: 0.75rem;
     color: var(--color-text-muted);
+  }
+
+  .timeline__body {
+    padding: 0 var(--space-md) var(--space-md);
+    animation: slideDown 0.25s ease-out;
   }
 
   .timeline__description {
@@ -146,5 +209,16 @@ import Badge from './ui/Badge.astro';
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-xs);
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 </style>

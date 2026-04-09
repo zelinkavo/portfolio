@@ -1,6 +1,6 @@
----
 import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
 import Badge from '../../components/ui/Badge.astro';
+import SvensonFlowDiagram from '../../components/interactive/SvensonFlowDiagram';
 ---
 
 <CaseStudyLayout
@@ -33,9 +33,9 @@ import Badge from '../../components/ui/Badge.astro';
       <li><strong>Notificaciones:</strong> Confirmaciones automáticas proactivas 24h y 2h antes de la cita mediante SMS fallback y WhatsApp.</li>
     </ul>
 
-    <!-- Placeholder for Architecture Diagram in Phase 3 -->
-    <div class="interactive-placeholder" style="margin: 3rem 0; padding: 4rem; background: var(--color-bg-secondary); border: 1px dashed var(--color-border-subtle); border-radius: var(--radius-lg); text-align: center; color: var(--color-text-muted);">
-      <p>[ React Flow Architecture Diagram Placeholder — Phase 3 ]</p>
+    <!-- Architecture Diagram — React Flow Island -->
+    <div data-animate="fade-up">
+      <SvensonFlowDiagram client:visible />
     </div>
   </section>
 

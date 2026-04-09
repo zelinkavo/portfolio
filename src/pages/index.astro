@@ -12,6 +12,7 @@ import Badge from '../components/ui/Badge.astro';
 import SectionHeader from '../components/ui/SectionHeader.astro';
 import HeroBlock from '../components/HeroBlock.astro';
 import ExperienceTimeline from '../components/ExperienceTimeline.astro';
+import SkillsRadar from '../components/interactive/SkillsRadar';
 import { projects } from '../data/projects';
 import { skillClusters } from '../data/skills';
 ---
@@ -69,23 +70,37 @@ import { skillClusters } from '../data/skills';
         subtitle="Clusters semánticos"
       />
 
-      <div class="skills-list">
-        {skillClusters.map((cluster, ci) => (
-          <div class="skills-cluster" data-animate="fade-up" style={`--stagger-index: ${ci}`}>
-            <h3 class="skills-cluster__title">
-              <span class="skills-cluster__dot" style={`background: ${cluster.color}`} aria-hidden="true"></span>
-              {cluster.title.es}
-            </h3>
-            <div class="skills-cluster__tags">
-              {cluster.skills.map(skill => (
-                <Badge variant={cluster.id === 'ai' ? 'ai' : cluster.id === 'development' ? 'dev' : 'infra'} size="sm">
-                  {skill.name}
-                </Badge>
-              ))}
+      <!-- Interactive radar (React island) -->
+      <SkillsRadar
+        client:visible
+        clusters={skillClusters.map(c => ({
+          id: c.id,
+          label: c.title.es,
+          color: c.color,
+          skills: c.skills.map(s => ({ name: s.name, level: s.level, cluster: s.cluster })),
+        }))}
+      />
+
+      <!-- Static fallback for no-JS -->
+      <noscript>
+        <div class="skills-list">
+          {skillClusters.map((cluster, ci) => (
+            <div class="skills-cluster" data-animate="fade-up" style={`--stagger-index: ${ci}`}>
+              <h3 class="skills-cluster__title">
+                <span class="skills-cluster__dot" style={`background: ${cluster.color}`} aria-hidden="true"></span>
+                {cluster.title.es}
+              </h3>
+              <div class="skills-cluster__tags">
+                {cluster.skills.map(skill => (
+                  <Badge variant={cluster.id === 'ai' ? 'ai' : cluster.id === 'development' ? 'dev' : 'infra'} size="sm">
+                    {skill.name}
+                  </Badge>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      </noscript>
     </section>
 
     <!-- ==================== EXPERIENCE ==================== -->
