@@ -1,0 +1,150 @@
+---
+/**
+ * ExperienceTimeline.astro
+ * 
+ * Reusable component for the experience timeline.
+ */
+import { experience } from '../data/experience';
+import Badge from './ui/Badge.astro';
+---
+
+<div class="timeline">
+  {experience.map((entry, i) => (
+    <div class="timeline__entry" data-animate="fade-up" style={`--stagger-index: ${i}`}>
+      <div class="timeline__marker">
+        <div class:list={['timeline__dot', { 'timeline__dot--active': entry.current }]}></div>
+        {i < experience.length - 1 && <div class="timeline__line" aria-hidden="true"></div>}
+      </div>
+      <div class="timeline__content">
+        <div class="timeline__header">
+          <h3 class="timeline__role">{entry.role.es}</h3>
+          <p class="timeline__company">{entry.company}</p>
+          <span class="timeline__period">{entry.period.es}</span>
+        </div>
+        <p class="timeline__description">{entry.description.es}</p>
+        <ul class="timeline__achievements">
+          {entry.achievements.es.map(a => (
+            <li>{a}</li>
+          ))}
+        </ul>
+        <div class="timeline__techs">
+          {entry.technologies.map(tech => (
+            <Badge variant="default" size="sm">{tech}</Badge>
+          ))}
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .timeline__entry {
+    display: flex;
+    gap: var(--space-lg);
+    position: relative;
+  }
+
+  .timeline__marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 20px;
+  }
+
+  .timeline__dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--color-text-muted);
+    background: var(--color-bg-primary);
+    flex-shrink: 0;
+    margin-top: 6px;
+    z-index: 1;
+  }
+
+  .timeline__dot--active {
+    border-color: var(--color-accent-primary);
+    background: var(--color-accent-primary);
+    box-shadow: 0 0 12px rgba(212, 162, 78, 0.4);
+  }
+
+  .timeline__line {
+    width: 2px;
+    flex: 1;
+    background: linear-gradient(to bottom, var(--color-border-subtle), transparent);
+    min-height: var(--space-xl);
+  }
+
+  .timeline__content {
+    padding-bottom: var(--space-2xl);
+    flex: 1;
+    min-width: 0;
+  }
+
+  .timeline__header {
+    margin-bottom: var(--space-sm);
+  }
+
+  .timeline__role {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 2px;
+  }
+
+  .timeline__company {
+    font-size: 0.9rem;
+    color: var(--color-accent-secondary);
+    margin-bottom: 4px;
+  }
+
+  .timeline__period {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+
+  .timeline__description {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin: var(--space-sm) 0;
+    line-height: 1.6;
+  }
+
+  .timeline__achievements {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-md);
+  }
+
+  .timeline__achievements li {
+    font-size: 0.825rem;
+    color: var(--color-text-secondary);
+    padding-left: var(--space-lg);
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .timeline__achievements li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--color-accent-primary);
+    font-size: 0.8rem;
+  }
+
+  .timeline__techs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+</style>

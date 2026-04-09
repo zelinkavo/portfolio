@@ -1,0 +1,191 @@
+---
+/**
+ * HeroBlock.astro — Modular hero section
+ * 
+ * Features:
+ * - Subtle grid aesthetic
+ * - Clean typography
+ * - Slot for future 3D content (Phase 3)
+ */
+---
+
+<div class="hero">
+  <!-- Subtle grid background -->
+  <div class="hero__grid" aria-hidden="true"></div>
+
+  <!-- Warm accent glow -->
+  <div class="hero__glow" aria-hidden="true"></div>
+
+  <div class="hero__content">
+    <div class="hero__monogram" data-animate="scale-in">
+      <span class="hero__monogram-text" aria-hidden="true">DO</span>
+    </div>
+
+    <div class="hero__title-block">
+      <p class="hero__greeting">David Oliver</p>
+      <h1 class="hero__title">
+        Senior Full Stack Developer
+        <span class="hero__amp">&</span>
+        AI Solutions Engineer
+      </h1>
+      <p class="hero__tagline">
+        Orquestador de sistemas autónomos y ecosistemas digitales
+      </p>
+    </div>
+
+    <!-- Tech stack — subtle, mono -->
+    <div class="hero__stack">
+      {['Python', 'TypeScript', 'React', 'Docker', 'Cloudflare'].map((tech, i) => (
+        <span class="hero__stack-item" style={`--stagger-index: ${i}`} data-animate="fade-up">
+          {tech}
+        </span>
+      ))}
+    </div>
+    
+    <!-- Future 3D or Interactive Slot -->
+    <slot name="hero-interactive" />
+  </div>
+</div>
+
+<style>
+  .hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100dvh - var(--nav-height));
+    padding: var(--space-3xl) var(--space-xl);
+    overflow: hidden;
+  }
+
+  .hero__grid {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: radial-gradient(circle, rgba(212, 162, 78, 0.06) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse at center, black 20%, transparent 65%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 65%);
+  }
+
+  .hero__glow {
+    position: absolute;
+    width: 600px;
+    height: 400px;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: radial-gradient(
+      ellipse,
+      rgba(212, 162, 78, 0.06) 0%,
+      rgba(91, 184, 166, 0.03) 40%,
+      transparent 70%
+    );
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-xl);
+    max-width: 640px;
+  }
+
+  .hero__monogram {
+    width: 88px;
+    height: 88px;
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--color-accent-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg-secondary);
+    box-shadow: var(--shadow-glow);
+  }
+
+  .hero__monogram-text {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: var(--color-accent-primary);
+  }
+
+  .hero__title-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .hero__greeting {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--color-accent-primary);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .hero__title {
+    font-size: clamp(1.75rem, 5vw, 2.75rem);
+    line-height: 1.15;
+    color: var(--color-text-primary);
+  }
+
+  .hero__amp {
+    display: block;
+    font-size: 0.6em;
+    color: var(--color-text-muted);
+    font-weight: 400;
+    margin: var(--space-xs) 0;
+  }
+
+  .hero__tagline {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    max-width: 440px;
+    line-height: 1.7;
+    margin: 0 auto;
+  }
+
+  .hero__stack {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
+  }
+
+  .hero__stack-item {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-text-muted);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-subtle);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    letter-spacing: 0.02em;
+  }
+
+  .hero__stack-item:hover {
+    color: var(--color-accent-primary);
+    border-color: var(--color-border-accent);
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding: var(--space-2xl) var(--space-md);
+    }
+    .hero__monogram {
+      width: 72px;
+      height: 72px;
+    }
+    .hero__monogram-text {
+      font-size: 1.6rem;
+    }
+  }
+</style>

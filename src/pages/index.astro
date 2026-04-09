@@ -10,71 +10,19 @@ import BentoLayout from '../layouts/BentoLayout.astro';
 import Card from '../components/ui/Card.astro';
 import Badge from '../components/ui/Badge.astro';
 import SectionHeader from '../components/ui/SectionHeader.astro';
+import HeroBlock from '../components/HeroBlock.astro';
+import ExperienceTimeline from '../components/ExperienceTimeline.astro';
 import { projects } from '../data/projects';
 import { skillClusters } from '../data/skills';
-import { experience } from '../data/experience';
 ---
 
 <BaseLayout
   title="David Oliver — Senior Full Stack Developer & AI Solutions Engineer"
   description="Orquestador de sistemas autónomos y ecosistemas digitales. Portfolio técnico 2026."
 >
-  <!-- ==================== HERO (full-bleed) ==================== -->
+  <!-- ==================== HERO ==================== -->
   <section id="hero" data-animate="fade-in">
-    <div class="hero">
-      <!-- Subtle grid background -->
-      <div class="hero__grid" aria-hidden="true"></div>
-
-      <!-- Warm accent glow (subtle, not orbs) -->
-      <div class="hero__glow" aria-hidden="true"></div>
-
-      <div class="hero__content">
-        <!-- Monogram "DO" instead of generic avatar -->
-        <div class="hero__monogram" data-animate="scale-in">
-          <span class="hero__monogram-text" aria-hidden="true">DO</span>
-        </div>
-
-        <!-- Title block — clean typography, no rainbow gradient -->
-        <div class="hero__title-block">
-          <p class="hero__greeting">David Oliver</p>
-          <h1 class="hero__title">
-            Senior Full Stack Developer
-            <span class="hero__amp">&</span>
-            AI Solutions Engineer
-          </h1>
-          <p class="hero__tagline">
-            Orquestador de sistemas autónomos y ecosistemas digitales
-          </p>
-        </div>
-
-        <!-- Experience counter -->
-        <div class="hero__stats">
-          <div class="hero__stat">
-            <span class="hero__stat-value">12+</span>
-            <span class="hero__stat-label">años exp.</span>
-          </div>
-          <div class="hero__stat-divider" aria-hidden="true"></div>
-          <div class="hero__stat">
-            <span class="hero__stat-value">4</span>
-            <span class="hero__stat-label">proyectos</span>
-          </div>
-          <div class="hero__stat-divider" aria-hidden="true"></div>
-          <div class="hero__stat">
-            <span class="hero__stat-value">∞</span>
-            <span class="hero__stat-label">café</span>
-          </div>
-        </div>
-
-        <!-- Tech stack — subtle, mono -->
-        <div class="hero__stack">
-          {['Python', 'TypeScript', 'React', 'Docker', 'Cloudflare'].map((tech, i) => (
-            <span class="hero__stack-item" style={`--stagger-index: ${i}`} data-animate="fade-up">
-              {tech}
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
+    <HeroBlock />
   </section>
 
   <BentoLayout>
@@ -147,35 +95,7 @@ import { experience } from '../data/experience';
         title="Experiencia"
         subtitle="+12 años construyendo software"
       />
-
-      <div class="timeline">
-        {experience.map((entry, i) => (
-          <div class="timeline__entry" data-animate="fade-up" style={`--stagger-index: ${i}`}>
-            <div class="timeline__marker">
-              <div class:list={['timeline__dot', { 'timeline__dot--active': entry.current }]}></div>
-              {i < experience.length - 1 && <div class="timeline__line" aria-hidden="true"></div>}
-            </div>
-            <div class="timeline__content">
-              <div class="timeline__header">
-                <h3 class="timeline__role">{entry.role.es}</h3>
-                <p class="timeline__company">{entry.company}</p>
-                <span class="timeline__period">{entry.period.es}</span>
-              </div>
-              <p class="timeline__description">{entry.description.es}</p>
-              <ul class="timeline__achievements">
-                {entry.achievements.es.map(a => (
-                  <li>{a}</li>
-                ))}
-              </ul>
-              <div class="timeline__techs">
-                {entry.technologies.map(tech => (
-                  <Badge variant="default" size="sm">{tech}</Badge>
-                ))}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+      <ExperienceTimeline />
     </section>
 
     <!-- ==================== CONTACT ==================== -->
@@ -220,179 +140,6 @@ import { experience } from '../data/experience';
 </BaseLayout>
 
 <style>
-  /* ==================== HERO ==================== */
-  .hero {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: calc(100dvh - var(--nav-height));
-    padding: var(--space-3xl) var(--space-xl);
-    overflow: hidden;
-  }
-
-  /* Subtle dot grid — engineering/blueprint feel */
-  .hero__grid {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    background-image: radial-gradient(circle, rgba(212, 162, 78, 0.06) 1px, transparent 1px);
-    background-size: 32px 32px;
-    mask-image: radial-gradient(ellipse at center, black 20%, transparent 65%);
-    -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 65%);
-  }
-
-  /* Single warm glow — not floating orbs */
-  .hero__glow {
-    position: absolute;
-    width: 600px;
-    height: 400px;
-    top: 20%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: radial-gradient(
-      ellipse,
-      rgba(212, 162, 78, 0.06) 0%,
-      rgba(91, 184, 166, 0.03) 40%,
-      transparent 70%
-    );
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  /* Content */
-  .hero__content {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: var(--space-xl);
-    max-width: 640px;
-  }
-
-  /* Monogram — stylized "DO" */
-  .hero__monogram {
-    width: 88px;
-    height: 88px;
-    border-radius: var(--radius-lg);
-    border: 2px solid var(--color-accent-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--color-bg-secondary);
-    box-shadow: var(--shadow-glow);
-  }
-
-  .hero__monogram-text {
-    font-family: var(--font-heading);
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: -0.04em;
-    color: var(--color-accent-primary);
-  }
-
-  /* Title block */
-  .hero__title-block {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-  }
-
-  .hero__greeting {
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    color: var(--color-accent-primary);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .hero__title {
-    font-size: clamp(1.75rem, 5vw, 2.75rem);
-    line-height: 1.15;
-    color: var(--color-text-primary);
-  }
-
-  .hero__amp {
-    display: block;
-    font-size: 0.6em;
-    color: var(--color-text-muted);
-    font-weight: 400;
-    margin: var(--space-xs) 0;
-  }
-
-  .hero__tagline {
-    font-size: 1rem;
-    color: var(--color-text-secondary);
-    max-width: 440px;
-    line-height: 1.7;
-    margin: 0 auto;
-  }
-
-  /* Stats counter */
-  .hero__stats {
-    display: flex;
-    align-items: center;
-    gap: var(--space-lg);
-    padding: var(--space-md) var(--space-xl);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-lg);
-    background: var(--color-bg-card);
-  }
-
-  .hero__stat {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-  }
-
-  .hero__stat-value {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--color-text-primary);
-  }
-
-  .hero__stat-label {
-    font-size: 0.7rem;
-    color: var(--color-text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-
-  .hero__stat-divider {
-    width: 1px;
-    height: 32px;
-    background: var(--color-border-subtle);
-  }
-
-  /* Tech stack pills */
-  .hero__stack {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--space-sm);
-  }
-
-  .hero__stack-item {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--color-text-muted);
-    background: var(--color-bg-secondary);
-    border: 1px solid var(--color-border-subtle);
-    padding: var(--space-xs) var(--space-md);
-    border-radius: var(--radius-sm);
-    transition: all var(--transition-fast);
-    letter-spacing: 0.02em;
-  }
-
-  .hero__stack-item:hover {
-    color: var(--color-accent-primary);
-    border-color: var(--color-border-accent);
-  }
-
   /* ==================== PROJECTS ==================== */
   .projects-grid {
     display: flex;
@@ -478,117 +225,6 @@ import { experience } from '../data/experience';
     gap: var(--space-xs);
   }
 
-  /* ==================== EXPERIENCE TIMELINE ==================== */
-  .timeline {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .timeline__entry {
-    display: flex;
-    gap: var(--space-lg);
-    position: relative;
-  }
-
-  .timeline__marker {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-shrink: 0;
-    width: 20px;
-  }
-
-  .timeline__dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    border: 2px solid var(--color-text-muted);
-    background: var(--color-bg-primary);
-    flex-shrink: 0;
-    margin-top: 6px;
-    z-index: 1;
-  }
-
-  .timeline__dot--active {
-    border-color: var(--color-accent-primary);
-    background: var(--color-accent-primary);
-    box-shadow: 0 0 12px rgba(212, 162, 78, 0.4);
-  }
-
-  .timeline__line {
-    width: 2px;
-    flex: 1;
-    background: linear-gradient(to bottom, var(--color-border-subtle), transparent);
-    min-height: var(--space-xl);
-  }
-
-  .timeline__content {
-    padding-bottom: var(--space-2xl);
-    flex: 1;
-    min-width: 0;
-  }
-
-  .timeline__header {
-    margin-bottom: var(--space-sm);
-  }
-
-  .timeline__role {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-text-primary);
-    margin-bottom: 2px;
-  }
-
-  .timeline__company {
-    font-size: 0.9rem;
-    color: var(--color-accent-secondary);
-    margin-bottom: 4px;
-  }
-
-  .timeline__period {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--color-text-muted);
-  }
-
-  .timeline__description {
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-    margin: var(--space-sm) 0;
-    line-height: 1.6;
-  }
-
-  .timeline__achievements {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
-    margin-bottom: var(--space-md);
-  }
-
-  .timeline__achievements li {
-    font-size: 0.825rem;
-    color: var(--color-text-secondary);
-    padding-left: var(--space-lg);
-    position: relative;
-    line-height: 1.5;
-  }
-
-  .timeline__achievements li::before {
-    content: '→';
-    position: absolute;
-    left: 0;
-    color: var(--color-accent-primary);
-    font-size: 0.8rem;
-  }
-
-  .timeline__techs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-xs);
-  }
-
   /* ==================== CONTACT ==================== */
   .contact-links {
     display: flex;
@@ -637,28 +273,6 @@ import { experience } from '../data/experience';
 
   /* ==================== RESPONSIVE ==================== */
   @media (max-width: 640px) {
-    .hero {
-      padding: var(--space-2xl) var(--space-md);
-    }
-
-    .hero__monogram {
-      width: 72px;
-      height: 72px;
-    }
-
-    .hero__monogram-text {
-      font-size: 1.6rem;
-    }
-
-    .hero__stats {
-      gap: var(--space-md);
-      padding: var(--space-sm) var(--space-lg);
-    }
-
-    .hero__stat-value {
-      font-size: 1.25rem;
-    }
-
     .contact-link {
       flex: 1;
       min-width: 120px;
