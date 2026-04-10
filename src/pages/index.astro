@@ -38,6 +38,8 @@ import { skillClusters } from '../data/skills';
         <div class="mote mote--gold" style="top:75%;left:40%;--mote-dur:16s;--mote-dx:15px;--mote-dy:-10px;animation-delay:-8s"></div>
         <div class="mote mote--gold mote--lg" style="top:30%;right:35%;--mote-dur:24s;--mote-dx:-8px;--mote-dy:12px;animation-delay:-12s"></div>
         <div class="mote mote--gold" style="top:45%;left:65%;--mote-dur:20s;--mote-dx:-18px;--mote-dy:-12px;animation-delay:-3s"></div>
+        <div class="comet comet--gold" style="top:35%;left:5%;--comet-dur:16s;--comet-tx:250px;--comet-ty:-20px;--comet-angle:-5deg"></div>
+        <div class="comet comet--gold" style="top:65%;right:8%;--comet-dur:20s;--comet-tx:-220px;--comet-ty:-35px;--comet-angle:8deg;animation-delay:-10s"></div>
       </div>
 
       <SectionHeader
@@ -82,6 +84,7 @@ import { skillClusters } from '../data/skills';
         <div class="mote mote--steel" style="top:60%;left:25%;--mote-dur:25s;--mote-dx:14px;--mote-dy:-16px;animation-delay:-7s"></div>
         <div class="mote mote--steel mote--lg" style="top:40%;right:40%;--mote-dur:18s;--mote-dx:-10px;--mote-dy:20px;animation-delay:-3s"></div>
         <div class="mote mote--steel" style="top:80%;left:60%;--mote-dur:22s;--mote-dx:16px;--mote-dy:-8px;animation-delay:-11s"></div>
+        <div class="comet comet--steel" style="top:45%;left:10%;--comet-dur:22s;--comet-tx:200px;--comet-ty:-25px;--comet-angle:-3deg;animation-delay:-6s"></div>
       </div>
 
       <SectionHeader
@@ -131,6 +134,7 @@ import { skillClusters } from '../data/skills';
         <div class="mote mote--teal" style="top:10%;left:20%;--mote-dur:19s;--mote-dx:16px;--mote-dy:-14px;animation-delay:-2s"></div>
         <div class="mote mote--teal" style="top:50%;right:12%;--mote-dur:24s;--mote-dx:-14px;--mote-dy:16px;animation-delay:-9s"></div>
         <div class="mote mote--teal mote--lg" style="top:70%;left:50%;--mote-dur:21s;--mote-dx:10px;--mote-dy:-18px;animation-delay:-6s"></div>
+        <div class="comet comet--teal" style="top:30%;right:5%;--comet-dur:18s;--comet-tx:-180px;--comet-ty:-20px;--comet-angle:5deg;animation-delay:-4s"></div>
       </div>
 
       <SectionHeader
@@ -395,6 +399,63 @@ import { skillClusters } from '../data/skills';
     100% { transform: translate(0, 0); opacity: 0.5; }
   }
 
+  /* Comet motes — CSS-only trailing dots that cross the section */
+  .comet {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: cometCross var(--comet-dur, 18s) linear infinite;
+    opacity: 0;
+  }
+
+  .comet::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    width: 35px;
+    height: 2px;
+    transform: translateY(-50%) rotate(var(--comet-angle, 0deg));
+    transform-origin: right center;
+    border-radius: 2px;
+  }
+
+  .comet--gold {
+    background: rgba(212, 162, 78, 0.6);
+    box-shadow: 0 0 8px rgba(212, 162, 78, 0.3);
+  }
+  .comet--gold::after {
+    background: linear-gradient(90deg, transparent, rgba(212, 162, 78, 0.35));
+  }
+
+  .comet--steel {
+    background: rgba(124, 149, 196, 0.6);
+    box-shadow: 0 0 8px rgba(124, 149, 196, 0.3);
+  }
+  .comet--steel::after {
+    background: linear-gradient(90deg, transparent, rgba(124, 149, 196, 0.35));
+  }
+
+  .comet--teal {
+    background: rgba(91, 184, 166, 0.6);
+    box-shadow: 0 0 8px rgba(91, 184, 166, 0.3);
+  }
+  .comet--teal::after {
+    background: linear-gradient(90deg, transparent, rgba(91, 184, 166, 0.35));
+  }
+
+  @keyframes cometCross {
+    0%   { transform: translate(0, 0); opacity: 0; }
+    5%   { opacity: 0.7; }
+    45%  { opacity: 0.5; }
+    50%  { transform: translate(var(--comet-tx, 200px), var(--comet-ty, -30px)); opacity: 0.7; }
+    95%  { opacity: 0.5; }
+    98%  { opacity: 0; }
+    100% { transform: translate(calc(var(--comet-tx, 200px) * 2), calc(var(--comet-ty, -30px) * 2)); opacity: 0; }
+  }
+
   /* Content sits above backgrounds */
   .section--themed > :not(.section__bg) {
     position: relative;
@@ -535,14 +596,16 @@ import { skillClusters } from '../data/skills';
       min-width: 120px;
       padding: var(--space-lg) var(--space-xl);
     }
-    .section__orb {
+    .section__orb,
+    .comet {
       display: none;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .section__orb,
-    .mote {
+    .mote,
+    .comet {
       animation: none !important;
     }
   }
