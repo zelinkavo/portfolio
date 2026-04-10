@@ -134,6 +134,8 @@
 
     for (let i = 0; i < PARTICLE_COUNT; i++) {
       const isComet = i < COMET_COUNT;
+      // Half comets go left, half go right
+      const goesRight = isComet ? (i % 2 === 0) : true;
       particles.push({
         x: Math.random() * w(),
         y: Math.random() * h(),
@@ -142,7 +144,9 @@
         speed: isComet ? 0.25 + Math.random() * 0.2 : 0.15 + Math.random() * 0.3,
         opacity: isComet ? 0.35 + Math.random() * 0.3 : 0.15 + Math.random() * 0.4,
         phase: Math.random() * Math.PI * 2,
-        drift: isComet ? 0.3 + Math.random() * 0.5 : (Math.random() - 0.5) * 0.3,
+        drift: isComet
+          ? (goesRight ? 1 : -1) * (0.3 + Math.random() * 0.5)
+          : (Math.random() - 0.5) * 0.3,
         isComet,
         trail: [],
       });
@@ -167,26 +171,32 @@
         // Pulsing opacity
         const pulse = 0.7 + 0.3 * Math.sin(frameCount * 0.012 + p.phase);
 
-        // Comet trail
+        // Comet trail — smooth gradient line
         if (p.isComet) {
           p.trail.push({ x: p.x, y: p.y });
-          if (p.trail.length > 14) p.trail.shift();
+          if (p.trail.length > 16) p.trail.shift();
 
-          // Draw trail
-          const len = p.trail.length;
-          for (let t = 1; t < len; t++) {
-            const alpha = (t / len) * p.opacity * pulse * 0.5;
-            const trailSize = p.size * (t / len) * 0.7;
-            ctx!.beginPath();
-            ctx!.arc(p.trail[t - 1].x, p.trail[t - 1].y, trailSize, 0, Math.PI * 2);
-            ctx!.fillStyle = `rgba(212, 162, 78, ${alpha})`;
-            ctx!.fill();
+          // Draw smooth tail as connected line segments with gradient
+          if (p.trail.length > 2) {
+            const len = p.trail.length;
+            for (let t = 1; t < len; t++) {
+              const progress = t / len;
+              const alpha = progress * p.opacity * pulse * 0.6;
+              const lineWidth = p.size * progress * 0.9;
+              ctx!.beginPath();
+              ctx!.moveTo(p.trail[t - 1].x, p.trail[t - 1].y);
+              ctx!.lineTo(p.trail[t].x, p.trail[t].y);
+              ctx!.strokeStyle = `rgba(212, 162, 78, ${alpha})`;
+              ctx!.lineWidth = lineWidth;
+              ctx!.lineCap = 'round';
+              ctx!.stroke();
+            }
           }
 
           // Comet head glow
           ctx!.beginPath();
           ctx!.arc(p.x, p.y, p.size * 2.5, 0, Math.PI * 2);
-          ctx!.fillStyle = `rgba(212, 162, 78, ${p.opacity * pulse * 0.12})`;
+          ctx!.fillStyle = `rgba(212, 162, 78, ${p.opacity * pulse * 0.15})`;
           ctx!.fill();
         }
 
