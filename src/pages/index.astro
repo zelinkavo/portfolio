@@ -39,7 +39,7 @@ import { skillClusters } from '../data/skills';
         <div class="mote mote--gold mote--lg" style="top:30%;right:35%;--mote-dur:24s;--mote-dx:-8px;--mote-dy:12px;animation-delay:-12s"></div>
         <div class="mote mote--gold" style="top:45%;left:65%;--mote-dur:20s;--mote-dx:-18px;--mote-dy:-12px;animation-delay:-3s"></div>
         <div class="comet comet--gold" style="top:35%;left:5%;--comet-dur:16s;--comet-tx:250px;--comet-ty:-20px;--comet-angle:-5deg"></div>
-        <div class="comet comet--gold" style="top:65%;right:8%;--comet-dur:20s;--comet-tx:-220px;--comet-ty:-35px;--comet-angle:8deg;animation-delay:-10s"></div>
+        <div class="comet comet--gold comet--reverse" style="top:65%;right:8%;--comet-dur:20s;--comet-tx:-220px;--comet-ty:-35px;--comet-angle:8deg;animation-delay:-10s"></div>
       </div>
 
       <SectionHeader
@@ -134,7 +134,7 @@ import { skillClusters } from '../data/skills';
         <div class="mote mote--teal" style="top:10%;left:20%;--mote-dur:19s;--mote-dx:16px;--mote-dy:-14px;animation-delay:-2s"></div>
         <div class="mote mote--teal" style="top:50%;right:12%;--mote-dur:24s;--mote-dx:-14px;--mote-dy:16px;animation-delay:-9s"></div>
         <div class="mote mote--teal mote--lg" style="top:70%;left:50%;--mote-dur:21s;--mote-dx:10px;--mote-dy:-18px;animation-delay:-6s"></div>
-        <div class="comet comet--teal" style="top:30%;right:5%;--comet-dur:18s;--comet-tx:-180px;--comet-ty:-20px;--comet-angle:5deg;animation-delay:-4s"></div>
+        <div class="comet comet--teal comet--reverse" style="top:30%;right:5%;--comet-dur:18s;--comet-tx:-180px;--comet-ty:-20px;--comet-angle:5deg;animation-delay:-4s"></div>
       </div>
 
       <SectionHeader
@@ -422,6 +422,13 @@ import { skillClusters } from '../data/skills';
     border-radius: 2px;
   }
 
+  /* Reverse tail for comets moving right-to-left */
+  .comet--reverse::after {
+    right: auto;
+    left: 100%;
+    transform-origin: left center;
+  }
+
   .comet--gold {
     background: rgba(212, 162, 78, 0.6);
     box-shadow: 0 0 8px rgba(212, 162, 78, 0.3);
@@ -444,6 +451,17 @@ import { skillClusters } from '../data/skills';
   }
   .comet--teal::after {
     background: linear-gradient(90deg, transparent, rgba(91, 184, 166, 0.35));
+  }
+
+  /* Reverse gradient for right-to-left comets */
+  .comet--reverse.comet--gold::after {
+    background: linear-gradient(90deg, rgba(212, 162, 78, 0.35), transparent);
+  }
+  .comet--reverse.comet--steel::after {
+    background: linear-gradient(90deg, rgba(124, 149, 196, 0.35), transparent);
+  }
+  .comet--reverse.comet--teal::after {
+    background: linear-gradient(90deg, rgba(91, 184, 166, 0.35), transparent);
   }
 
   @keyframes cometCross {
