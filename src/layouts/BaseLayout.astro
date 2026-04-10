@@ -12,6 +12,7 @@
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 import { generatePersonJsonLd, generateWebsiteJsonLd } from '../lib/seo';
+import { skillClusters } from '../data/skills';
 import '../styles/global.css';
 
 interface Props {
@@ -35,6 +36,9 @@ const {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const personJsonLd = generatePersonJsonLd(lang);
 const websiteJsonLd = generateWebsiteJsonLd();
+
+const allKeywords = skillClusters.map(c => c.skills.map(s => s.name)).flat().join(', ');
+const metaKeywords = `Agentic Workflows, Multi-Agent Orchestration, Full Stack Architect, API Middleware, Cloud-Native, ${allKeywords}`;
 ---
 
 <!doctype html>
@@ -47,6 +51,7 @@ const websiteJsonLd = generateWebsiteJsonLd();
     <!-- SEO Primary -->
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="keywords" content={metaKeywords} />
     <link rel="canonical" href={canonicalURL} />
 
     <!-- Open Graph -->

@@ -31,6 +31,7 @@ export interface Project {
   };
   technologies: string[];
   category: 'ai' | 'mobile' | 'gamedev' | 'devops';
+  clusters?: ('ai' | 'development' | 'infrastructure')[];
   featured: boolean;
   order: number;
 }
@@ -61,6 +62,7 @@ export const projects: Project[] = [
     },
     technologies: ['Python', 'PHP', 'MySQL', 'Meta API', 'WhatsApp', 'React Flow'],
     category: 'ai',
+    clusters: ['ai', 'development', 'infrastructure'],
     featured: true,
     order: 1,
   },
@@ -89,6 +91,7 @@ export const projects: Project[] = [
     },
     technologies: ['React Native', 'Expo', 'Zustand', 'CoinGecko API', 'IAP'],
     category: 'mobile',
+    clusters: ['development'],
     featured: true,
     order: 2,
   },
@@ -117,6 +120,7 @@ export const projects: Project[] = [
     },
     technologies: ['Unreal Engine 5', 'Blueprints', 'WordPress', 'C++'],
     category: 'gamedev',
+    clusters: ['development'],
     featured: true,
     order: 3,
   },
@@ -145,6 +149,7 @@ export const projects: Project[] = [
     },
     technologies: ['Docker', 'Dokploy', 'n8n', 'Cloudflare Workers', 'MySQL'],
     category: 'devops',
+    clusters: ['infrastructure', 'development'],
     featured: true,
     order: 4,
   },

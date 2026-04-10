@@ -57,9 +57,15 @@ import { skillClusters } from '../data/skills';
                   <span class="project-card__icon" aria-hidden="true">
                     {project.category === 'ai' ? '⚙️' : project.category === 'mobile' ? '📱' : project.category === 'gamedev' ? '🎮' : '🔧'}
                   </span>
-                  <Badge variant={project.category === 'ai' ? 'ai' : project.category === 'mobile' ? 'dev' : project.category === 'devops' ? 'infra' : 'default'} size="sm">
-                    {project.category}
-                  </Badge>
+                  {project.clusters ? project.clusters.map(cluster => (
+                    <Badge variant={cluster === 'ai' ? 'ai' : cluster === 'development' ? 'dev' : 'infra'} size="sm">
+                      {cluster === 'development' ? 'dev' : cluster}
+                    </Badge>
+                  )) : (
+                    <Badge variant={project.category === 'ai' ? 'ai' : project.category === 'mobile' ? 'dev' : project.category === 'devops' ? 'infra' : 'default'} size="sm">
+                      {project.category}
+                    </Badge>
+                  )}
                 </div>
                 <h3 class="project-card__title">{project.title.es}</h3>
                 <p class="project-card__subtitle">{project.subtitle.es}</p>
