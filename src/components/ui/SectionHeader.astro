@@ -46,6 +46,12 @@ const { title, subtitle, number, align = 'left', class: className } = Astro.prop
     font-size: clamp(1.5rem, 4vw, 2.25rem);
     color: var(--color-text-primary);
     line-height: 1.2;
+    animation: headerFloat 10s ease-in-out infinite;
+  }
+
+  @keyframes headerFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
   }
 
   .section-header__subtitle {
@@ -61,10 +67,21 @@ const { title, subtitle, number, align = 'left', class: className } = Astro.prop
     border-radius: var(--radius-full);
     background: var(--gradient-accent);
     margin-top: var(--space-xs);
+    animation: lineGlow 6s ease-in-out infinite;
+  }
+
+  @keyframes lineGlow {
+    0%, 100% { box-shadow: 0 0 8px rgba(212, 162, 78, 0.1); }
+    50% { box-shadow: 0 0 16px rgba(212, 162, 78, 0.3); }
   }
 
   .section-header--center .section-header__line {
     margin-left: auto;
     margin-right: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .section-header__title { animation: none; }
+    .section-header__line { animation: none; }
   }
 </style>

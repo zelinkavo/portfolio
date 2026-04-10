@@ -324,7 +324,7 @@
     100% { transform: translate(0, 0); opacity: 1; }
   }
 
-  /* Content */
+  /* Content — gentle float animation */
   .hero__content {
     position: relative;
     z-index: 2;
@@ -334,6 +334,12 @@
     text-align: center;
     gap: var(--space-xl);
     max-width: 640px;
+    animation: contentFloat 8s ease-in-out infinite;
+  }
+
+  @keyframes contentFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
   }
 
   .hero__monogram {

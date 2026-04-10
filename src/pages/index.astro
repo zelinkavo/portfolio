@@ -32,6 +32,10 @@ import { skillClusters } from '../data/skills';
       <div class="section__bg section__bg--projects" aria-hidden="true">
         <div class="section__grid"></div>
         <div class="section__orb section__orb--gold-right"></div>
+        <div class="mote mote--gold" style="top:15%;left:12%;--mote-dur:18s;--mote-dx:20px;--mote-dy:-15px"></div>
+        <div class="mote mote--gold" style="top:55%;right:18%;--mote-dur:22s;--mote-dx:-12px;--mote-dy:18px;animation-delay:-5s"></div>
+        <div class="mote mote--gold" style="top:75%;left:40%;--mote-dur:16s;--mote-dx:15px;--mote-dy:-10px;animation-delay:-8s"></div>
+        <div class="mote mote--gold mote--lg" style="top:30%;right:35%;--mote-dur:24s;--mote-dx:-8px;--mote-dy:12px;animation-delay:-12s"></div>
       </div>
 
       <SectionHeader
@@ -72,6 +76,10 @@ import { skillClusters } from '../data/skills';
       <div class="section__bg section__bg--skills" aria-hidden="true">
         <div class="section__grid section__grid--sparse"></div>
         <div class="section__orb section__orb--steel-left"></div>
+        <div class="mote mote--steel" style="top:20%;right:15%;--mote-dur:20s;--mote-dx:-18px;--mote-dy:12px"></div>
+        <div class="mote mote--steel" style="top:60%;left:25%;--mote-dur:25s;--mote-dx:14px;--mote-dy:-16px;animation-delay:-7s"></div>
+        <div class="mote mote--steel mote--lg" style="top:40%;right:40%;--mote-dur:18s;--mote-dx:-10px;--mote-dy:20px;animation-delay:-3s"></div>
+        <div class="mote mote--steel" style="top:80%;left:60%;--mote-dur:22s;--mote-dx:16px;--mote-dy:-8px;animation-delay:-11s"></div>
       </div>
 
       <SectionHeader
@@ -118,6 +126,9 @@ import { skillClusters } from '../data/skills';
       <div class="section__bg section__bg--experience" aria-hidden="true">
         <div class="section__grid section__grid--sparse"></div>
         <div class="section__orb section__orb--teal-right"></div>
+        <div class="mote mote--teal" style="top:10%;left:20%;--mote-dur:19s;--mote-dx:16px;--mote-dy:-14px;animation-delay:-2s"></div>
+        <div class="mote mote--teal" style="top:50%;right:12%;--mote-dur:24s;--mote-dx:-14px;--mote-dy:16px;animation-delay:-9s"></div>
+        <div class="mote mote--teal mote--lg" style="top:70%;left:50%;--mote-dur:21s;--mote-dx:10px;--mote-dy:-18px;animation-delay:-6s"></div>
       </div>
 
       <SectionHeader
@@ -133,6 +144,9 @@ import { skillClusters } from '../data/skills';
       <div class="section__bg section__bg--contact" aria-hidden="true">
         <div class="section__grid section__grid--fine"></div>
         <div class="section__orb section__orb--gold-center"></div>
+        <div class="mote mote--gold" style="top:25%;left:30%;--mote-dur:17s;--mote-dx:12px;--mote-dy:-10px;animation-delay:-4s"></div>
+        <div class="mote mote--gold" style="top:60%;right:25%;--mote-dur:21s;--mote-dx:-16px;--mote-dy:14px;animation-delay:-10s"></div>
+        <div class="mote mote--gold mote--lg" style="top:45%;left:65%;--mote-dur:25s;--mote-dx:8px;--mote-dy:-12px;animation-delay:-14s"></div>
       </div>
 
       <SectionHeader
@@ -316,6 +330,56 @@ import { skillClusters } from '../data/skills';
     100% { transform: translateX(-50%) scale(1); opacity: 0.8; }
   }
 
+  /* Floating motes — small drifting dots for organic life */
+  .mote {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    animation: moteDrift var(--mote-dur, 20s) ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .mote--lg {
+    width: 5px;
+    height: 5px;
+  }
+
+  .mote--gold {
+    background: rgba(212, 162, 78, 0.35);
+    box-shadow: 0 0 8px rgba(212, 162, 78, 0.15);
+  }
+  .mote--gold.mote--lg {
+    background: rgba(212, 162, 78, 0.25);
+    box-shadow: 0 0 14px rgba(212, 162, 78, 0.12);
+  }
+
+  .mote--steel {
+    background: rgba(124, 149, 196, 0.35);
+    box-shadow: 0 0 8px rgba(124, 149, 196, 0.15);
+  }
+  .mote--steel.mote--lg {
+    background: rgba(124, 149, 196, 0.25);
+    box-shadow: 0 0 14px rgba(124, 149, 196, 0.12);
+  }
+
+  .mote--teal {
+    background: rgba(91, 184, 166, 0.35);
+    box-shadow: 0 0 8px rgba(91, 184, 166, 0.15);
+  }
+  .mote--teal.mote--lg {
+    background: rgba(91, 184, 166, 0.25);
+    box-shadow: 0 0 14px rgba(91, 184, 166, 0.12);
+  }
+
+  @keyframes moteDrift {
+    0%   { transform: translate(0, 0); opacity: 0.4; }
+    25%  { transform: translate(var(--mote-dx, 10px), var(--mote-dy, -10px)); opacity: 0.8; }
+    50%  { transform: translate(calc(var(--mote-dx, 10px) * -0.5), calc(var(--mote-dy, -10px) * 0.7)); opacity: 0.5; }
+    75%  { transform: translate(calc(var(--mote-dx, 10px) * 0.3), calc(var(--mote-dy, -10px) * -0.4)); opacity: 0.9; }
+    100% { transform: translate(0, 0); opacity: 0.4; }
+  }
+
   /* Content sits above backgrounds */
   .section--themed > :not(.section__bg) {
     position: relative;
@@ -462,7 +526,8 @@ import { skillClusters } from '../data/skills';
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .section__orb {
+    .section__orb,
+    .mote {
       animation: none !important;
     }
   }
