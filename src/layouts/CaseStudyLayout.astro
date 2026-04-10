@@ -67,28 +67,39 @@ const { title, description, clusters, projectContext, technologies = [] } = Astr
       </nav>
 
       <!-- Case Study Hero -->
-      <header class="case-study__header">
-        <div class="container container--narrow text-center">
-          <div class="case-study__meta" data-animate="fade-up">
-            {clusters.map((cluster) => (
-              <Badge variant={cluster === 'ai' ? 'ai' : cluster === 'development' ? 'dev' : 'infra'}>
-                {cluster === 'development' ? 'dev' : cluster}
-              </Badge>
-            ))}
-            <span class="case-study__context">{projectContext}</span>
-          </div>
-        <h1 class="case-study__title" data-animate="fade-up" style="--stagger-index: 1">{title}</h1>
-        <p class="case-study__subtitle" data-animate="fade-up" style="--stagger-index: 2">{description}</p>
+      <header class="case-study__header" id="project-parallax">
         
-        {technologies.length > 0 && (
-          <div class="case-study__tech-stack" data-animate="fade-up" style="--stagger-index: 3">
-            {technologies.map((tech) => (
-              <span class="tech-badge">{tech}</span>
-            ))}
+        {/* Layer 1: The Translucent Nebula (Orbs behind the text) */}
+        <div class="project__layer project__layer--orbs" data-depth="0.04" aria-hidden="true">
+          {clusters.includes('ai') && <div class="project-orb project-orb--gold"></div>}
+          {clusters.includes('development') && <div class="project-orb project-orb--steel"></div>}
+          {clusters.includes('infrastructure') && <div class="project-orb project-orb--teal"></div>}
+        </div>
+
+        {/* Layer 2: The Text Content */}
+        <div class="project__layer project__layer--content" data-depth="0.07">
+          <div class="container container--narrow text-center">
+            <div class="case-study__meta" data-animate="fade-up">
+              {clusters.map((cluster) => (
+                <Badge variant={cluster === 'ai' ? 'ai' : cluster === 'development' ? 'dev' : 'infra'}>
+                  {cluster === 'development' ? 'dev' : cluster}
+                </Badge>
+              ))}
+              <span class="case-study__context">{projectContext}</span>
+            </div>
+            <h1 class="case-study__title" data-animate="fade-up" style="--stagger-index: 1">{title}</h1>
+            <p class="case-study__subtitle" data-animate="fade-up" style="--stagger-index: 2">{description}</p>
+            
+            {technologies.length > 0 && (
+              <div class="case-study__tech-stack" data-animate="fade-up" style="--stagger-index: 3">
+                {technologies.map((tech) => (
+                  <span class="tech-badge">{tech}</span>
+                ))}
+              </div>
+            )}
           </div>
-        )}
-      </div>
-    </header>
+        </div>
+      </header>
 
     <!-- Case Study Main Content -->
     <main class="case-study__content container container--narrow">
@@ -138,6 +149,87 @@ const { title, description, clusters, projectContext, technologies = [] } = Astr
   /* Navigation */
   .case-study__nav {
     margin-bottom: var(--space-2xl);
+    position: relative;
+    z-index: 5;
+  }
+
+  /* Header / Parallax Scope */
+  .case-study__header {
+    position: relative;
+    padding: var(--space-xl) 0 var(--space-4xl);
+  }
+
+  /* Parallax Layers */
+  .project__layer {
+    will-change: transform;
+  }
+  
+  .project__layer--orbs {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  .project__layer--content {
+    position: relative;
+    z-index: 2;
+    animation: contentFloat 8s ease-in-out infinite;
+  }
+  
+  @keyframes contentFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  /* Nebulosa circular translúcida (Orbs) */
+  .project-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    will-change: transform;
+  }
+
+  .project-orb--gold {
+    width: 600px;
+    height: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(212, 162, 78, 0.08);
+    animation: orbFloatPulse 12s ease-in-out infinite;
+  }
+
+  .project-orb--steel {
+    width: 500px;
+    height: 350px;
+    top: 50%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    background: rgba(124, 149, 196, 0.07);
+    animation: orbDriftPulse 14s ease-in-out infinite 2s;
+  }
+
+  .project-orb--teal {
+    width: 500px;
+    height: 350px;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    background: rgba(91, 184, 166, 0.07);
+    animation: orbDriftPulse 16s ease-in-out infinite 5s;
+  }
+
+  @keyframes orbFloatPulse {
+    0%   { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    50%  { transform: translate(-50%, -52%) scale(1.05); opacity: 0.8; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  }
+
+  @keyframes orbDriftPulse {
+    0%   { transform: translate(-50%, -50%); opacity: 1; }
+    50%  { transform: translate(-48%, -48%); opacity: 0.85; }
+    100% { transform: translate(-50%, -50%); opacity: 1; }
   }
 
   .back-link {
@@ -421,3 +513,41 @@ const { title, description, clusters, projectContext, technologies = [] } = Astr
     100%{ transform: translate(calc(var(--comet-tx, 200px) * 2), calc(var(--comet-ty, -30px) * 2)); opacity: 0; }
   }
 </style>
+
+<script>
+  function initProjectParallax() {
+    const hero = document.getElementById('project-parallax');
+    if (!hero) return;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!prefersReduced && window.innerWidth >= 768) {
+      const layers = hero.querySelectorAll<HTMLElement>('[data-depth]');
+      let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
+
+      hero.addEventListener('mousemove', (e) => {
+        const rect = hero.getBoundingClientRect();
+        targetX = (e.clientX - rect.left - rect.width / 2) / rect.width;
+        targetY = (e.clientY - rect.top - rect.height / 2) / rect.height;
+      });
+
+      hero.addEventListener('mouseleave', () => {
+        targetX = 0;
+        targetY = 0;
+      });
+
+      function animateParallax() {
+        currentX += (targetX - currentX) * 0.06;
+        currentY += (targetY - currentY) * 0.06;
+        layers.forEach((layer) => {
+          const depth = parseFloat(layer.dataset.depth || '0');
+          layer.style.transform = `translate(${currentX * depth * 80}px, ${currentY * depth * 50}px)`;
+        });
+        requestAnimationFrame(animateParallax);
+      }
+      animateParallax();
+    }
+  }
+
+  document.addEventListener('astro:page-load', initProjectParallax);
+  initProjectParallax();
+</script>
