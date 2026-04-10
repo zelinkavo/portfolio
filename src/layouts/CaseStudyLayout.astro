@@ -30,18 +30,26 @@ const { title, description, clusters, projectContext, technologies = [] } = Astr
       {clusters.includes('development') && <div class="section__orb section__orb--steel-left"></div>}
       {clusters.includes('infrastructure') && <div class="section__orb section__orb--teal-right"></div>}
       
-      {/* High Density Top (Hero equivalent) */}
+      {/* Very High Density Top (Hero area) - 0% to 25% height */}
       <div class={`mote ${clusters.includes('ai') ? 'mote--gold' : 'mote--steel'}`} style="top:5%;left:12%;--mote-dur:18s;--mote-dx:20px;--mote-dy:-15px"></div>
       <div class={`mote ${clusters.includes('development') ? 'mote--steel' : 'mote--teal'}`} style="top:15%;right:18%;--mote-dur:22s;--mote-dx:-12px;--mote-dy:18px;animation-delay:-5s"></div>
       <div class={`mote ${clusters.includes('infrastructure') ? 'mote--teal' : 'mote--gold'} mote--lg`} style="top:8%;right:35%;--mote-dur:24s;--mote-dx:-8px;--mote-dy:12px;animation-delay:-12s"></div>
-      <div class={`comet ${clusters.includes('ai') ? 'comet--gold' : 'comet--steel'}`} style="top:12%;left:5%;--comet-dur:16s;--comet-tx:250px;--comet-ty:-20px;--comet-angle:-5deg"></div>
+      <div class={`mote ${clusters.includes('ai') ? 'mote--gold' : 'mote--steel'}`} style="top:20%;left:28%;--mote-dur:16s;--mote-dx:15px;--mote-dy:-10px;animation-delay:-3s"></div>
+      <div class={`mote ${clusters.includes('development') ? 'mote--steel' : 'mote--teal'}`} style="top:22%;right:45%;--mote-dur:20s;--mote-dx:-15px;--mote-dy:-12px;animation-delay:-8s"></div>
+      <div class={`mote ${clusters.includes('infrastructure') ? 'mote--teal' : 'mote--gold'}`} style="top:2%;left:60%;--mote-dur:25s;--mote-dx:12px;--mote-dy:18px;animation-delay:-15s"></div>
       
-      {/* Medium Density Middle (Content equivalent) */}
-      <div class={`mote ${clusters.includes('development') ? 'mote--steel' : 'mote--gold'}`} style="top:45%;left:25%;--mote-dur:20s;--mote-dx:15px;--mote-dy:-10px;animation-delay:-8s"></div>
-      <div class={`mote ${clusters.includes('infrastructure') ? 'mote--teal' : 'mote--steel'}`} style="top:60%;right:22%;--mote-dur:26s;--mote-dx:-18px;--mote-dy:14px;animation-delay:-3s"></div>
+      <div class={`comet ${clusters.includes('ai') ? 'comet--gold' : 'comet--steel'}`} style="top:8%;left:5%;--comet-dur:14s;--comet-tx:300px;--comet-ty:-25px;--comet-angle:-6deg"></div>
+      <div class={`comet ${clusters.includes('development') ? 'comet--steel' : 'comet--teal'} comet--reverse`} style="top:18%;right:5%;--comet-dur:16s;--comet-tx:-250px;--comet-ty:-15px;--comet-angle:4deg;animation-delay:-5s"></div>
+      <div class={`comet ${clusters.includes('infrastructure') ? 'comet--teal' : 'comet--gold'}`} style="top:25%;left:2%;--comet-dur:22s;--comet-tx:350px;--comet-ty:-35px;--comet-angle:-8deg;animation-delay:-10s"></div>
+      
+      {/* Medium Density Middle (Content) - 25% to 65% height */}
+      <div class={`mote ${clusters.includes('development') ? 'mote--steel' : 'mote--gold'}`} style="top:40%;left:25%;--mote-dur:20s;--mote-dx:15px;--mote-dy:-10px;animation-delay:-8s"></div>
+      <div class={`mote ${clusters.includes('ai') ? 'mote--gold' : 'mote--steel'} mote--lg`} style="top:50%;left:75%;--mote-dur:28s;--mote-dx:-20px;--mote-dy:15px;animation-delay:-2s"></div>
+      <div class={`mote ${clusters.includes('infrastructure') ? 'mote--teal' : 'mote--steel'}`} style="top:60%;right:22%;--mote-dur:26s;--mote-dx:-18px;--mote-dy:14px;animation-delay:-13s"></div>
+      
       <div class={`comet ${clusters.includes('development') ? 'comet--steel' : 'comet--teal'} comet--reverse`} style="top:55%;right:10%;--comet-dur:20s;--comet-tx:-200px;--comet-ty:-25px;--comet-angle:8deg;animation-delay:-7s"></div>
 
-      {/* Low Density Bottom (Footer equivalent) */}
+      {/* Low Density Bottom (Footer area) - 65% to 100% height */}
       <div class={`mote ${clusters.includes('ai') ? 'mote--gold' : 'mote--teal'} mote--lg`} style="top:85%;left:45%;--mote-dur:30s;--mote-dx:-10px;--mote-dy:-15px;animation-delay:-16s"></div>
     </div>
 
@@ -390,6 +398,18 @@ const { title, description, clusters, projectContext, technologies = [] } = Astr
   .comet--gold::after { background: linear-gradient(90deg, transparent, rgba(212, 162, 78, 0.35)); }
   .comet--steel { background: rgba(124, 149, 196, 0.6); box-shadow: 0 0 8px rgba(124, 149, 196, 0.3); }
   .comet--steel::after { background: linear-gradient(90deg, transparent, rgba(124, 149, 196, 0.35)); }
+  .comet--teal { background: rgba(91, 184, 166, 0.6); box-shadow: 0 0 8px rgba(91, 184, 166, 0.3); }
+  .comet--teal::after { background: linear-gradient(90deg, transparent, rgba(91, 184, 166, 0.35)); }
+
+  /* Reverse tail for comets moving right-to-left */
+  .comet--reverse::after {
+    right: auto;
+    left: 100%;
+    transform-origin: left center;
+  }
+  .comet--reverse.comet--gold::after { background: linear-gradient(90deg, rgba(212, 162, 78, 0.35), transparent); }
+  .comet--reverse.comet--steel::after { background: linear-gradient(90deg, rgba(124, 149, 196, 0.35), transparent); }
+  .comet--reverse.comet--teal::after { background: linear-gradient(90deg, rgba(91, 184, 166, 0.35), transparent); }
 
   @keyframes cometCross {
     0%   { transform: translate(0, 0); opacity: 0; }
