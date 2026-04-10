@@ -3,6 +3,8 @@
  *
  * Intersection Observer based reveal animations.
  * Respects prefers-reduced-motion.
+ * Uses double-RAF to ensure initial hidden state renders
+ * before revealing, so CSS transitions actually fire.
  */
 
 export function setupScrollAnimations() {
@@ -12,25 +14,39 @@ export function setupScrollAnimations() {
     '(prefers-reduced-motion: reduce)',
   ).matches;
 
-  if (prefersReducedMotion) return;
+  if (prefersReducedMotion) {
+    // Show all elements immediately
+    document.querySelectorAll('[data-animate]').forEach((el) => {
+      el.classList.add('is-visible');
+    });
+    return;
+  }
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
+  // Double RAF ensures the opacity:0 state has painted before
+  // we start observing. Without this, SSR/SSG pages may add
+  // is-visible in the same frame as the initial render, causing
+  // the browser to skip the CSS transition entirely.
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.15,
+          rootMargin: '0px 0px -60px 0px',
+        },
+      );
+
+      document.querySelectorAll('[data-animate]').forEach((el) => {
+        observer.observe(el);
       });
-    },
-    {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px',
-    },
-  );
-
-  document.querySelectorAll('[data-animate]').forEach((el) => {
-    observer.observe(el);
+    });
   });
 }
 

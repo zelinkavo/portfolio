@@ -28,25 +28,7 @@ import { skillClusters } from '../data/skills';
 
   <BentoLayout>
     <!-- ==================== PROJECTS ==================== -->
-    <section id="projects" slot="projects">
-      <!-- Section background pattern — diagonal circuit lines -->
-      <div class="section-bg section-bg--projects" aria-hidden="true">
-        <svg class="section-bg__svg" viewBox="0 0 800 600" preserveAspectRatio="none" data-parallax="0.03">
-          <line x1="0" y1="100" x2="200" y2="100" stroke="rgba(212,162,78,0.06)" stroke-width="1"/>
-          <line x1="200" y1="100" x2="250" y2="50" stroke="rgba(212,162,78,0.06)" stroke-width="1"/>
-          <line x1="250" y1="50" x2="500" y2="50" stroke="rgba(212,162,78,0.04)" stroke-width="1"/>
-          <circle cx="200" cy="100" r="3" fill="rgba(212,162,78,0.12)"/>
-          <circle cx="250" cy="50" r="3" fill="rgba(212,162,78,0.08)"/>
-          <line x1="600" y1="400" x2="400" y2="400" stroke="rgba(212,162,78,0.04)" stroke-width="1"/>
-          <line x1="400" y1="400" x2="350" y2="450" stroke="rgba(212,162,78,0.06)" stroke-width="1"/>
-          <line x1="350" y1="450" x2="100" y2="450" stroke="rgba(212,162,78,0.03)" stroke-width="1"/>
-          <circle cx="400" cy="400" r="3" fill="rgba(212,162,78,0.10)"/>
-          <circle cx="350" cy="450" r="2" fill="rgba(212,162,78,0.06)"/>
-          <line x1="700" y1="200" x2="700" y2="350" stroke="rgba(212,162,78,0.03)" stroke-width="1"/>
-          <circle cx="700" cy="200" r="2" fill="rgba(212,162,78,0.08)"/>
-        </svg>
-      </div>
-
+    <section id="projects" slot="projects" class="section--projects">
       <SectionHeader
         number="01."
         title="Proyectos"
@@ -81,27 +63,13 @@ import { skillClusters } from '../data/skills';
     </section>
 
     <!-- ==================== SKILLS ==================== -->
-    <section id="skills" slot="skills">
-      <!-- Section background — orbital rings -->
-      <div class="section-bg section-bg--skills" aria-hidden="true">
-        <svg class="section-bg__svg" viewBox="0 0 800 500" preserveAspectRatio="none" data-parallax="0.02">
-          <ellipse cx="400" cy="250" rx="320" ry="180" fill="none" stroke="rgba(124,149,196,0.05)" stroke-width="1"/>
-          <ellipse cx="400" cy="250" rx="220" ry="120" fill="none" stroke="rgba(124,149,196,0.04)" stroke-width="1"/>
-          <ellipse cx="400" cy="250" rx="120" ry="60" fill="none" stroke="rgba(124,149,196,0.03)" stroke-width="1"/>
-          <circle cx="720" cy="250" r="3" fill="rgba(124,149,196,0.12)"/>
-          <circle cx="80" cy="250" r="2" fill="rgba(124,149,196,0.08)"/>
-          <circle cx="400" cy="70" r="2" fill="rgba(124,149,196,0.10)"/>
-          <circle cx="400" cy="430" r="2" fill="rgba(124,149,196,0.06)"/>
-        </svg>
-      </div>
-
+    <section id="skills" slot="skills" class="section--skills">
       <SectionHeader
         number="02."
         title="Skills"
         subtitle="Clusters semánticos"
       />
 
-      <!-- Interactive cluster cards (React island) -->
       <div data-animate="fade-up" style="--stagger-index: 1">
         <SkillsRadar
           client:visible
@@ -114,7 +82,6 @@ import { skillClusters } from '../data/skills';
         />
       </div>
 
-      <!-- Static fallback for no-JS -->
       <noscript>
         <div class="skills-list">
           {skillClusters.map((cluster, ci) => (
@@ -137,19 +104,7 @@ import { skillClusters } from '../data/skills';
     </section>
 
     <!-- ==================== EXPERIENCE ==================== -->
-    <section id="experience" slot="experience">
-      <!-- Section background — vertical dashed path -->
-      <div class="section-bg section-bg--experience" aria-hidden="true">
-        <svg class="section-bg__svg" viewBox="0 0 800 600" preserveAspectRatio="none" data-parallax="0.025">
-          <line x1="80" y1="0" x2="80" y2="600" stroke="rgba(91,184,166,0.04)" stroke-width="1" stroke-dasharray="4 12"/>
-          <circle cx="80" cy="80" r="2" fill="rgba(91,184,166,0.10)"/>
-          <circle cx="80" cy="280" r="2" fill="rgba(91,184,166,0.06)"/>
-          <circle cx="80" cy="480" r="2" fill="rgba(91,184,166,0.08)"/>
-          <line x1="720" y1="100" x2="720" y2="500" stroke="rgba(91,184,166,0.03)" stroke-width="1" stroke-dasharray="4 12"/>
-          <circle cx="720" cy="300" r="2" fill="rgba(91,184,166,0.06)"/>
-        </svg>
-      </div>
-
+    <section id="experience" slot="experience" class="section--experience">
       <SectionHeader
         number="03."
         title="Experiencia"
@@ -159,20 +114,7 @@ import { skillClusters } from '../data/skills';
     </section>
 
     <!-- ==================== CONTACT ==================== -->
-    <section id="contact" slot="contact">
-      <!-- Section background — convergence lines -->
-      <div class="section-bg section-bg--contact" aria-hidden="true">
-        <svg class="section-bg__svg" viewBox="0 0 800 400" preserveAspectRatio="none" data-parallax="0.015">
-          <line x1="0" y1="200" x2="350" y2="200" stroke="rgba(212,162,78,0.04)" stroke-width="1"/>
-          <line x1="800" y1="200" x2="450" y2="200" stroke="rgba(212,162,78,0.04)" stroke-width="1"/>
-          <line x1="100" y1="50" x2="380" y2="190" stroke="rgba(212,162,78,0.03)" stroke-width="1"/>
-          <line x1="700" y1="350" x2="420" y2="210" stroke="rgba(212,162,78,0.03)" stroke-width="1"/>
-          <circle cx="400" cy="200" r="4" fill="rgba(212,162,78,0.10)"/>
-          <circle cx="350" cy="200" r="2" fill="rgba(212,162,78,0.06)"/>
-          <circle cx="450" cy="200" r="2" fill="rgba(212,162,78,0.06)"/>
-        </svg>
-      </div>
-
+    <section id="contact" slot="contact" class="section--contact">
       <SectionHeader
         number="04."
         title="Contacto"
@@ -212,79 +154,8 @@ import { skillClusters } from '../data/skills';
   </BentoLayout>
 </BaseLayout>
 
-<script>
-  /**
-   * Section background parallax — lightweight scroll-based movement
-   * of decorative SVGs. Mouse parallax on desktop only.
-   */
-  function initSectionEffects() {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) return;
-
-    const parallaxEls = document.querySelectorAll<HTMLElement>('[data-parallax]');
-    if (!parallaxEls.length) return;
-
-    // Scroll parallax — move SVG backgrounds at different rates
-    let scrollTicking = false;
-    function onScroll() {
-      if (scrollTicking) return;
-      scrollTicking = true;
-      requestAnimationFrame(() => {
-        const scrollY = window.scrollY;
-        parallaxEls.forEach((el) => {
-          const speed = parseFloat(el.dataset.parallax || '0');
-          const section = el.closest('section');
-          if (!section) return;
-          const rect = section.getBoundingClientRect();
-          // Only animate when section is in view
-          if (rect.bottom > 0 && rect.top < window.innerHeight) {
-            const offset = scrollY * speed * 40;
-            el.style.transform = `translateY(${-offset}px)`;
-          }
-        });
-        scrollTicking = false;
-      });
-    }
-    window.addEventListener('scroll', onScroll, { passive: true });
-
-    // Mouse parallax — only desktop, only on sections in view
-    if (window.innerWidth >= 768) {
-      let mouseX = 0, mouseY = 0;
-      let currentMX = 0, currentMY = 0;
-
-      document.addEventListener('mousemove', (e) => {
-        mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-        mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-      });
-
-      function animateMouse() {
-        currentMX += (mouseX - currentMX) * 0.04;
-        currentMY += (mouseY - currentMY) * 0.04;
-
-        parallaxEls.forEach((el) => {
-          const speed = parseFloat(el.dataset.parallax || '0');
-          const section = el.closest('section');
-          if (!section) return;
-          const rect = section.getBoundingClientRect();
-          if (rect.bottom > 0 && rect.top < window.innerHeight) {
-            const scrollOffset = window.scrollY * speed * 40;
-            const mx = currentMX * speed * 60;
-            const my = currentMY * speed * 30;
-            el.style.transform = `translate(${mx}px, ${-scrollOffset + my}px)`;
-          }
-        });
-        requestAnimationFrame(animateMouse);
-      }
-      animateMouse();
-    }
-  }
-
-  document.addEventListener('astro:page-load', initSectionEffects);
-  initSectionEffects();
-</script>
-
 <style>
-  /* ==================== SECTION BASE ==================== */
+  /* ==================== SECTIONS BASE ==================== */
   section {
     padding-top: var(--section-padding);
     padding-bottom: var(--section-padding);
@@ -295,6 +166,7 @@ import { skillClusters } from '../data/skills';
   section#hero {
     padding-top: 0;
     padding-bottom: 0;
+    overflow: visible;
   }
 
   /* Gradient dividers between sections */
@@ -307,49 +179,84 @@ import { skillClusters } from '../data/skills';
     width: min(80%, 600px);
     height: 1px;
     background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(212, 162, 78, 0.15) 30%,
-      rgba(124, 149, 196, 0.15) 70%,
+      90deg, transparent,
+      rgba(212, 162, 78, 0.18) 30%,
+      rgba(124, 149, 196, 0.18) 70%,
       transparent
     );
   }
 
   /* ==================== SECTION BACKGROUNDS ==================== */
-  .section-bg {
+  /* Each section gets a unique pattern using CSS only.
+     These are structural (dot grids, line patterns) rather than
+     generic blob gradients. */
+
+  /* Projects — dot grid + corner brackets */
+  .section--projects::after {
+    content: '';
     position: absolute;
     inset: 0;
+    background:
+      radial-gradient(circle, rgba(212, 162, 78, 0.12) 1px, transparent 1px),
+      linear-gradient(90deg, transparent 95%, rgba(212, 162, 78, 0.04) 95%),
+      linear-gradient(transparent 95%, rgba(212, 162, 78, 0.04) 95%);
+    background-size: 40px 40px, 40px 40px, 40px 40px;
+    mask-image: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.3) 100%);
+    -webkit-mask-image: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.3) 100%);
     pointer-events: none;
-    z-index: -1;
-    overflow: hidden;
+    z-index: 0;
   }
 
-  .section-bg__svg {
+  /* Skills — concentric ring pattern */
+  .section--skills::after {
+    content: '';
     position: absolute;
-    width: 100%;
-    height: 100%;
-    will-change: transform;
+    top: 50%;
+    left: 50%;
+    width: 700px;
+    height: 700px;
+    transform: translate(-50%, -50%);
+    background:
+      radial-gradient(circle, transparent 98px, rgba(124, 149, 196, 0.06) 100px, transparent 102px),
+      radial-gradient(circle, transparent 198px, rgba(124, 149, 196, 0.04) 200px, transparent 202px),
+      radial-gradient(circle, transparent 298px, rgba(124, 149, 196, 0.03) 300px, transparent 302px);
+    pointer-events: none;
+    z-index: 0;
   }
 
-  /* Projects — circuit lines on right side */
-  .section-bg--projects .section-bg__svg {
-    right: 0;
-    opacity: 1;
+  /* Experience — vertical dashed guides with glow */
+  .section--experience::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to bottom, rgba(91, 184, 166, 0.08), transparent 15%, transparent 85%, rgba(91, 184, 166, 0.06)),
+      repeating-linear-gradient(
+        to bottom,
+        rgba(91, 184, 166, 0.06) 0px,
+        rgba(91, 184, 166, 0.06) 4px,
+        transparent 4px,
+        transparent 16px
+      );
+    background-size: 100% 100%, 1px 100%;
+    background-position: 0 0, 60px 0;
+    mask-image: linear-gradient(to right, rgba(0,0,0,0.5) 0%, transparent 10%);
+    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0.5) 0%, transparent 10%);
+    pointer-events: none;
+    z-index: 0;
   }
 
-  /* Skills — orbital rings centered */
-  .section-bg--skills .section-bg__svg {
-    opacity: 0.8;
-  }
-
-  /* Experience — dashed vertical guides */
-  .section-bg--experience .section-bg__svg {
-    opacity: 1;
-  }
-
-  /* Contact — convergence pattern */
-  .section-bg--contact .section-bg__svg {
-    opacity: 0.7;
+  /* Contact — converging lines */
+  .section--contact::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(160deg, transparent 40%, rgba(212, 162, 78, 0.03) 50%, transparent 60%),
+      linear-gradient(200deg, transparent 40%, rgba(212, 162, 78, 0.03) 50%, transparent 60%),
+      radial-gradient(ellipse at 50% 50%, rgba(212, 162, 78, 0.06) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
   }
 
   /* ==================== PROJECTS ==================== */
@@ -357,6 +264,8 @@ import { skillClusters } from '../data/skills';
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: var(--space-lg);
+    position: relative;
+    z-index: 1;
   }
 
   .project-card {
@@ -404,7 +313,7 @@ import { skillClusters } from '../data/skills';
     transition: border-color var(--transition-fast), color var(--transition-fast);
   }
 
-  /* ==================== SKILLS (noscript fallback) ==================== */
+  /* ==================== SKILLS (noscript) ==================== */
   .skills-list {
     display: flex;
     flex-direction: column;
@@ -445,6 +354,8 @@ import { skillClusters } from '../data/skills';
     justify-content: center;
     gap: var(--space-xl);
     flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
   }
 
   .contact-link {
@@ -464,30 +375,11 @@ import { skillClusters } from '../data/skills';
     overflow: hidden;
   }
 
-  .contact-link::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: rgba(212, 162, 78, 0.06);
-    filter: blur(30px);
-    opacity: 0;
-    transition: opacity var(--transition-base);
-  }
-
   .contact-link:hover {
     color: var(--color-accent-primary);
     border-color: var(--color-border-accent);
     transform: translateY(-4px);
     box-shadow: 0 12px 40px rgba(212, 162, 78, 0.12);
-  }
-
-  .contact-link:hover::before {
-    opacity: 1;
   }
 
   .contact-link span {
@@ -505,9 +397,12 @@ import { skillClusters } from '../data/skills';
       min-width: 120px;
       padding: var(--space-lg) var(--space-xl);
     }
-    /* Reduce SVG complexity on mobile */
-    .section-bg__svg {
-      opacity: 0.5;
+    /* Reduce section patterns on mobile */
+    .section--projects::after,
+    .section--skills::after,
+    .section--experience::after,
+    .section--contact::after {
+      opacity: 0.4;
     }
   }
 </style>
