@@ -15,7 +15,7 @@ interface Props {
 const { title, subtitle, number, align = 'left', class: className } = Astro.props;
 ---
 
-<header class:list={['section-header', `section-header--${align}`, className]}>
+<header class:list={['section-header', `section-header--${align}`, className]} data-animate="fade-up">
   {number && <span class="section-header__number">{number}</span>}
   <h2 class="section-header__title">{title}</h2>
   {subtitle && <p class="section-header__subtitle">{subtitle}</p>}
