@@ -21,9 +21,9 @@ const { title, description, clusters, projectContext, technologies = [] } = Astr
 
 <BaseLayout title={`${title} — Proyectos | David Oliver`} description={description}>
   
-  <article class="case-study section--themed">
+  <article class="case-study section--themed" id="project-top" data-clusters={clusters.join(',')}>
     <!-- Ambient Background -->
-    <div class="section__bg section__bg--project" aria-hidden="true">
+    <div class="section__bg section__bg--project" id="project-bg" aria-hidden="true">
       <div class="section__grid section__grid--sparse"></div>
       
       {/* Dynamic Orbs based on clusters */}
@@ -31,38 +31,34 @@ const { title, description, clusters, projectContext, technologies = [] } = Astr
       {clusters.includes('development') && <div class="section__orb section__orb--steel-left"></div>}
       {clusters.includes('infrastructure') && <div class="section__orb section__orb--teal-right"></div>}
       
-      {/* Dynamic Motes / Comets. We mix them for life */}
-      <div class={`mote ${clusters.includes('ai') ? 'mote--gold' : 'mote--steel'}`} style="top:15%;left:12%;--mote-dur:18s;--mote-dx:20px;--mote-dy:-15px"></div>
-      <div class={`mote ${clusters.includes('development') ? 'mote--steel' : 'mote--teal'}`} style="top:55%;right:18%;--mote-dur:22s;--mote-dx:-12px;--mote-dy:18px;animation-delay:-5s"></div>
-      <div class={`mote ${clusters.includes('infrastructure') ? 'mote--teal' : 'mote--gold'} mote--lg`} style="top:30%;right:35%;--mote-dur:24s;--mote-dx:-8px;--mote-dy:12px;animation-delay:-12s"></div>
-      
-      <div class={`comet ${clusters.includes('ai') ? 'comet--gold' : 'comet--steel'}`} style="top:35%;left:5%;--comet-dur:16s;--comet-tx:250px;--comet-ty:-20px;--comet-angle:-5deg"></div>
+      {/* Canvas particles (spectacular dots and comets, performant) */}
+      <canvas class="project__particles" id="project-particles"></canvas>
     </div>
 
     <div class="content-wrapper">
       <!-- Breadcrumb Nav -->
-    <nav class="case-study__nav" aria-label="Breadcrumb">
-      <div class="container">
-        <a href="/#projects" class="back-link">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Proyectos
-        </a>
-      </div>
-    </nav>
-
-    <!-- Case Study Hero -->
-    <header class="case-study__header">
-      <div class="container container--narrow text-center">
-        <div class="case-study__meta" data-animate="fade-up">
-          {clusters.map((cluster) => (
-            <Badge variant={cluster === 'ai' ? 'ai' : cluster === 'development' ? 'dev' : 'infra'}>
-              {cluster === 'development' ? 'dev' : cluster}
-            </Badge>
-          ))}
-          <span class="case-study__context">{projectContext}</span>
+      <nav class="case-study__nav" aria-label="Breadcrumb">
+        <div class="container">
+          <a href="/#projects" class="back-link">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Proyectos
+          </a>
         </div>
+      </nav>
+
+      <!-- Case Study Hero -->
+      <header class="case-study__header">
+        <div class="container container--narrow text-center">
+          <div class="case-study__meta" data-animate="fade-up">
+            {clusters.map((cluster) => (
+              <Badge variant={cluster === 'ai' ? 'ai' : cluster === 'development' ? 'dev' : 'infra'}>
+                {cluster === 'development' ? 'dev' : cluster}
+              </Badge>
+            ))}
+            <span class="case-study__context">{projectContext}</span>
+          </div>
         <h1 class="case-study__title" data-animate="fade-up" style="--stagger-index: 1">{title}</h1>
         <p class="case-study__subtitle" data-animate="fade-up" style="--stagger-index: 2">{description}</p>
         
@@ -116,6 +112,23 @@ const { title, description, clusters, projectContext, technologies = [] } = Astr
     z-index: 1;
   }
 
+  .section__bg--project {
+    height: 120vh;
+    z-index: -1;
+    mask-image: linear-gradient(to bottom, black 0%, black 40%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 40%, transparent 100%);
+    transition: opacity 0.1s linear;
+  }
+
+  .project__particles {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+
   /* Navigation */
   .case-study__nav {
     margin-bottom: var(--space-2xl);
@@ -162,7 +175,7 @@ const { title, description, clusters, projectContext, technologies = [] } = Astr
   .case-study__subtitle {
     font-size: 1.15rem;
     color: var(--color-text-secondary);
-    line-height: 1.6;
+    line-height: var(--line-height-relaxed);
     max-width: 600px;
     margin: 0 auto;
   }
