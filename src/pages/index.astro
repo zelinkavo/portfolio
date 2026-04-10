@@ -32,10 +32,12 @@ import { skillClusters } from '../data/skills';
       <div class="section__bg section__bg--projects" aria-hidden="true">
         <div class="section__grid"></div>
         <div class="section__orb section__orb--gold-right"></div>
+        <div class="section__orb section__orb--gold-left"></div>
         <div class="mote mote--gold" style="top:15%;left:12%;--mote-dur:18s;--mote-dx:20px;--mote-dy:-15px"></div>
         <div class="mote mote--gold" style="top:55%;right:18%;--mote-dur:22s;--mote-dx:-12px;--mote-dy:18px;animation-delay:-5s"></div>
         <div class="mote mote--gold" style="top:75%;left:40%;--mote-dur:16s;--mote-dx:15px;--mote-dy:-10px;animation-delay:-8s"></div>
         <div class="mote mote--gold mote--lg" style="top:30%;right:35%;--mote-dur:24s;--mote-dx:-8px;--mote-dy:12px;animation-delay:-12s"></div>
+        <div class="mote mote--gold" style="top:45%;left:65%;--mote-dur:20s;--mote-dx:-18px;--mote-dy:-12px;animation-delay:-3s"></div>
       </div>
 
       <SectionHeader
@@ -235,98 +237,111 @@ import { skillClusters } from '../data/skills';
     overflow: hidden;
   }
 
-  /* Grid pattern — like hero but dimmer */
+  /* Grid pattern — coherent with hero, fading gradually per section */
   .section__grid {
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(rgba(212, 162, 78, 0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(212, 162, 78, 0.025) 1px, transparent 1px);
+      linear-gradient(rgba(212, 162, 78, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212, 162, 78, 0.04) 1px, transparent 1px);
     background-size: 48px 48px;
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 10%, transparent 70%);
-    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 10%, transparent 70%);
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 15%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 15%, transparent 70%);
   }
 
   .section__grid--sparse {
     background-size: 64px 64px;
-    mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 5%, transparent 65%);
-    -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 5%, transparent 65%);
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 10%, transparent 65%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 10%, transparent 65%);
   }
 
   .section__grid--fine {
     background-size: 32px 32px;
     background-image:
-      linear-gradient(rgba(212, 162, 78, 0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(212, 162, 78, 0.02) 1px, transparent 1px);
+      linear-gradient(rgba(212, 162, 78, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212, 162, 78, 0.025) 1px, transparent 1px);
   }
 
-  /* Override grid color per section */
+  /* Grid colors per section — gradual fade */
   .section__bg--skills .section__grid {
     background-image:
-      linear-gradient(rgba(124, 149, 196, 0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(124, 149, 196, 0.025) 1px, transparent 1px);
+      linear-gradient(rgba(124, 149, 196, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124, 149, 196, 0.035) 1px, transparent 1px);
   }
 
   .section__bg--experience .section__grid {
     background-image:
-      linear-gradient(rgba(91, 184, 166, 0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(91, 184, 166, 0.02) 1px, transparent 1px);
+      linear-gradient(rgba(91, 184, 166, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(91, 184, 166, 0.03) 1px, transparent 1px);
   }
 
-  /* Ambient orbs — same concept as hero but dimmer */
+  /* Ambient orbs — visible, gradual degradation hero → contact */
   .section__orb {
     position: absolute;
     border-radius: 50%;
     filter: blur(100px);
   }
 
+  /* Projects — strongest presence after hero */
   .section__orb--gold-right {
-    width: 500px;
-    height: 400px;
-    top: 15%;
-    right: 5%;
-    background: rgba(212, 162, 78, 0.06);
+    width: 600px;
+    height: 500px;
+    top: 10%;
+    right: 0%;
+    background: rgba(212, 162, 78, 0.14);
     animation: sectionOrbFloat 16s ease-in-out infinite;
   }
 
-  .section__orb--steel-left {
+  .section__orb--gold-left {
     width: 450px;
-    height: 350px;
-    top: 20%;
+    height: 400px;
+    bottom: 10%;
     left: 5%;
-    background: rgba(124, 149, 196, 0.05);
+    background: rgba(212, 162, 78, 0.10);
+    animation: sectionOrbFloat 20s ease-in-out infinite 8s;
+  }
+
+  /* Skills — slightly less */
+  .section__orb--steel-left {
+    width: 550px;
+    height: 450px;
+    top: 15%;
+    left: 0%;
+    background: rgba(124, 149, 196, 0.10);
     animation: sectionOrbFloat 18s ease-in-out infinite 3s;
   }
 
+  /* Experience — moderate */
   .section__orb--teal-right {
-    width: 400px;
-    height: 350px;
-    top: 25%;
-    right: 8%;
-    background: rgba(91, 184, 166, 0.05);
+    width: 500px;
+    height: 400px;
+    top: 20%;
+    right: 5%;
+    background: rgba(91, 184, 166, 0.08);
     animation: sectionOrbFloat 20s ease-in-out infinite 5s;
   }
 
+  /* Contact — softest */
   .section__orb--gold-center {
-    width: 350px;
-    height: 300px;
-    top: 30%;
+    width: 450px;
+    height: 380px;
+    top: 25%;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(212, 162, 78, 0.05);
+    background: rgba(212, 162, 78, 0.07);
     animation: sectionOrbPulse 12s ease-in-out infinite;
   }
 
   @keyframes sectionOrbFloat {
     0%   { transform: translate(0, 0); opacity: 1; }
-    33%  { transform: translate(10px, -15px); opacity: 0.7; }
-    66%  { transform: translate(-8px, -5px); opacity: 0.85; }
+    33%  { transform: translate(15px, -20px); opacity: 0.65; }
+    66%  { transform: translate(-12px, -8px); opacity: 0.8; }
     100% { transform: translate(0, 0); opacity: 1; }
   }
 
   @keyframes sectionOrbPulse {
     0%   { transform: translateX(-50%) scale(1); opacity: 0.8; }
-    50%  { transform: translateX(-50%) scale(1.1); opacity: 0.5; }
+    50%  { transform: translateX(-50%) scale(1.15); opacity: 0.45; }
     100% { transform: translateX(-50%) scale(1); opacity: 0.8; }
   }
 
@@ -346,38 +361,38 @@ import { skillClusters } from '../data/skills';
   }
 
   .mote--gold {
-    background: rgba(212, 162, 78, 0.35);
-    box-shadow: 0 0 8px rgba(212, 162, 78, 0.15);
+    background: rgba(212, 162, 78, 0.5);
+    box-shadow: 0 0 12px rgba(212, 162, 78, 0.25);
   }
   .mote--gold.mote--lg {
-    background: rgba(212, 162, 78, 0.25);
-    box-shadow: 0 0 14px rgba(212, 162, 78, 0.12);
+    background: rgba(212, 162, 78, 0.4);
+    box-shadow: 0 0 20px rgba(212, 162, 78, 0.2);
   }
 
   .mote--steel {
-    background: rgba(124, 149, 196, 0.35);
-    box-shadow: 0 0 8px rgba(124, 149, 196, 0.15);
+    background: rgba(124, 149, 196, 0.5);
+    box-shadow: 0 0 12px rgba(124, 149, 196, 0.25);
   }
   .mote--steel.mote--lg {
-    background: rgba(124, 149, 196, 0.25);
-    box-shadow: 0 0 14px rgba(124, 149, 196, 0.12);
+    background: rgba(124, 149, 196, 0.4);
+    box-shadow: 0 0 20px rgba(124, 149, 196, 0.2);
   }
 
   .mote--teal {
-    background: rgba(91, 184, 166, 0.35);
-    box-shadow: 0 0 8px rgba(91, 184, 166, 0.15);
+    background: rgba(91, 184, 166, 0.5);
+    box-shadow: 0 0 12px rgba(91, 184, 166, 0.25);
   }
   .mote--teal.mote--lg {
-    background: rgba(91, 184, 166, 0.25);
-    box-shadow: 0 0 14px rgba(91, 184, 166, 0.12);
+    background: rgba(91, 184, 166, 0.4);
+    box-shadow: 0 0 20px rgba(91, 184, 166, 0.2);
   }
 
   @keyframes moteDrift {
-    0%   { transform: translate(0, 0); opacity: 0.4; }
-    25%  { transform: translate(var(--mote-dx, 10px), var(--mote-dy, -10px)); opacity: 0.8; }
-    50%  { transform: translate(calc(var(--mote-dx, 10px) * -0.5), calc(var(--mote-dy, -10px) * 0.7)); opacity: 0.5; }
-    75%  { transform: translate(calc(var(--mote-dx, 10px) * 0.3), calc(var(--mote-dy, -10px) * -0.4)); opacity: 0.9; }
-    100% { transform: translate(0, 0); opacity: 0.4; }
+    0%   { transform: translate(0, 0); opacity: 0.5; }
+    25%  { transform: translate(var(--mote-dx, 10px), var(--mote-dy, -10px)); opacity: 1; }
+    50%  { transform: translate(calc(var(--mote-dx, 10px) * -0.5), calc(var(--mote-dy, -10px) * 0.7)); opacity: 0.6; }
+    75%  { transform: translate(calc(var(--mote-dx, 10px) * 0.3), calc(var(--mote-dy, -10px) * -0.4)); opacity: 1; }
+    100% { transform: translate(0, 0); opacity: 0.5; }
   }
 
   /* Content sits above backgrounds */
