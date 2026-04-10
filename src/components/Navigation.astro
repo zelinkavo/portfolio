@@ -15,11 +15,11 @@ interface Props {
 const { lang = 'es' } = Astro.props;
 
 const navItems = [
-  { href: '#hero', label: { es: 'Inicio', en: 'Home' } },
-  { href: '#projects', label: { es: 'Proyectos', en: 'Projects' } },
-  { href: '#skills', label: { es: 'Skills', en: 'Skills' } },
-  { href: '#experience', label: { es: 'Experiencia', en: 'Experience' } },
-  { href: '#contact', label: { es: 'Contacto', en: 'Contact' } },
+  { href: '/#hero', label: { es: 'Inicio', en: 'Home' } },
+  { href: '/#projects', label: { es: 'Proyectos', en: 'Projects' } },
+  { href: '/#skills', label: { es: 'Skills', en: 'Skills' } },
+  { href: '/#experience', label: { es: 'Experiencia', en: 'Experience' } },
+  { href: '/#contact', label: { es: 'Contacto', en: 'Contact' } },
 ];
 ---
 
@@ -30,7 +30,7 @@ const navItems = [
 <nav class="nav" id="main-nav" aria-label={lang === 'es' ? 'Navegación principal' : 'Main navigation'}>
   <div class="nav__inner">
     <!-- Logo -->
-    <a href="#hero" class="nav__logo" aria-label="Ir al inicio">
+    <a href="/#hero" class="nav__logo" aria-label="Ir al inicio">
       <span class="nav__logo-text">David Oliver</span>
       <span class="nav__logo-dot" aria-hidden="true">.</span>
     </a>
@@ -139,7 +139,7 @@ const navItems = [
               allLinks.forEach((link) => {
                 link.classList.toggle(
                   'nav__link--active',
-                  link.getAttribute('href') === `#${id}`,
+                  link.getAttribute('href') === `#${id}` || link.getAttribute('href') === `/#${id}`,
                 );
               });
             }
