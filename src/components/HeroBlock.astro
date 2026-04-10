@@ -73,14 +73,13 @@
           </div>
         ))}
       </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="hero__scroll-cta" data-animate="fade-in" style="--stagger-index: 6" aria-hidden="true">
-    <span class="hero__scroll-text">scroll</span>
-    <div class="hero__scroll-line">
-      <div class="hero__scroll-fill"></div>
+      <div class="hero__scroll-cta" data-animate="fade-in" style="--stagger-index: 6" aria-hidden="true">
+        <span class="hero__scroll-text">scroll</span>
+        <div class="hero__scroll-line">
+          <div class="hero__scroll-fill"></div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -462,16 +461,12 @@
 
   /* Scroll CTA — line grows on scroll */
   .hero__scroll-cta {
-    position: absolute;
-    bottom: var(--space-xl);
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--space-sm);
-    z-index: 10;
+    margin-top: var(--space-xl);
+    margin-bottom: -140px; /* offsets the 140px scroll line, centering the text block perfectly */
   }
 
   .hero__scroll-text {
@@ -479,19 +474,17 @@
     font-size: 0.65rem;
     color: var(--color-text-muted);
     letter-spacing: 0.15em;
-    margin-right: -0.15em; /* compensate for letter-spacing to center properly */
+    margin-right: -0.15em; /* fix subpixel optical centering against the 1px line */
     text-transform: uppercase;
     opacity: 0.6;
   }
 
   .hero__scroll-line {
-    margin: 0 auto;
     width: 1px;
-    height: 100px;
+    height: 140px;
     background: rgba(212, 162, 78, 0.1);
     position: relative;
     border-radius: 1px;
-    overflow: hidden; /* Ensure fill doesn't bleed */
   }
 
   .hero__scroll-fill {
@@ -500,7 +493,8 @@
     left: 0;
     width: 100%;
     height: 0%;
-    background: var(--color-accent-primary);
+    background: linear-gradient(to bottom, var(--color-accent-primary), rgba(212, 162, 78, 0.3));
+    box-shadow: 0 0 8px rgba(212, 162, 78, 0.4);
     border-radius: 1px;
     transition: height 0.1s linear;
   }
