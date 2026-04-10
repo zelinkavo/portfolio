@@ -28,7 +28,12 @@ import { skillClusters } from '../data/skills';
 
   <BentoLayout>
     <!-- ==================== PROJECTS ==================== -->
-    <section id="projects" slot="projects" class="section--projects">
+    <section id="projects" slot="projects" class="section--themed">
+      <div class="section__bg section__bg--projects" aria-hidden="true">
+        <div class="section__grid"></div>
+        <div class="section__orb section__orb--gold-right"></div>
+      </div>
+
       <SectionHeader
         number="01."
         title="Proyectos"
@@ -63,7 +68,12 @@ import { skillClusters } from '../data/skills';
     </section>
 
     <!-- ==================== SKILLS ==================== -->
-    <section id="skills" slot="skills" class="section--skills">
+    <section id="skills" slot="skills" class="section--themed">
+      <div class="section__bg section__bg--skills" aria-hidden="true">
+        <div class="section__grid section__grid--sparse"></div>
+        <div class="section__orb section__orb--steel-left"></div>
+      </div>
+
       <SectionHeader
         number="02."
         title="Skills"
@@ -104,7 +114,12 @@ import { skillClusters } from '../data/skills';
     </section>
 
     <!-- ==================== EXPERIENCE ==================== -->
-    <section id="experience" slot="experience" class="section--experience">
+    <section id="experience" slot="experience" class="section--themed">
+      <div class="section__bg section__bg--experience" aria-hidden="true">
+        <div class="section__grid section__grid--sparse"></div>
+        <div class="section__orb section__orb--teal-right"></div>
+      </div>
+
       <SectionHeader
         number="03."
         title="Experiencia"
@@ -114,7 +129,12 @@ import { skillClusters } from '../data/skills';
     </section>
 
     <!-- ==================== CONTACT ==================== -->
-    <section id="contact" slot="contact" class="section--contact">
+    <section id="contact" slot="contact" class="section--themed">
+      <div class="section__bg section__bg--contact" aria-hidden="true">
+        <div class="section__grid section__grid--fine"></div>
+        <div class="section__orb section__orb--gold-center"></div>
+      </div>
+
       <SectionHeader
         number="04."
         title="Contacto"
@@ -155,18 +175,16 @@ import { skillClusters } from '../data/skills';
 </BaseLayout>
 
 <style>
-  /* ==================== SECTIONS BASE ==================== */
+  /* ==================== SECTION FOUNDATIONS ==================== */
   section {
     padding-top: var(--section-padding);
     padding-bottom: var(--section-padding);
     position: relative;
-    overflow: hidden;
   }
 
   section#hero {
     padding-top: 0;
     padding-bottom: 0;
-    overflow: visible;
   }
 
   /* Gradient dividers between sections */
@@ -176,87 +194,132 @@ import { skillClusters } from '../data/skills';
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: min(80%, 600px);
+    width: 100vw;
     height: 1px;
     background: linear-gradient(
-      90deg, transparent,
-      rgba(212, 162, 78, 0.18) 30%,
-      rgba(124, 149, 196, 0.18) 70%,
-      transparent
+      90deg, transparent 5%,
+      rgba(212, 162, 78, 0.12) 30%,
+      rgba(124, 149, 196, 0.10) 70%,
+      transparent 95%
     );
   }
 
-  /* ==================== SECTION BACKGROUNDS ==================== */
-  /* Each section gets a unique pattern using CSS only.
-     These are structural (dot grids, line patterns) rather than
-     generic blob gradients. */
-
-  /* Projects — dot grid + corner brackets */
-  .section--projects::after {
-    content: '';
+  /* ==================== FULL-BLEED SECTION BACKGROUNDS ====================
+   * The section__bg div breaks out of the max-width container using
+   * viewport-width calc, giving full-bleed backgrounds while keeping
+   * content constrained. Same approach as the hero grid/orbs.
+   */
+  .section__bg {
     position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle, rgba(212, 162, 78, 0.12) 1px, transparent 1px),
-      linear-gradient(90deg, transparent 95%, rgba(212, 162, 78, 0.04) 95%),
-      linear-gradient(transparent 95%, rgba(212, 162, 78, 0.04) 95%);
-    background-size: 40px 40px, 40px 40px, 40px 40px;
-    mask-image: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.3) 100%);
-    -webkit-mask-image: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.3) 100%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* Skills — concentric ring pattern */
-  .section--skills::after {
-    content: '';
-    position: absolute;
-    top: 50%;
+    top: 0;
     left: 50%;
-    width: 700px;
-    height: 700px;
-    transform: translate(-50%, -50%);
-    background:
-      radial-gradient(circle, transparent 98px, rgba(124, 149, 196, 0.06) 100px, transparent 102px),
-      radial-gradient(circle, transparent 198px, rgba(124, 149, 196, 0.04) 200px, transparent 202px),
-      radial-gradient(circle, transparent 298px, rgba(124, 149, 196, 0.03) 300px, transparent 302px);
+    width: 100vw;
+    height: 100%;
+    transform: translateX(-50%);
     pointer-events: none;
     z-index: 0;
+    overflow: hidden;
   }
 
-  /* Experience — vertical dashed guides with glow */
-  .section--experience::after {
-    content: '';
+  /* Grid pattern — like hero but dimmer */
+  .section__grid {
     position: absolute;
     inset: 0;
-    background:
-      linear-gradient(to bottom, rgba(91, 184, 166, 0.08), transparent 15%, transparent 85%, rgba(91, 184, 166, 0.06)),
-      repeating-linear-gradient(
-        to bottom,
-        rgba(91, 184, 166, 0.06) 0px,
-        rgba(91, 184, 166, 0.06) 4px,
-        transparent 4px,
-        transparent 16px
-      );
-    background-size: 100% 100%, 1px 100%;
-    background-position: 0 0, 60px 0;
-    mask-image: linear-gradient(to right, rgba(0,0,0,0.5) 0%, transparent 10%);
-    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0.5) 0%, transparent 10%);
-    pointer-events: none;
-    z-index: 0;
+    background-image:
+      linear-gradient(rgba(212, 162, 78, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212, 162, 78, 0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 10%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 10%, transparent 70%);
   }
 
-  /* Contact — converging lines */
-  .section--contact::after {
-    content: '';
+  .section__grid--sparse {
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 5%, transparent 65%);
+    -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 5%, transparent 65%);
+  }
+
+  .section__grid--fine {
+    background-size: 32px 32px;
+    background-image:
+      linear-gradient(rgba(212, 162, 78, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212, 162, 78, 0.02) 1px, transparent 1px);
+  }
+
+  /* Override grid color per section */
+  .section__bg--skills .section__grid {
+    background-image:
+      linear-gradient(rgba(124, 149, 196, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124, 149, 196, 0.025) 1px, transparent 1px);
+  }
+
+  .section__bg--experience .section__grid {
+    background-image:
+      linear-gradient(rgba(91, 184, 166, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(91, 184, 166, 0.02) 1px, transparent 1px);
+  }
+
+  /* Ambient orbs — same concept as hero but dimmer */
+  .section__orb {
     position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(160deg, transparent 40%, rgba(212, 162, 78, 0.03) 50%, transparent 60%),
-      linear-gradient(200deg, transparent 40%, rgba(212, 162, 78, 0.03) 50%, transparent 60%),
-      radial-gradient(ellipse at 50% 50%, rgba(212, 162, 78, 0.06) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: 0;
+    border-radius: 50%;
+    filter: blur(100px);
+  }
+
+  .section__orb--gold-right {
+    width: 500px;
+    height: 400px;
+    top: 15%;
+    right: 5%;
+    background: rgba(212, 162, 78, 0.06);
+    animation: sectionOrbFloat 16s ease-in-out infinite;
+  }
+
+  .section__orb--steel-left {
+    width: 450px;
+    height: 350px;
+    top: 20%;
+    left: 5%;
+    background: rgba(124, 149, 196, 0.05);
+    animation: sectionOrbFloat 18s ease-in-out infinite 3s;
+  }
+
+  .section__orb--teal-right {
+    width: 400px;
+    height: 350px;
+    top: 25%;
+    right: 8%;
+    background: rgba(91, 184, 166, 0.05);
+    animation: sectionOrbFloat 20s ease-in-out infinite 5s;
+  }
+
+  .section__orb--gold-center {
+    width: 350px;
+    height: 300px;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(212, 162, 78, 0.05);
+    animation: sectionOrbPulse 12s ease-in-out infinite;
+  }
+
+  @keyframes sectionOrbFloat {
+    0%   { transform: translate(0, 0); opacity: 1; }
+    33%  { transform: translate(10px, -15px); opacity: 0.7; }
+    66%  { transform: translate(-8px, -5px); opacity: 0.85; }
+    100% { transform: translate(0, 0); opacity: 1; }
+  }
+
+  @keyframes sectionOrbPulse {
+    0%   { transform: translateX(-50%) scale(1); opacity: 0.8; }
+    50%  { transform: translateX(-50%) scale(1.1); opacity: 0.5; }
+    100% { transform: translateX(-50%) scale(1); opacity: 0.8; }
+  }
+
+  /* Content sits above backgrounds */
+  .section--themed > :not(.section__bg) {
+    position: relative;
+    z-index: 1;
   }
 
   /* ==================== PROJECTS ==================== */
@@ -264,8 +327,6 @@ import { skillClusters } from '../data/skills';
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: var(--space-lg);
-    position: relative;
-    z-index: 1;
   }
 
   .project-card {
@@ -313,7 +374,7 @@ import { skillClusters } from '../data/skills';
     transition: border-color var(--transition-fast), color var(--transition-fast);
   }
 
-  /* ==================== SKILLS (noscript) ==================== */
+  /* ==================== SKILLS ==================== */
   .skills-list {
     display: flex;
     flex-direction: column;
@@ -354,8 +415,6 @@ import { skillClusters } from '../data/skills';
     justify-content: center;
     gap: var(--space-xl);
     flex-wrap: wrap;
-    position: relative;
-    z-index: 1;
   }
 
   .contact-link {
@@ -397,12 +456,14 @@ import { skillClusters } from '../data/skills';
       min-width: 120px;
       padding: var(--space-lg) var(--space-xl);
     }
-    /* Reduce section patterns on mobile */
-    .section--projects::after,
-    .section--skills::after,
-    .section--experience::after,
-    .section--contact::after {
-      opacity: 0.4;
+    .section__orb {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .section__orb {
+      animation: none !important;
     }
   }
 </style>
