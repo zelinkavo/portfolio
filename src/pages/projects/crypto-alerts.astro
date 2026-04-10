@@ -1,6 +1,7 @@
 ---
 import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
 import Badge from '../../components/ui/Badge.astro';
+import ProjectTimelineItem from '../../components/ProjectTimelineItem.astro';
 ---
 
 <CaseStudyLayout
@@ -10,18 +11,16 @@ import Badge from '../../components/ui/Badge.astro';
   projectContext="Proyecto Propio — 2024"
   technologies={['React Native', 'Expo', 'TypeScript', 'Zustand', 'EAS Build', 'CoinGecko API', 'Reanimated']}
 >
-  <section class="challenge" data-animate="fade-up">
-    <h2>El Reto</h2>
+  <ProjectTimelineItem title="El Reto" isOpen={true}>
     <p>
       El ecosistema de aplicaciones crypto suele ser denso, enfocado a traders profesionales y lleno de gráficos incomprensibles para el usuario promedio que solo quiere saber cuándo Bitcoin o Ethereum alcanzan un precio objetivo. La mayoría de estas apps requieren registros pesados o cobran suscripciones mensuales solo por enviar notificaciones push.
     </p>
     <div class="callout">
       <strong>Objetivo:</strong> Construir una app móvil multiplataforma (iOS y Android) estéticamente impecable, de uso anónimo y completamente centrada en crear notificaciones de precio de forma intuitiva, sin ruido visual.
     </div>
-  </section>
+  </ProjectTimelineItem>
 
-  <section class="action" data-animate="fade-up">
-    <h2>La Solución</h2>
+  <ProjectTimelineItem title="La Solución">
     <p>
       Elegí React Native con Expo para lograr un desarrollo ágil y mantener un único codebase. La app se diseñó con un fuerte enfoque en UX, utilizando interacciones hápticas y animaciones fluidas con Reanimated.
     </p>
@@ -76,10 +75,9 @@ import Badge from '../../components/ui/Badge.astro';
         </div>
       </div>
     </div>
-  </section>
+  </ProjectTimelineItem>
 
-  <section class="result" data-animate="fade-up">
-    <h2>Resultados</h2>
+  <ProjectTimelineItem title="Resultados">
     <p>
       El proyecto superó las validaciones de las tiendas oficiales, incluyendo las rigurosas políticas de revisión de Apple App Store respecto a la temática crypto.
     </p>
@@ -88,7 +86,7 @@ import Badge from '../../components/ui/Badge.astro';
       <li>Implementación de CI/CD automatizado mediante EAS (Expo Application Services) para la construcción en la nube de los bundles binarios (AAB e IPA).</li>
       <li>Adopción por un grupo de prueba orgánico con feedback excepcionalmente positivo sobre la claridad de la interfaz frente a alternativas como Binance o CoinMarketCap.</li>
     </ul>
-  </section>
+  </ProjectTimelineItem>
 
 
 

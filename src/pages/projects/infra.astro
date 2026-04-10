@@ -1,6 +1,7 @@
 ---
 import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
 import Badge from '../../components/ui/Badge.astro';
+import ProjectTimelineItem from '../../components/ProjectTimelineItem.astro';
 ---
 
 <CaseStudyLayout
@@ -10,18 +11,16 @@ import Badge from '../../components/ui/Badge.astro';
   projectContext="Soluciones Transversales — Continuo"
   technologies={['Cloudflare Pages & Workers', 'Dokploy (PaaS)', 'Docker / Traefik', 'n8n Automation', 'Linux VPS (Ubuntu)', 'SIP / Twilio', 'Bash Scripting']}
 >
-  <section class="challenge" data-animate="fade-up">
-    <h2>El Reto</h2>
+  <ProjectTimelineItem title="El Reto" isOpen={true}>
     <p>
       El crecimiento de proyectos modernos a menudo trae consigo una fricción técnica significativa: dependencias de pago por uso costosas (Vercel, AWS), dificultades en el despliegue iterativo de aplicaciones, y silos de datos manuales entre áreas de soporte, desarrollo y negocio.
     </p>
     <div class="callout">
       <strong>Objetivo:</strong> Diseñar una infraestructura resiliente, de bajo coste y alta controlabilidad (self-hosted / serverless), estableciendo canalizaciones de despliegue automatizado y conectando los servicios dispares a un hub de automatización central.
     </div>
-  </section>
+  </ProjectTimelineItem>
 
-  <section class="action" data-animate="fade-up">
-    <h2>La Solución</h2>
+  <ProjectTimelineItem title="La Solución">
     <p>
       La filosofía implementada es Cloud-Native e Híbrida: externalización de estáticos y computación ligera a la capa Edge (Edge Computing), mientras se retiene el control de las aplicaciones pesadas, bases de datos y la automatización lógica en Virtual Private Servers (VPS).
     </p>
@@ -83,10 +82,9 @@ import Badge from '../../components/ui/Badge.astro';
         </div>
       </div>
     </div>
-  </section>
+  </ProjectTimelineItem>
 
-  <section class="result" data-animate="fade-up">
-    <h2>Resultados</h2>
+  <ProjectTimelineItem title="Resultados">
     <p>
       Robustez y ahorro de costes sostenidos bajo una infraestructura escalable que agiliza drásticamente el desarrollo de nuevos proyectos.
     </p>
@@ -95,7 +93,7 @@ import Badge from '../../components/ui/Badge.astro';
       <li>Implementación de entornos Staging/Producción aislados en menos de 5 minutos mediante pipeline CI/CD en Dokploy.</li>
       <li>Monitoreo y respuesta automática ante fallos de APIs de terceros (SMS fallbacks automáticos garantizando 99.9% de uptime real para notificaciones).</li>
     </ul>
-  </section>
+  </ProjectTimelineItem>
 
 
 

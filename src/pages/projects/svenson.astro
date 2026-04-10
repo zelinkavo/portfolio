@@ -2,6 +2,7 @@
 import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
 import Badge from '../../components/ui/Badge.astro';
 import SvensonFlowDiagram from '../../components/interactive/SvensonFlowDiagram';
+import ProjectTimelineItem from '../../components/ProjectTimelineItem.astro';
 ---
 
 <CaseStudyLayout
@@ -11,18 +12,16 @@ import SvensonFlowDiagram from '../../components/interactive/SvensonFlowDiagram'
   projectContext="Clínicas Svenson — 2024"
   technologies={['n8n (Self-Hosted)', 'Node.js', 'Cloudflare Workers', 'OpenAI GPT-4', 'Twilio API', 'Meta WhatsApp API', 'MySQL', 'TypeScript']}
 >
-  <section class="challenge" data-animate="fade-up">
-    <h2>El Reto</h2>
+  <ProjectTimelineItem title="El Reto" isOpen={true}>
     <p>
       Svenson enfrentaba un volumen inmanejable de llamadas entrantes para citas, cancelaciones y reubicaciones. Su sistema manual provocaba cuellos de botella en atención al cliente, tiempos de espera elevados y altas tasas de ausentismo (no-shows) por falta de confirmaciones estructuradas.
     </p>
     <div class="callout">
       <strong>Objetivo:</strong> Diseñar un asistente virtual inteligente capaz de interactuar por teléfono y WhatsApp de forma natural para gestionar citas directamente contra su CRM, reduciendo la carga del call center en un 40%.
     </div>
-  </section>
+  </ProjectTimelineItem>
 
-  <section class="action" data-animate="fade-up">
-    <h2>La Solución</h2>
+  <ProjectTimelineItem title="La Solución">
     <p>
       Implementé una arquitectura serverless basada en Cloudflare Workers y n8n (self-hosted en VPS propio) para orquestar la integración entre los distintos proveedores y el backend de la clínica (Salesforce/CRM propietario).
     </p>
@@ -39,10 +38,9 @@ import SvensonFlowDiagram from '../../components/interactive/SvensonFlowDiagram'
     <div data-animate="fade-up">
       <SvensonFlowDiagram client:visible />
     </div>
-  </section>
+  </ProjectTimelineItem>
 
-  <section class="result" data-animate="fade-up">
-    <h2>Resultados</h2>
+  <ProjectTimelineItem title="Resultados">
     <p>
       La implementación fue un éxito medible en los primeros 3 meses de producción. El impacto directo en el negocio fue evidente desde el primer mes completo de operación.
     </p>
@@ -52,7 +50,7 @@ import SvensonFlowDiagram from '../../components/interactive/SvensonFlowDiagram'
       <li>Capacidad de agendar 24/7 sin dependencias humanas, atrayendo leads fuera de horario laboral.</li>
       <li>Tiempos de respuesta (SLA) de WhatsApp reducidos de 45 minutos a &lt;5 segundos.</li>
     </ul>
-  </section>
+  </ProjectTimelineItem>
 
 
 

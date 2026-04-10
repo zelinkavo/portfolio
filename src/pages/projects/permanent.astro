@@ -1,6 +1,7 @@
 ---
 import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
 import Badge from '../../components/ui/Badge.astro';
+import ProjectTimelineItem from '../../components/ProjectTimelineItem.astro';
 ---
 
 <CaseStudyLayout
@@ -10,18 +11,16 @@ import Badge from '../../components/ui/Badge.astro';
   projectContext="Indie GameDev — 2023"
   technologies={['Unreal Engine 5', 'Blueprints Visual Scripting', 'Behavior Trees (AI)', 'Lumen G.I.', 'WordPress', 'Level Design']}
 >
-  <section class="challenge" data-animate="fade-up">
-    <h2>El Reto</h2>
+  <ProjectTimelineItem title="El Reto" isOpen={true}>
     <p>
       El género del terror psicológico indie requiere un delicado equilibrio entre atmósfera inmersiva, rendimiento técnico y sistemas lógicos de juego tensos pero justos. Abordar en solitario el desarrollo de un título 3D completo implica abarcar programación, narrativa, diseño de nivel, iluminación e integración de audio en un motor de nivel AAA como es Unreal Engine.
     </p>
     <div class="callout">
       <strong>Objetivo:</strong> Diseñar y programar un juego completo en primera persona con mecánicas de sigilo, resolución de puzles de entorno dinámico y una IA básica para entidades hostiles, empacado en una atmósfera estresante y limitando los recursos hardware.
     </div>
-  </section>
+  </ProjectTimelineItem>
 
-  <section class="action" data-animate="fade-up">
-    <h2>La Solución</h2>
+  <ProjectTimelineItem title="La Solución">
     <p>
       Adopté Unreal Engine 5 como motor, aprovechando Lumen para la iluminación global en tiempo real (esencial para el terror) y el sistema de Blueprints para la programación orientada a eventos.
     </p>
@@ -59,10 +58,9 @@ import Badge from '../../components/ui/Badge.astro';
         </div>
       </div>
     </div>
-  </section>
+  </ProjectTimelineItem>
 
-  <section class="result" data-animate="fade-up">
-    <h2>Resultados</h2>
+  <ProjectTimelineItem title="Resultados">
     <p>
       Una vertical slice jugable y de alta fidelidad visual completa, sirviendo como demostración técnica de capacidades en motores gráficos e iteración rápida en mecánicas interactivas.
     </p>
@@ -71,7 +69,7 @@ import Badge from '../../components/ui/Badge.astro';
       <li>Optimización de recursos gráficos logrando mantener 60 FPS consistentes con Lumen activado en hardware de gama media.</li>
       <li>Ecosistema digital completo: Integración de la landing page (WordPress) con analíticas tempranas para medir la tracción orgánica del título en foros indie.</li>
     </ul>
-  </section>
+  </ProjectTimelineItem>
 
 
 

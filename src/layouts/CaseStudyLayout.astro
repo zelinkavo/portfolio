@@ -286,29 +286,9 @@ const { title, description, clusters, projectContext, technologies = [] } = Astr
   .case-study__content {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2xl);
   }
 
-  .case-study__content :global(section) {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-lg);
-    padding: var(--space-2xl);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-    transition: transform var(--transition-fast), border-color var(--transition-fast);
-  }
 
-  .case-study__content :global(section:hover) {
-    border-color: rgba(255, 255, 255, 0.1);
-  }
-
-  .case-study__content :global(h2) {
-    font-size: 1.75rem;
-    color: var(--color-text-primary);
-    margin-bottom: var(--space-lg);
-    padding-bottom: var(--space-sm);
-    border-bottom: 1px solid var(--color-border-subtle);
-  }
 
   .case-study__content :global(h3) {
     font-size: 1.25rem;
