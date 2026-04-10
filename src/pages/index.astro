@@ -185,15 +185,15 @@ import { skillClusters } from '../data/skills';
     );
   }
 
-  /* Subtle ambient glow per section */
+  /* Ambient glow per section — visible atmospheric lighting */
   section#projects::after {
     content: '';
     position: absolute;
-    top: 20%;
-    right: -10%;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(212, 162, 78, 0.03) 0%, transparent 70%);
+    top: 10%;
+    right: -15%;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(212, 162, 78, 0.10) 0%, transparent 65%);
     pointer-events: none;
     z-index: -1;
   }
@@ -201,11 +201,11 @@ import { skillClusters } from '../data/skills';
   section#skills::after {
     content: '';
     position: absolute;
-    bottom: 10%;
-    left: -10%;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(124, 149, 196, 0.03) 0%, transparent 70%);
+    bottom: 5%;
+    left: -15%;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(124, 149, 196, 0.10) 0%, transparent 65%);
     pointer-events: none;
     z-index: -1;
   }
@@ -213,11 +213,24 @@ import { skillClusters } from '../data/skills';
   section#experience::after {
     content: '';
     position: absolute;
-    top: 30%;
-    right: -5%;
-    width: 350px;
-    height: 350px;
-    background: radial-gradient(circle, rgba(91, 184, 166, 0.03) 0%, transparent 70%);
+    top: 20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(91, 184, 166, 0.08) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  section#contact::after {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(212, 162, 78, 0.07) 0%, transparent 65%);
     pointer-events: none;
     z-index: -1;
   }
