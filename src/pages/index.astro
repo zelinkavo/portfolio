@@ -29,6 +29,24 @@ import { skillClusters } from '../data/skills';
   <BentoLayout>
     <!-- ==================== PROJECTS ==================== -->
     <section id="projects" slot="projects">
+      <!-- Section background pattern — diagonal circuit lines -->
+      <div class="section-bg section-bg--projects" aria-hidden="true">
+        <svg class="section-bg__svg" viewBox="0 0 800 600" preserveAspectRatio="none" data-parallax="0.03">
+          <line x1="0" y1="100" x2="200" y2="100" stroke="rgba(212,162,78,0.06)" stroke-width="1"/>
+          <line x1="200" y1="100" x2="250" y2="50" stroke="rgba(212,162,78,0.06)" stroke-width="1"/>
+          <line x1="250" y1="50" x2="500" y2="50" stroke="rgba(212,162,78,0.04)" stroke-width="1"/>
+          <circle cx="200" cy="100" r="3" fill="rgba(212,162,78,0.12)"/>
+          <circle cx="250" cy="50" r="3" fill="rgba(212,162,78,0.08)"/>
+          <line x1="600" y1="400" x2="400" y2="400" stroke="rgba(212,162,78,0.04)" stroke-width="1"/>
+          <line x1="400" y1="400" x2="350" y2="450" stroke="rgba(212,162,78,0.06)" stroke-width="1"/>
+          <line x1="350" y1="450" x2="100" y2="450" stroke="rgba(212,162,78,0.03)" stroke-width="1"/>
+          <circle cx="400" cy="400" r="3" fill="rgba(212,162,78,0.10)"/>
+          <circle cx="350" cy="450" r="2" fill="rgba(212,162,78,0.06)"/>
+          <line x1="700" y1="200" x2="700" y2="350" stroke="rgba(212,162,78,0.03)" stroke-width="1"/>
+          <circle cx="700" cy="200" r="2" fill="rgba(212,162,78,0.08)"/>
+        </svg>
+      </div>
+
       <SectionHeader
         number="01."
         title="Proyectos"
@@ -64,6 +82,19 @@ import { skillClusters } from '../data/skills';
 
     <!-- ==================== SKILLS ==================== -->
     <section id="skills" slot="skills">
+      <!-- Section background — orbital rings -->
+      <div class="section-bg section-bg--skills" aria-hidden="true">
+        <svg class="section-bg__svg" viewBox="0 0 800 500" preserveAspectRatio="none" data-parallax="0.02">
+          <ellipse cx="400" cy="250" rx="320" ry="180" fill="none" stroke="rgba(124,149,196,0.05)" stroke-width="1"/>
+          <ellipse cx="400" cy="250" rx="220" ry="120" fill="none" stroke="rgba(124,149,196,0.04)" stroke-width="1"/>
+          <ellipse cx="400" cy="250" rx="120" ry="60" fill="none" stroke="rgba(124,149,196,0.03)" stroke-width="1"/>
+          <circle cx="720" cy="250" r="3" fill="rgba(124,149,196,0.12)"/>
+          <circle cx="80" cy="250" r="2" fill="rgba(124,149,196,0.08)"/>
+          <circle cx="400" cy="70" r="2" fill="rgba(124,149,196,0.10)"/>
+          <circle cx="400" cy="430" r="2" fill="rgba(124,149,196,0.06)"/>
+        </svg>
+      </div>
+
       <SectionHeader
         number="02."
         title="Skills"
@@ -71,15 +102,17 @@ import { skillClusters } from '../data/skills';
       />
 
       <!-- Interactive cluster cards (React island) -->
-      <SkillsRadar
-        client:visible
-        clusters={skillClusters.map(c => ({
-          id: c.id,
-          label: c.title.es,
-          color: c.color,
-          skills: c.skills.map(s => ({ name: s.name, level: s.level, cluster: s.cluster })),
-        }))}
-      />
+      <div data-animate="fade-up" style="--stagger-index: 1">
+        <SkillsRadar
+          client:visible
+          clusters={skillClusters.map(c => ({
+            id: c.id,
+            label: c.title.es,
+            color: c.color,
+            skills: c.skills.map(s => ({ name: s.name, level: s.level, cluster: s.cluster })),
+          }))}
+        />
+      </div>
 
       <!-- Static fallback for no-JS -->
       <noscript>
@@ -105,6 +138,18 @@ import { skillClusters } from '../data/skills';
 
     <!-- ==================== EXPERIENCE ==================== -->
     <section id="experience" slot="experience">
+      <!-- Section background — vertical dashed path -->
+      <div class="section-bg section-bg--experience" aria-hidden="true">
+        <svg class="section-bg__svg" viewBox="0 0 800 600" preserveAspectRatio="none" data-parallax="0.025">
+          <line x1="80" y1="0" x2="80" y2="600" stroke="rgba(91,184,166,0.04)" stroke-width="1" stroke-dasharray="4 12"/>
+          <circle cx="80" cy="80" r="2" fill="rgba(91,184,166,0.10)"/>
+          <circle cx="80" cy="280" r="2" fill="rgba(91,184,166,0.06)"/>
+          <circle cx="80" cy="480" r="2" fill="rgba(91,184,166,0.08)"/>
+          <line x1="720" y1="100" x2="720" y2="500" stroke="rgba(91,184,166,0.03)" stroke-width="1" stroke-dasharray="4 12"/>
+          <circle cx="720" cy="300" r="2" fill="rgba(91,184,166,0.06)"/>
+        </svg>
+      </div>
+
       <SectionHeader
         number="03."
         title="Experiencia"
@@ -115,6 +160,19 @@ import { skillClusters } from '../data/skills';
 
     <!-- ==================== CONTACT ==================== -->
     <section id="contact" slot="contact">
+      <!-- Section background — convergence lines -->
+      <div class="section-bg section-bg--contact" aria-hidden="true">
+        <svg class="section-bg__svg" viewBox="0 0 800 400" preserveAspectRatio="none" data-parallax="0.015">
+          <line x1="0" y1="200" x2="350" y2="200" stroke="rgba(212,162,78,0.04)" stroke-width="1"/>
+          <line x1="800" y1="200" x2="450" y2="200" stroke="rgba(212,162,78,0.04)" stroke-width="1"/>
+          <line x1="100" y1="50" x2="380" y2="190" stroke="rgba(212,162,78,0.03)" stroke-width="1"/>
+          <line x1="700" y1="350" x2="420" y2="210" stroke="rgba(212,162,78,0.03)" stroke-width="1"/>
+          <circle cx="400" cy="200" r="4" fill="rgba(212,162,78,0.10)"/>
+          <circle cx="350" cy="200" r="2" fill="rgba(212,162,78,0.06)"/>
+          <circle cx="450" cy="200" r="2" fill="rgba(212,162,78,0.06)"/>
+        </svg>
+      </div>
+
       <SectionHeader
         number="04."
         title="Contacto"
@@ -154,12 +212,84 @@ import { skillClusters } from '../data/skills';
   </BentoLayout>
 </BaseLayout>
 
+<script>
+  /**
+   * Section background parallax — lightweight scroll-based movement
+   * of decorative SVGs. Mouse parallax on desktop only.
+   */
+  function initSectionEffects() {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
+
+    const parallaxEls = document.querySelectorAll<HTMLElement>('[data-parallax]');
+    if (!parallaxEls.length) return;
+
+    // Scroll parallax — move SVG backgrounds at different rates
+    let scrollTicking = false;
+    function onScroll() {
+      if (scrollTicking) return;
+      scrollTicking = true;
+      requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        parallaxEls.forEach((el) => {
+          const speed = parseFloat(el.dataset.parallax || '0');
+          const section = el.closest('section');
+          if (!section) return;
+          const rect = section.getBoundingClientRect();
+          // Only animate when section is in view
+          if (rect.bottom > 0 && rect.top < window.innerHeight) {
+            const offset = scrollY * speed * 40;
+            el.style.transform = `translateY(${-offset}px)`;
+          }
+        });
+        scrollTicking = false;
+      });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Mouse parallax — only desktop, only on sections in view
+    if (window.innerWidth >= 768) {
+      let mouseX = 0, mouseY = 0;
+      let currentMX = 0, currentMY = 0;
+
+      document.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+        mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+      });
+
+      function animateMouse() {
+        currentMX += (mouseX - currentMX) * 0.04;
+        currentMY += (mouseY - currentMY) * 0.04;
+
+        parallaxEls.forEach((el) => {
+          const speed = parseFloat(el.dataset.parallax || '0');
+          const section = el.closest('section');
+          if (!section) return;
+          const rect = section.getBoundingClientRect();
+          if (rect.bottom > 0 && rect.top < window.innerHeight) {
+            const scrollOffset = window.scrollY * speed * 40;
+            const mx = currentMX * speed * 60;
+            const my = currentMY * speed * 30;
+            el.style.transform = `translate(${mx}px, ${-scrollOffset + my}px)`;
+          }
+        });
+        requestAnimationFrame(animateMouse);
+      }
+      animateMouse();
+    }
+  }
+
+  document.addEventListener('astro:page-load', initSectionEffects);
+  initSectionEffects();
+</script>
+
 <style>
-  /* ==================== SECTION ATMOSPHERE ==================== */
+  /* ==================== SECTION BASE ==================== */
   section {
     padding-top: var(--section-padding);
     padding-bottom: var(--section-padding);
     position: relative;
+    overflow: hidden;
   }
 
   section#hero {
@@ -185,54 +315,41 @@ import { skillClusters } from '../data/skills';
     );
   }
 
-  /* Ambient glow per section — visible atmospheric lighting */
-  section#projects::after {
-    content: '';
+  /* ==================== SECTION BACKGROUNDS ==================== */
+  .section-bg {
     position: absolute;
-    top: 10%;
-    right: -15%;
-    width: 700px;
-    height: 700px;
-    background: radial-gradient(circle, rgba(212, 162, 78, 0.10) 0%, transparent 65%);
+    inset: 0;
     pointer-events: none;
     z-index: -1;
+    overflow: hidden;
   }
 
-  section#skills::after {
-    content: '';
+  .section-bg__svg {
     position: absolute;
-    bottom: 5%;
-    left: -15%;
-    width: 700px;
-    height: 700px;
-    background: radial-gradient(circle, rgba(124, 149, 196, 0.10) 0%, transparent 65%);
-    pointer-events: none;
-    z-index: -1;
+    width: 100%;
+    height: 100%;
+    will-change: transform;
   }
 
-  section#experience::after {
-    content: '';
-    position: absolute;
-    top: 20%;
-    right: -10%;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(91, 184, 166, 0.08) 0%, transparent 65%);
-    pointer-events: none;
-    z-index: -1;
+  /* Projects — circuit lines on right side */
+  .section-bg--projects .section-bg__svg {
+    right: 0;
+    opacity: 1;
   }
 
-  section#contact::after {
-    content: '';
-    position: absolute;
-    top: 15%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 600px;
-    height: 400px;
-    background: radial-gradient(ellipse, rgba(212, 162, 78, 0.07) 0%, transparent 65%);
-    pointer-events: none;
-    z-index: -1;
+  /* Skills — orbital rings centered */
+  .section-bg--skills .section-bg__svg {
+    opacity: 0.8;
+  }
+
+  /* Experience — dashed vertical guides */
+  .section-bg--experience .section-bg__svg {
+    opacity: 1;
+  }
+
+  /* Contact — convergence pattern */
+  .section-bg--contact .section-bg__svg {
+    opacity: 0.7;
   }
 
   /* ==================== PROJECTS ==================== */
@@ -387,6 +504,10 @@ import { skillClusters } from '../data/skills';
       flex: 1;
       min-width: 120px;
       padding: var(--space-lg) var(--space-xl);
+    }
+    /* Reduce SVG complexity on mobile */
+    .section-bg__svg {
+      opacity: 0.5;
     }
   }
 </style>
