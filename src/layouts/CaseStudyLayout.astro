@@ -11,17 +11,36 @@ import Badge from '../components/ui/Badge.astro';
 interface Props {
   title: string;
   description: string;
-  category: 'ai' | 'mobile' | 'gamedev' | 'devops';
+  clusters: ('ai' | 'development' | 'infrastructure')[];
   projectContext: string;
+  technologies?: string[];
 }
 
-const { title, description, category, projectContext } = Astro.props;
+const { title, description, clusters, projectContext, technologies = [] } = Astro.props;
 ---
 
 <BaseLayout title={`${title} — Proyectos | David Oliver`} description={description}>
   
-  <article class="case-study">
-    <!-- Breadcrumb Nav -->
+  <article class="case-study section--themed">
+    <!-- Ambient Background -->
+    <div class="section__bg section__bg--project" aria-hidden="true">
+      <div class="section__grid section__grid--sparse"></div>
+      
+      {/* Dynamic Orbs based on clusters */}
+      {clusters.includes('ai') && <div class="section__orb section__orb--gold-right"></div>}
+      {clusters.includes('development') && <div class="section__orb section__orb--steel-left"></div>}
+      {clusters.includes('infrastructure') && <div class="section__orb section__orb--teal-right"></div>}
+      
+      {/* Dynamic Motes / Comets. We mix them for life */}
+      <div class={`mote ${clusters.includes('ai') ? 'mote--gold' : 'mote--steel'}`} style="top:15%;left:12%;--mote-dur:18s;--mote-dx:20px;--mote-dy:-15px"></div>
+      <div class={`mote ${clusters.includes('development') ? 'mote--steel' : 'mote--teal'}`} style="top:55%;right:18%;--mote-dur:22s;--mote-dx:-12px;--mote-dy:18px;animation-delay:-5s"></div>
+      <div class={`mote ${clusters.includes('infrastructure') ? 'mote--teal' : 'mote--gold'} mote--lg`} style="top:30%;right:35%;--mote-dur:24s;--mote-dx:-8px;--mote-dy:12px;animation-delay:-12s"></div>
+      
+      <div class={`comet ${clusters.includes('ai') ? 'comet--gold' : 'comet--steel'}`} style="top:35%;left:5%;--comet-dur:16s;--comet-tx:250px;--comet-ty:-20px;--comet-angle:-5deg"></div>
+    </div>
+
+    <div class="content-wrapper">
+      <!-- Breadcrumb Nav -->
     <nav class="case-study__nav" aria-label="Breadcrumb">
       <div class="container">
         <a href="/#projects" class="back-link">
@@ -37,13 +56,23 @@ const { title, description, category, projectContext } = Astro.props;
     <header class="case-study__header">
       <div class="container container--narrow text-center">
         <div class="case-study__meta" data-animate="fade-up">
-          <Badge variant={category === 'ai' ? 'ai' : category === 'mobile' ? 'dev' : category === 'devops' ? 'infra' : 'default'}>
-            {category}
-          </Badge>
+          {clusters.map((cluster) => (
+            <Badge variant={cluster === 'ai' ? 'ai' : cluster === 'development' ? 'dev' : 'infra'}>
+              {cluster === 'development' ? 'dev' : cluster}
+            </Badge>
+          ))}
           <span class="case-study__context">{projectContext}</span>
         </div>
         <h1 class="case-study__title" data-animate="fade-up" style="--stagger-index: 1">{title}</h1>
         <p class="case-study__subtitle" data-animate="fade-up" style="--stagger-index: 2">{description}</p>
+        
+        {technologies.length > 0 && (
+          <div class="case-study__tech-stack" data-animate="fade-up" style="--stagger-index: 3">
+            {technologies.map((tech) => (
+              <span class="tech-badge">{tech}</span>
+            ))}
+          </div>
+        )}
       </div>
     </header>
 
@@ -60,6 +89,7 @@ const { title, description, category, projectContext } = Astro.props;
         </a>
       </div>
     </footer>
+    </div> <!-- end content-wrapper -->
   </article>
 
 </BaseLayout>
@@ -76,8 +106,14 @@ const { title, description, category, projectContext } = Astro.props;
   }
 
   .case-study {
+    position: relative;
     padding-top: calc(var(--nav-height) + var(--space-xl));
     padding-bottom: var(--space-4xl);
+  }
+
+  .content-wrapper {
+    position: relative;
+    z-index: 1;
   }
 
   /* Navigation */
@@ -131,16 +167,29 @@ const { title, description, category, projectContext } = Astro.props;
     margin: 0 auto;
   }
 
-  /* Content */
+  /* Content / Bento Styles */
   .case-study__content {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3xl);
+    gap: var(--space-2xl);
+  }
+
+  .case-study__content :global(section) {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2xl);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .case-study__content :global(section:hover) {
+    border-color: rgba(255, 255, 255, 0.1);
   }
 
   .case-study__content :global(h2) {
     font-size: 1.75rem;
-    color: var(--color-accent-primary);
+    color: var(--color-text-primary);
     margin-bottom: var(--space-lg);
     padding-bottom: var(--space-sm);
     border-bottom: 1px solid var(--color-border-subtle);
@@ -233,5 +282,111 @@ const { title, description, category, projectContext } = Astro.props;
     color: var(--color-accent-primary);
     border-color: var(--color-border-accent);
     transform: translateY(-1px);
+  }
+
+  /* Tech Stack integrated */
+  .case-study__tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-xs);
+    margin-top: var(--space-xl);
+  }
+
+  .tech-badge {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: var(--space-xs) var(--space-sm);
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    transition: color var(--transition-fast), background var(--transition-fast);
+  }
+
+  .tech-badge:hover {
+    color: var(--color-text-primary);
+    background: rgba(255,255,255,0.08);
+  }
+
+  /* ==================== BACKGROUND ANIMATIONS (Borrowed from Index) ==================== */
+  .section__bg {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 100vw;
+    height: 100%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .section__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 80% 100% at 50% 0%, black 15%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 100% at 50% 0%, black 15%, transparent 70%);
+  }
+
+  .section__orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+  }
+
+  .section__orb--gold-right { width: 500px; height: 400px; top: -5%; right: 5%; background: rgba(212, 162, 78, 0.06); animation: orbFloat 16s ease-in-out infinite; }
+  .section__orb--steel-left { width: 450px; height: 450px; top: 10%; left: -5%; background: rgba(124, 149, 196, 0.05); animation: orbFloat 18s ease-in-out infinite 3s; }
+  .section__orb--teal-right { width: 500px; height: 400px; top: 30%; right: 0%; background: rgba(91, 184, 166, 0.05); animation: orbFloat 20s ease-in-out infinite 5s; }
+
+  @keyframes orbFloat {
+    0%   { transform: translate(0, 0); opacity: 1; }
+    33%  { transform: translate(15px, -20px); opacity: 0.65; }
+    66%  { transform: translate(-12px, -8px); opacity: 0.8; }
+    100% { transform: translate(0, 0); opacity: 1; }
+  }
+
+  .mote {
+    position: absolute;width: 3px;height: 3px;border-radius: 50%;
+    animation: moteDrift var(--mote-dur, 20s) ease-in-out infinite;pointer-events: none;
+  }
+  .mote--lg { width: 5px; height: 5px; }
+  .mote--gold { background: rgba(212, 162, 78, 0.5); box-shadow: 0 0 12px rgba(212, 162, 78, 0.25); }
+  .mote--steel { background: rgba(124, 149, 196, 0.5); box-shadow: 0 0 12px rgba(124, 149, 196, 0.25); }
+  .mote--teal { background: rgba(91, 184, 166, 0.5); box-shadow: 0 0 12px rgba(91, 184, 166, 0.25); }
+
+  @keyframes moteDrift {
+    0%   { transform: translate(0, 0); opacity: 0.5; }
+    25%  { transform: translate(var(--mote-dx, 10px), var(--mote-dy, -10px)); opacity: 1; }
+    50%  { transform: translate(calc(var(--mote-dx, 10px) * -0.5), calc(var(--mote-dy, -10px) * 0.7)); opacity: 0.6; }
+    75%  { transform: translate(calc(var(--mote-dx, 10px) * 0.3), calc(var(--mote-dy, -10px) * -0.4)); opacity: 1; }
+    100% { transform: translate(0, 0); opacity: 0.5; }
+  }
+
+  .comet {
+    position: absolute;width: 4px;height: 4px;border-radius: 50%;pointer-events: none;
+    animation: cometCross var(--comet-dur, 18s) linear infinite;opacity: 0;
+  }
+  .comet::after {
+    content: '';position: absolute;top: 50%;right: 100%;width: 35px;height: 2px;
+    transform: translateY(-50%) rotate(var(--comet-angle, 0deg));transform-origin: right center;border-radius: 2px;
+  }
+  .comet--gold { background: rgba(212, 162, 78, 0.6); box-shadow: 0 0 8px rgba(212, 162, 78, 0.3); }
+  .comet--gold::after { background: linear-gradient(90deg, transparent, rgba(212, 162, 78, 0.35)); }
+  .comet--steel { background: rgba(124, 149, 196, 0.6); box-shadow: 0 0 8px rgba(124, 149, 196, 0.3); }
+  .comet--steel::after { background: linear-gradient(90deg, transparent, rgba(124, 149, 196, 0.35)); }
+
+  @keyframes cometCross {
+    0%   { transform: translate(0, 0); opacity: 0; }
+    5%  { opacity: 0.7; }
+    45% { opacity: 0.5; }
+    50% { transform: translate(var(--comet-tx, 200px), var(--comet-ty, -30px)); opacity: 0.7; }
+    95% { opacity: 0.5; }
+    98% { opacity: 0; }
+    100%{ transform: translate(calc(var(--comet-tx, 200px) * 2), calc(var(--comet-ty, -30px) * 2)); opacity: 0; }
   }
 </style>

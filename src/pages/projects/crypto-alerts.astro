@@ -6,10 +6,11 @@ import Badge from '../../components/ui/Badge.astro';
 <CaseStudyLayout
   title="Simple Crypto Alerts"
   description="Aplicación móvil nativa en tiendas para monitoreo de precios y alertas push en tiempo real de criptomonedas."
-  category="mobile"
+  clusters={['development']}
   projectContext="Proyecto Propio — 2024"
+  technologies={['React Native', 'Expo', 'TypeScript', 'Zustand', 'EAS Build', 'CoinGecko API', 'Reanimated']}
 >
-  <section class="challenge">
+  <section class="challenge" data-animate="fade-up">
     <h2>El Reto</h2>
     <p>
       El ecosistema de aplicaciones crypto suele ser denso, enfocado a traders profesionales y lleno de gráficos incomprensibles para el usuario promedio que solo quiere saber cuándo Bitcoin o Ethereum alcanzan un precio objetivo. La mayoría de estas apps requieren registros pesados o cobran suscripciones mensuales solo por enviar notificaciones push.
@@ -19,7 +20,7 @@ import Badge from '../../components/ui/Badge.astro';
     </div>
   </section>
 
-  <section class="action">
+  <section class="action" data-animate="fade-up">
     <h2>La Solución</h2>
     <p>
       Elegí React Native con Expo para lograr un desarrollo ágil y mantener un único codebase. La app se diseñó con un fuerte enfoque en UX, utilizando interacciones hápticas y animaciones fluidas con Reanimated.
@@ -77,7 +78,7 @@ import Badge from '../../components/ui/Badge.astro';
     </div>
   </section>
 
-  <section class="result">
+  <section class="result" data-animate="fade-up">
     <h2>Resultados</h2>
     <p>
       El proyecto superó las validaciones de las tiendas oficiales, incluyendo las rigurosas políticas de revisión de Apple App Store respecto a la temática crypto.
@@ -89,19 +90,7 @@ import Badge from '../../components/ui/Badge.astro';
     </ul>
   </section>
 
-  <!-- Side Stack -->
-  <aside style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--color-border-subtle);">
-    <h3>Stack Tecnológico</h3>
-    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
-      <Badge variant="dev">React Native</Badge>
-      <Badge variant="dev">Expo</Badge>
-      <Badge variant="dev">TypeScript</Badge>
-      <Badge variant="dev">Zustand</Badge>
-      <Badge variant="infra">EAS Build</Badge>
-      <Badge variant="ai">CoinGecko API</Badge>
-      <Badge variant="dev">Reanimated</Badge>
-    </div>
-  </aside>
+
 
 </CaseStudyLayout>
 

@@ -7,10 +7,11 @@ import SvensonFlowDiagram from '../../components/interactive/SvensonFlowDiagram'
 <CaseStudyLayout
   title="Enterprise Appointment Orchestration"
   description="Automatización end-to-end de agendas médicas, gestión de citas y notificaciones multicanal para Clínicas Svenson."
-  category="ai"
+  clusters={['ai', 'development', 'infrastructure']}
   projectContext="Clínicas Svenson — 2024"
+  technologies={['n8n (Self-Hosted)', 'Node.js', 'Cloudflare Workers', 'OpenAI GPT-4', 'Twilio API', 'Meta WhatsApp API', 'MySQL', 'TypeScript']}
 >
-  <section class="challenge">
+  <section class="challenge" data-animate="fade-up">
     <h2>El Reto</h2>
     <p>
       Svenson enfrentaba un volumen inmanejable de llamadas entrantes para citas, cancelaciones y reubicaciones. Su sistema manual provocaba cuellos de botella en atención al cliente, tiempos de espera elevados y altas tasas de ausentismo (no-shows) por falta de confirmaciones estructuradas.
@@ -20,7 +21,7 @@ import SvensonFlowDiagram from '../../components/interactive/SvensonFlowDiagram'
     </div>
   </section>
 
-  <section class="action">
+  <section class="action" data-animate="fade-up">
     <h2>La Solución</h2>
     <p>
       Implementé una arquitectura serverless basada en Cloudflare Workers y n8n (self-hosted en VPS propio) para orquestar la integración entre los distintos proveedores y el backend de la clínica (Salesforce/CRM propietario).
@@ -40,7 +41,7 @@ import SvensonFlowDiagram from '../../components/interactive/SvensonFlowDiagram'
     </div>
   </section>
 
-  <section class="result">
+  <section class="result" data-animate="fade-up">
     <h2>Resultados</h2>
     <p>
       La implementación fue un éxito medible en los primeros 3 meses de producción. El impacto directo en el negocio fue evidente desde el primer mes completo de operación.
@@ -53,19 +54,6 @@ import SvensonFlowDiagram from '../../components/interactive/SvensonFlowDiagram'
     </ul>
   </section>
 
-  <!-- Side Stack -->
-  <aside style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--color-border-subtle);">
-    <h3>Stack Tecnológico</h3>
-    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
-      <Badge variant="ai">n8n (Self-Hosted)</Badge>
-      <Badge variant="dev">Node.js</Badge>
-      <Badge variant="infra">Cloudflare Workers</Badge>
-      <Badge variant="ai">OpenAI GPT-4</Badge>
-      <Badge variant="infra">Twilio API</Badge>
-      <Badge variant="infra">Meta WhatsApp API</Badge>
-      <Badge variant="dev">MySQL</Badge>
-      <Badge variant="dev">TypeScript</Badge>
-    </div>
-  </aside>
+
 
 </CaseStudyLayout>

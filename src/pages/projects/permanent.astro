@@ -6,10 +6,11 @@ import Badge from '../../components/ui/Badge.astro';
 <CaseStudyLayout
   title="Permanent — Hope & Vacuum"
   description="Desarrollo integral de un videojuego de terror psicológico en primera persona empleando Unreal Engine 5."
-  category="gamedev"
+  clusters={['development']}
   projectContext="Indie GameDev — 2023"
+  technologies={['Unreal Engine 5', 'Blueprints Visual Scripting', 'Behavior Trees (AI)', 'Lumen G.I.', 'WordPress', 'Level Design']}
 >
-  <section class="challenge">
+  <section class="challenge" data-animate="fade-up">
     <h2>El Reto</h2>
     <p>
       El género del terror psicológico indie requiere un delicado equilibrio entre atmósfera inmersiva, rendimiento técnico y sistemas lógicos de juego tensos pero justos. Abordar en solitario el desarrollo de un título 3D completo implica abarcar programación, narrativa, diseño de nivel, iluminación e integración de audio en un motor de nivel AAA como es Unreal Engine.
@@ -19,7 +20,7 @@ import Badge from '../../components/ui/Badge.astro';
     </div>
   </section>
 
-  <section class="action">
+  <section class="action" data-animate="fade-up">
     <h2>La Solución</h2>
     <p>
       Adopté Unreal Engine 5 como motor, aprovechando Lumen para la iluminación global en tiempo real (esencial para el terror) y el sistema de Blueprints para la programación orientada a eventos.
@@ -60,7 +61,7 @@ import Badge from '../../components/ui/Badge.astro';
     </div>
   </section>
 
-  <section class="result">
+  <section class="result" data-animate="fade-up">
     <h2>Resultados</h2>
     <p>
       Una vertical slice jugable y de alta fidelidad visual completa, sirviendo como demostración técnica de capacidades en motores gráficos e iteración rápida en mecánicas interactivas.
@@ -72,18 +73,7 @@ import Badge from '../../components/ui/Badge.astro';
     </ul>
   </section>
 
-  <!-- Side Stack -->
-  <aside style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--color-border-subtle);">
-    <h3>Stack Tecnológico</h3>
-    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
-      <Badge variant="infra">Unreal Engine 5</Badge>
-      <Badge variant="dev">Blueprints Visual Scripting</Badge>
-      <Badge variant="dev">Behavior Trees (AI)</Badge>
-      <Badge variant="ai">Lumen G.I.</Badge>
-      <Badge variant="dev">WordPress</Badge>
-      <Badge variant="infra">Level Design</Badge>
-    </div>
-  </aside>
+
 
 </CaseStudyLayout>
 
