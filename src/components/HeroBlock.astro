@@ -1,51 +1,105 @@
 ---
 /**
- * HeroBlock.astro — Modular hero section
- * 
+ * HeroBlock.astro — Modular hero section with parallax depth
+ *
  * Features:
- * - Subtle grid aesthetic
- * - Clean typography
- * - Slot for future 3D content (Phase 3)
+ * - Multi-layer parallax effect (mouse-driven)
+ * - Animated grid & glow
+ * - Monogram with float animation
+ * - Staggered text entry
  */
 ---
 
-<div class="hero">
-  <!-- Subtle grid background -->
-  <div class="hero__grid" aria-hidden="true"></div>
+<div class="hero" id="hero-parallax">
+  <!-- Background layers for parallax depth -->
+  <div class="hero__layer hero__layer--bg" data-depth="0.02">
+    <div class="hero__grid" aria-hidden="true"></div>
+  </div>
 
-  <!-- Warm accent glow -->
-  <div class="hero__glow" aria-hidden="true"></div>
-
-  <div class="hero__content">
-    <div class="hero__monogram" data-animate="scale-in">
-      <span class="hero__monogram-text" aria-hidden="true">DO</span>
+  <div class="hero__layer hero__layer--mid" data-depth="0.05">
+    <div class="hero__glow" aria-hidden="true"></div>
+    <!-- Floating particles -->
+    <div class="hero__particles" aria-hidden="true">
+      <span class="hero__particle" style="--x: 15%; --y: 25%; --size: 3px; --delay: 0s;"></span>
+      <span class="hero__particle" style="--x: 80%; --y: 30%; --size: 2px; --delay: 1.2s;"></span>
+      <span class="hero__particle" style="--x: 25%; --y: 70%; --size: 4px; --delay: 0.7s;"></span>
+      <span class="hero__particle" style="--x: 70%; --y: 65%; --size: 2px; --delay: 2s;"></span>
+      <span class="hero__particle" style="--x: 50%; --y: 15%; --size: 3px; --delay: 1.5s;"></span>
+      <span class="hero__particle" style="--x: 90%; --y: 75%; --size: 2px; --delay: 0.3s;"></span>
     </div>
+  </div>
 
-    <div class="hero__title-block">
-      <p class="hero__greeting">David Oliver</p>
-      <h1 class="hero__title">
-        Senior Full Stack Developer
-        <span class="hero__amp">&</span>
-        AI Solutions Engineer
-      </h1>
-      <p class="hero__tagline">
-        Orquestador de sistemas autónomos y ecosistemas digitales
-      </p>
-    </div>
+  <div class="hero__layer hero__layer--fg" data-depth="0.08">
+    <div class="hero__content">
+      <div class="hero__monogram" data-animate="scale-in">
+        <span class="hero__monogram-text" aria-hidden="true">DO</span>
+      </div>
 
-    <!-- Tech stack — subtle, mono -->
-    <div class="hero__stack">
-      {['Python', 'TypeScript', 'React', 'Docker', 'Cloudflare'].map((tech, i) => (
-        <span class="hero__stack-item" style={`--stagger-index: ${i}`} data-animate="fade-up">
-          {tech}
-        </span>
-      ))}
+      <div class="hero__title-block">
+        <p class="hero__greeting" data-animate="fade-up" style="--stagger-index: 0">David Oliver</p>
+        <h1 class="hero__title" data-animate="fade-up" style="--stagger-index: 1">
+          Senior Full Stack Developer
+          <span class="hero__amp">&</span>
+          AI Solutions Engineer
+        </h1>
+        <p class="hero__tagline" data-animate="fade-up" style="--stagger-index: 2">
+          Orquestador de sistemas autónomos y ecosistemas digitales
+        </p>
+      </div>
+
+      <!-- Tech stack -->
+      <div class="hero__stack">
+        {['Python', 'TypeScript', 'React', 'Docker', 'Cloudflare'].map((tech, i) => (
+          <span class="hero__stack-item" style={`--stagger-index: ${i + 3}`} data-animate="fade-up">
+            {tech}
+          </span>
+        ))}
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="hero__scroll" data-animate="fade-in" style="--stagger-index: 5" aria-hidden="true">
+        <div class="hero__scroll-line"></div>
+      </div>
     </div>
-    
-    <!-- Future 3D or Interactive Slot -->
-    <slot name="hero-interactive" />
   </div>
 </div>
+
+<script>
+  function initParallax() {
+    const hero = document.getElementById('hero-parallax');
+    if (!hero || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const layers = hero.querySelectorAll<HTMLElement>('[data-depth]');
+    let ticking = false;
+
+    hero.addEventListener('mousemove', (e) => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const rect = hero.getBoundingClientRect();
+        const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
+        const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
+
+        layers.forEach((layer) => {
+          const depth = parseFloat(layer.dataset.depth || '0');
+          const moveX = x * depth * 100;
+          const moveY = y * depth * 100;
+          layer.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        });
+        ticking = false;
+      });
+    });
+
+    hero.addEventListener('mouseleave', () => {
+      layers.forEach((layer) => {
+        layer.style.transform = 'translate(0, 0)';
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initParallax);
+  initParallax();
+</script>
 
 <style>
   .hero {
@@ -56,6 +110,19 @@
     min-height: calc(100dvh - var(--nav-height));
     padding: var(--space-3xl) var(--space-xl);
     overflow: hidden;
+  }
+
+  /* Parallax layers */
+  .hero__layer {
+    position: absolute;
+    inset: -20px; /* extra space for parallax movement */
+    transition: transform 0.15s ease-out;
+  }
+
+  .hero__layer--fg {
+    position: relative;
+    inset: auto;
+    z-index: 2;
   }
 
   .hero__grid {
@@ -72,19 +139,44 @@
     position: absolute;
     width: 600px;
     height: 400px;
-    top: 20%;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     background: radial-gradient(
       ellipse,
       rgba(212, 162, 78, 0.06) 0%,
       rgba(91, 184, 166, 0.03) 40%,
       transparent 70%
     );
-    z-index: 0;
     pointer-events: none;
   }
 
+  /* Floating particles */
+  .hero__particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .hero__particle {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background: var(--color-accent-primary);
+    opacity: 0.3;
+    animation: particleFloat 4s ease-in-out infinite;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes particleFloat {
+    0%, 100% { transform: translateY(0); opacity: 0.3; }
+    50% { transform: translateY(-12px); opacity: 0.6; }
+  }
+
+  /* Content */
   .hero__content {
     position: relative;
     z-index: 2;
@@ -106,6 +198,12 @@
     justify-content: center;
     background: var(--color-bg-secondary);
     box-shadow: var(--shadow-glow);
+    animation: monogramFloat 6s ease-in-out infinite;
+  }
+
+  @keyframes monogramFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
   }
 
   .hero__monogram-text {
@@ -176,6 +274,24 @@
     border-color: var(--color-border-accent);
   }
 
+  /* Scroll indicator */
+  .hero__scroll {
+    margin-top: var(--space-lg);
+  }
+
+  .hero__scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--color-accent-primary), transparent);
+    margin: 0 auto;
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 0.8; transform: scaleY(1.2); }
+  }
+
   @media (max-width: 640px) {
     .hero {
       padding: var(--space-2xl) var(--space-md);
@@ -186,6 +302,9 @@
     }
     .hero__monogram-text {
       font-size: 1.6rem;
+    }
+    .hero__particles {
+      display: none;
     }
   }
 </style>
