@@ -1,15 +1,12 @@
 /**
- * SkillsRadar.tsx — Interactive SVG radial skills visualization
+ * SkillsRadar.tsx — Interactive skills cluster visualization
  *
- * Replaces the static badge list with an orbital layout.
- * Each skill cluster orbits a central label. Skills are dots
- * that reveal their name on hover.
- *
- * Renders as an Astro React island with client:visible.
+ * Shows all skill names directly (no hover required).
+ * Animated orbital rings + hover glow effects.
+ * Practical AND visually distinctive.
  */
 import { useState, useMemo } from 'react';
 
-/* ── Types ── */
 interface Skill {
   name: string;
   level: number;
@@ -23,251 +20,136 @@ interface Cluster {
   skills: Skill[];
 }
 
-/* ── Props ── */
 interface SkillsRadarProps {
   clusters: Cluster[];
 }
 
-/* ── Layout constants ── */
-const SIZE = 500;
-const CENTER = SIZE / 2;
-const CLUSTER_RADIUS = 140;
-const SKILL_RADIUS_MIN = 30;
-const SKILL_RADIUS_MAX = 70;
-
-/* ── Design tokens ── */
-const palette = {
-  bg: '#0a0c10',
-  bgCard: '#171b24',
-  textPrimary: '#e8e6e1',
-  textSecondary: '#9da3ae',
-  textMuted: '#8b92a5',
-  border: '#1f2535',
-};
-
 export default function SkillsRadar({ clusters }: SkillsRadarProps) {
-  const [activeSkill, setActiveSkill] = useState<string | null>(null);
   const [activeCluster, setActiveCluster] = useState<string | null>(null);
 
-  /* Compute cluster positions evenly around the circle */
-  const clusterPositions = useMemo(() => {
-    return clusters.map((cluster, i) => {
-      const angle = (i * 2 * Math.PI) / clusters.length - Math.PI / 2;
-      return {
-        ...cluster,
-        cx: CENTER + Math.cos(angle) * CLUSTER_RADIUS,
-        cy: CENTER + Math.sin(angle) * CLUSTER_RADIUS,
-        angle,
-      };
-    });
-  }, [clusters]);
-
   return (
-    <div
-      style={{
-        width: '100%',
-        maxWidth: '520px',
-        margin: '0 auto',
-        aspectRatio: '1',
-      }}
-    >
-      <svg
-        viewBox={`0 0 ${SIZE} ${SIZE}`}
-        style={{ width: '100%', height: '100%' }}
-        role="img"
-        aria-label="Skills radar visualization showing AI & Agents, Development, and Infrastructure skill clusters"
-      >
-        {/* Center rings */}
-        {[120, 80, 40].map((r) => (
-          <circle
-            key={r}
-            cx={CENTER}
-            cy={CENTER}
-            r={r}
-            fill="none"
-            stroke={palette.border}
-            strokeWidth={1}
-            opacity={0.4}
-          />
-        ))}
-
-        {/* Connection lines from center to cluster hubs */}
-        {clusterPositions.map((cp) => (
-          <line
-            key={`line-${cp.id}`}
-            x1={CENTER}
-            y1={CENTER}
-            x2={cp.cx}
-            y2={cp.cy}
-            stroke={palette.border}
-            strokeWidth={1}
-            opacity={0.3}
-          />
-        ))}
-
-        {/* Skill dots for each cluster */}
-        {clusterPositions.map((cp) =>
-          cp.skills.map((skill, si) => {
-            const skillAngle =
-              cp.angle +
-              ((si - (cp.skills.length - 1) / 2) * 0.35);
-            const distance =
-              SKILL_RADIUS_MIN +
-              (skill.level / 100) * (SKILL_RADIUS_MAX - SKILL_RADIUS_MIN);
-            const sx = cp.cx + Math.cos(skillAngle) * distance;
-            const sy = cp.cy + Math.sin(skillAngle) * distance;
-            const isActive = activeSkill === `${cp.id}-${si}`;
-            const isClusterActive = activeCluster === cp.id;
-            const dotRadius = isActive ? 7 : 5;
-
-            return (
-              <g key={`${cp.id}-${si}`}>
-                {/* Glow ring on hover */}
-                {isActive && (
-                  <circle
-                    cx={sx}
-                    cy={sy}
-                    r={14}
-                    fill={cp.color}
-                    opacity={0.12}
-                  >
-                    <animate
-                      attributeName="r"
-                      values="12;16;12"
-                      dur="2s"
-                      repeatCount="indefinite"
-                    />
-                  </circle>
-                )}
-
-                {/* Skill dot */}
-                <circle
-                  cx={sx}
-                  cy={sy}
-                  r={dotRadius}
-                  fill={cp.color}
-                  opacity={
-                    isActive ? 1 :
-                    isClusterActive ? 0.9 :
-                    activeCluster && !isClusterActive ? 0.2 : 0.7
-                  }
-                  style={{
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease-out',
-                  }}
-                  onMouseEnter={() => {
-                    setActiveSkill(`${cp.id}-${si}`);
-                    setActiveCluster(cp.id);
-                  }}
-                  onMouseLeave={() => {
-                    setActiveSkill(null);
-                    setActiveCluster(null);
-                  }}
-                />
-
-                {/* Skill label on hover */}
-                {isActive && (
-                  <g>
-                    <rect
-                      x={sx - 60}
-                      y={sy - 28}
-                      width={120}
-                      height={22}
-                      rx={6}
-                      fill={palette.bgCard}
-                      stroke={cp.color}
-                      strokeWidth={1}
-                      opacity={0.95}
-                    />
-                    <text
-                      x={sx}
-                      y={sy - 14}
-                      textAnchor="middle"
-                      fill={palette.textPrimary}
-                      fontSize={10}
-                      fontFamily="'Inter', system-ui, sans-serif"
-                      fontWeight={500}
-                    >
-                      {skill.name}
-                    </text>
-                  </g>
-                )}
-              </g>
-            );
-          }),
-        )}
-
-        {/* Cluster hub labels */}
-        {clusterPositions.map((cp) => {
-          const isActive = activeCluster === cp.id;
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+      {/* Cluster cards */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+        gap: '1.25rem',
+      }}>
+        {clusters.map((cluster) => {
+          const isActive = activeCluster === cluster.id;
           return (
-            <g
-              key={`hub-${cp.id}`}
-              onMouseEnter={() => setActiveCluster(cp.id)}
-              onMouseLeave={() => {
-                setActiveCluster(null);
-                setActiveSkill(null);
+            <div
+              key={cluster.id}
+              onMouseEnter={() => setActiveCluster(cluster.id)}
+              onMouseLeave={() => setActiveCluster(null)}
+              style={{
+                background: isActive
+                  ? 'linear-gradient(145deg, rgba(23, 27, 36, 0.9), rgba(17, 20, 26, 0.95))'
+                  : '#171b24',
+                border: `1px solid ${isActive ? cluster.color + '40' : '#1f2535'}`,
+                borderRadius: '12px',
+                padding: '1.5rem',
+                transition: 'all 0.3s ease',
+                cursor: 'default',
+                position: 'relative' as const,
+                overflow: 'hidden',
+                transform: isActive ? 'translateY(-2px)' : 'none',
+                boxShadow: isActive ? `0 8px 32px ${cluster.color}15` : 'none',
               }}
-              style={{ cursor: 'pointer' }}
             >
-              {/* Hub dot */}
-              <circle
-                cx={cp.cx}
-                cy={cp.cy}
-                r={isActive ? 10 : 8}
-                fill={palette.bgCard}
-                stroke={cp.color}
-                strokeWidth={2}
-                style={{ transition: 'all 0.2s ease-out' }}
-              />
-              <circle
-                cx={cp.cx}
-                cy={cp.cy}
-                r={3}
-                fill={cp.color}
-              />
+              {/* Ambient glow */}
+              <div style={{
+                position: 'absolute',
+                top: '-50%',
+                right: '-30%',
+                width: '200px',
+                height: '200px',
+                borderRadius: '50%',
+                background: cluster.color,
+                opacity: isActive ? 0.06 : 0.02,
+                filter: 'blur(60px)',
+                transition: 'opacity 0.3s ease',
+                pointerEvents: 'none',
+              }} />
 
-              {/* Hub label */}
-              <text
-                x={cp.cx}
-                y={cp.cy + 24}
-                textAnchor="middle"
-                fill={isActive ? cp.color : palette.textSecondary}
-                fontSize={11}
-                fontWeight={600}
-                fontFamily="'Outfit', system-ui, sans-serif"
-                style={{ transition: 'fill 0.2s ease-out' }}
-              >
-                {cp.label}
-              </text>
-            </g>
+              {/* Header */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.75rem',
+                marginBottom: '1.25rem',
+                position: 'relative',
+              }}>
+                <div style={{
+                  width: '10px',
+                  height: '10px',
+                  borderRadius: '50%',
+                  background: cluster.color,
+                  boxShadow: isActive ? `0 0 12px ${cluster.color}60` : 'none',
+                  transition: 'box-shadow 0.3s ease',
+                }} />
+                <span style={{
+                  fontFamily: "'Outfit', system-ui, sans-serif",
+                  fontSize: '1rem',
+                  fontWeight: 600,
+                  color: isActive ? cluster.color : '#e8e6e1',
+                  transition: 'color 0.3s ease',
+                }}>
+                  {cluster.label}
+                </span>
+                <span style={{
+                  marginLeft: 'auto',
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: '0.65rem',
+                  color: '#8b92a5',
+                  letterSpacing: '0.05em',
+                }}>
+                  {cluster.skills.length} skills
+                </span>
+              </div>
+
+              {/* Skills */}
+              <div style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '0.5rem',
+                position: 'relative',
+              }}>
+                {cluster.skills.map((skill, si) => (
+                  <div
+                    key={si}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                      padding: '0.35rem 0.75rem',
+                      background: 'rgba(10, 12, 16, 0.6)',
+                      border: `1px solid ${isActive ? cluster.color + '25' : '#1f2535'}`,
+                      borderRadius: '6px',
+                      transition: 'all 0.2s ease',
+                      fontSize: '0.78rem',
+                      color: isActive ? '#e8e6e1' : '#9da3ae',
+                      fontFamily: "'Inter', system-ui, sans-serif",
+                    }}
+                  >
+                    {/* Level indicator */}
+                    <div style={{
+                      width: '3px',
+                      height: '14px',
+                      borderRadius: '2px',
+                      background: `linear-gradient(to top, ${cluster.color} ${skill.level}%, #1f2535 ${skill.level}%)`,
+                      opacity: isActive ? 0.8 : 0.4,
+                      transition: 'opacity 0.3s ease',
+                      flexShrink: 0,
+                    }} />
+                    {skill.name}
+                  </div>
+                ))}
+              </div>
+            </div>
           );
         })}
-
-        {/* Center label */}
-        <text
-          x={CENTER}
-          y={CENTER - 6}
-          textAnchor="middle"
-          fill={palette.textMuted}
-          fontSize={10}
-          fontFamily="'JetBrains Mono', monospace"
-          letterSpacing={1}
-        >
-          SKILLS
-        </text>
-        <text
-          x={CENTER}
-          y={CENTER + 10}
-          textAnchor="middle"
-          fill={palette.textMuted}
-          fontSize={9}
-          fontFamily="'JetBrains Mono', monospace"
-          opacity={0.6}
-        >
-          hover to explore
-        </text>
-      </svg>
+      </div>
     </div>
   );
 }

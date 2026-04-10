@@ -3,8 +3,8 @@
  * Navigation.astro — Sticky glassmorphism navigation
  *
  * Features:
- * - Glass backdrop on scroll
- * - Mobile hamburger (CSS-only toggle, JS for aria)
+ * - Solid background on scroll
+ * - Mobile hamburger with body scroll lock
  * - Active section indicator via IntersectionObserver
  * - Skip-to-content for a11y
  */
@@ -75,7 +75,6 @@ const navItems = [
 </nav>
 
 <script>
-  // Navigation scroll behavior & mobile menu
   function initNav() {
     const nav = document.getElementById('main-nav');
     const toggle = document.getElementById('nav-toggle');
@@ -96,25 +95,35 @@ const navItems = [
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
+    function openMenu() {
+      toggle.setAttribute('aria-expanded', 'true');
+      mobile.setAttribute('aria-hidden', 'false');
+      nav.classList.add('nav--mobile-open');
+      document.body.style.overflow = 'hidden';
+      toggle.setAttribute('aria-label',
+        document.documentElement.lang === 'es' ? 'Cerrar menú' : 'Close menu'
+      );
+    }
+
+    function closeMenu() {
+      toggle.setAttribute('aria-expanded', 'false');
+      mobile.setAttribute('aria-hidden', 'true');
+      nav.classList.remove('nav--mobile-open');
+      document.body.style.overflow = '';
+      toggle.setAttribute('aria-label',
+        document.documentElement.lang === 'es' ? 'Abrir menú' : 'Open menu'
+      );
+    }
+
     // Mobile menu toggle
     toggle.addEventListener('click', () => {
       const isOpen = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', String(!isOpen));
-      mobile.setAttribute('aria-hidden', String(isOpen));
-      nav.classList.toggle('nav--mobile-open', !isOpen);
-      toggle.setAttribute('aria-label', !isOpen
-        ? (document.documentElement.lang === 'es' ? 'Cerrar menú' : 'Close menu')
-        : (document.documentElement.lang === 'es' ? 'Abrir menú' : 'Open menu')
-      );
+      isOpen ? closeMenu() : openMenu();
     });
 
     // Close mobile menu on link click
     mobile.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => {
-        toggle.setAttribute('aria-expanded', 'false');
-        mobile.setAttribute('aria-hidden', 'true');
-        nav.classList.remove('nav--mobile-open');
-      });
+      link.addEventListener('click', closeMenu);
     });
 
     // Active section tracking
@@ -142,7 +151,6 @@ const navItems = [
     }
   }
 
-  // Run on initial load and Astro page transitions
   document.addEventListener('astro:page-load', initNav);
   initNav();
 </script>
@@ -159,14 +167,16 @@ const navItems = [
   }
 
   .nav--scrolled {
-    background: rgba(10, 10, 15, 0.8);
+    background: rgba(10, 10, 15, 0.85);
     backdrop-filter: blur(20px) saturate(1.5);
     -webkit-backdrop-filter: blur(20px) saturate(1.5);
     box-shadow: 0 1px 0 var(--color-border-subtle);
   }
 
   .nav--mobile-open {
-    background: var(--color-bg-primary);
+    background: var(--color-bg-primary) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 
   .nav__inner {
@@ -177,6 +187,8 @@ const navItems = [
     margin: 0 auto;
     padding: 0 var(--space-xl);
     height: 100%;
+    position: relative;
+    z-index: 10;
   }
 
   /* ---- Logo ---- */
@@ -252,6 +264,8 @@ const navItems = [
     border: none;
     cursor: pointer;
     padding: 6px;
+    position: relative;
+    z-index: 11;
   }
 
   .nav__hamburger-line {
@@ -280,7 +294,7 @@ const navItems = [
   /* ---- Mobile Menu ---- */
   .nav__mobile {
     position: fixed;
-    top: var(--nav-height);
+    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
@@ -291,6 +305,7 @@ const navItems = [
     opacity: 0;
     visibility: hidden;
     transition: opacity var(--transition-base), visibility var(--transition-base);
+    z-index: 5;
   }
 
   .nav--mobile-open .nav__mobile {

@@ -134,9 +134,29 @@ a:hover {
   color: var(--color-accent-secondary);
 }
 
-::selection {
+/* Skip to content (a11y) */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: var(--space-md);
+  z-index: var(--z-modal);
   background: var(--color-accent-primary);
   color: var(--color-bg-primary);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: top var(--transition-fast);
+}
+
+.skip-to-content:focus {
+  top: var(--space-md);
+}
+
+::selection {
+  background-color: rgba(212, 162, 78, 0.25);
+  color: var(--color-text-primary);
 }
 
 /* Focus visible for accessibility */

@@ -70,7 +70,7 @@ import { skillClusters } from '../data/skills';
         subtitle="Clusters semánticos"
       />
 
-      <!-- Interactive radar (React island) -->
+      <!-- Interactive cluster cards (React island) -->
       <SkillsRadar
         client:visible
         clusters={skillClusters.map(c => ({
@@ -155,11 +155,78 @@ import { skillClusters } from '../data/skills';
 </BaseLayout>
 
 <style>
+  /* ==================== SECTION ATMOSPHERE ==================== */
+  section {
+    padding-top: var(--section-padding);
+    padding-bottom: var(--section-padding);
+    position: relative;
+  }
+
+  section#hero {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  /* Gradient dividers between sections */
+  section:not(#hero)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(80%, 600px);
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(212, 162, 78, 0.15) 30%,
+      rgba(124, 149, 196, 0.15) 70%,
+      transparent
+    );
+  }
+
+  /* Subtle ambient glow per section */
+  section#projects::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    right: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(212, 162, 78, 0.03) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  section#skills::after {
+    content: '';
+    position: absolute;
+    bottom: 10%;
+    left: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(124, 149, 196, 0.03) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  section#experience::after {
+    content: '';
+    position: absolute;
+    top: 30%;
+    right: -5%;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(91, 184, 166, 0.03) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
   /* ==================== PROJECTS ==================== */
   .projects-grid {
-    display: flex;
-    flex-direction: column;
-    gap: var(--bento-gap);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-lg);
   }
 
   .project-card {
@@ -181,6 +248,7 @@ import { skillClusters } from '../data/skills';
   .project-card__title {
     font-size: 1.15rem;
     color: var(--color-text-primary);
+    transition: color var(--transition-fast);
   }
 
   .project-card__subtitle {
@@ -203,9 +271,10 @@ import { skillClusters } from '../data/skills';
     border: 1px solid var(--color-border-subtle);
     border-radius: var(--radius-sm);
     letter-spacing: 0.02em;
+    transition: border-color var(--transition-fast), color var(--transition-fast);
   }
 
-  /* ==================== SKILLS ==================== */
+  /* ==================== SKILLS (noscript fallback) ==================== */
   .skills-list {
     display: flex;
     flex-direction: column;
@@ -252,22 +321,43 @@ import { skillClusters } from '../data/skills';
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--space-sm);
-    padding: var(--space-xl);
+    gap: var(--space-md);
+    padding: var(--space-xl) var(--space-2xl);
     border-radius: var(--radius-lg);
     background: var(--color-bg-card);
     border: 1px solid var(--color-border-subtle);
     color: var(--color-text-secondary);
     text-decoration: none;
     transition: all var(--transition-base);
-    min-width: 140px;
+    min-width: 160px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-link::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(212, 162, 78, 0.06);
+    filter: blur(30px);
+    opacity: 0;
+    transition: opacity var(--transition-base);
   }
 
   .contact-link:hover {
     color: var(--color-accent-primary);
     border-color: var(--color-border-accent);
     transform: translateY(-4px);
-    box-shadow: 0 8px 32px rgba(212, 162, 78, 0.10);
+    box-shadow: 0 12px 40px rgba(212, 162, 78, 0.12);
+  }
+
+  .contact-link:hover::before {
+    opacity: 1;
   }
 
   .contact-link span {
@@ -275,22 +365,15 @@ import { skillClusters } from '../data/skills';
     font-weight: 500;
   }
 
-  /* ==================== SECTIONS SPACING ==================== */
-  section {
-    padding-top: var(--section-padding);
-    padding-bottom: var(--section-padding);
-  }
-
-  section#hero {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
   /* ==================== RESPONSIVE ==================== */
   @media (max-width: 640px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
     .contact-link {
       flex: 1;
       min-width: 120px;
+      padding: var(--space-lg) var(--space-xl);
     }
   }
 </style>
