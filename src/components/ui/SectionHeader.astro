@@ -16,11 +16,54 @@ const { title, subtitle, number, align = 'left', class: className } = Astro.prop
 ---
 
 <header class:list={['section-header', `section-header--${align}`, className]} data-animate="fade-up">
-  {number && <span class="section-header__number">{number}</span>}
+  {number && (
+    <div class="section-header__top">
+      <span class="section-header__number">{number}</span>
+      <div class="section-header__scroll-line-container">
+        <div class="section-header__scroll-line-fill"></div>
+      </div>
+    </div>
+  )}
   <h2 class="section-header__title">{title}</h2>
   {subtitle && <p class="section-header__subtitle">{subtitle}</p>}
   <div class="section-header__line" aria-hidden="true"></div>
 </header>
+
+<script>
+  function initSectionHeaders() {
+    const headers = document.querySelectorAll('.section-header');
+    if (!headers.length) return;
+
+    function updateLines() {
+      const windowHeight = window.innerHeight;
+      headers.forEach(header => {
+        const fill = header.querySelector('.section-header__scroll-line-fill') as HTMLElement;
+        if (!fill) return;
+        
+        const rect = header.getBoundingClientRect();
+        
+        // Start growing when the header comes into the bottom 10% of the screen
+        const start = windowHeight * 0.9;
+        // Finish growing when it reaches the top 30% of the screen
+        const end = windowHeight * 0.3;
+        
+        let progress = (start - rect.top) / (start - end);
+        progress = Math.max(0, Math.min(1, progress));
+        
+        fill.style.width = `${progress * 100}%`;
+        fill.style.opacity = String(0.4 + progress * 0.6);
+      });
+    }
+
+    // Run once on load and on scroll
+    updateLines();
+    window.addEventListener('scroll', updateLines, { passive: true });
+  }
+
+  // Handle Astro view transitions if used
+  document.addEventListener('astro:page-load', initSectionHeaders);
+  initSectionHeaders();
+</script>
 
 <style>
   .section-header {
@@ -35,11 +78,42 @@ const { title, subtitle, number, align = 'left', class: className } = Astro.prop
     text-align: center;
   }
 
+  .section-header__top {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .section-header--center .section-header__top {
+    justify-content: center;
+  }
+
   .section-header__number {
     font-family: var(--font-mono);
     font-size: 0.85rem;
     color: var(--color-accent-primary);
     letter-spacing: 0.1em;
+  }
+
+  .section-header__scroll-line-container {
+    height: 1px;
+    width: 150px;
+    background: rgba(212, 162, 78, 0.1);
+    position: relative;
+    border-radius: 1px;
+    margin-top: 2px; /* optical alignment with text baseline */
+  }
+
+  .section-header__scroll-line-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(to right, var(--color-accent-primary), rgba(212, 162, 78, 0.3));
+    box-shadow: 0 0 8px rgba(212, 162, 78, 0.4);
+    border-radius: 1px;
+    transition: width 0.1s linear, opacity 0.1s linear;
   }
 
   .section-header__title {
