@@ -78,7 +78,7 @@ const { title, description, clusters, projectContext, technologies = [] } = Astr
 
         {/* Layer 2: The Text Content */}
         <div class="project__layer project__layer--content" data-depth="0.07">
-          <div class="container container--narrow text-center">
+          <div class="container container--narrow text-center project__content-inner">
             <div class="case-study__meta" data-animate="fade-up">
               {clusters.map((cluster) => (
                 <Badge variant={cluster === 'ai' ? 'ai' : cluster === 'development' ? 'dev' : 'infra'}>
@@ -174,6 +174,10 @@ const { title, description, clusters, projectContext, technologies = [] } = Astr
   .project__layer--content {
     position: relative;
     z-index: 2;
+  }
+
+  /* Inner wrapper for CSS float animation */
+  .project__content-inner {
     animation: contentFloat 8s ease-in-out infinite;
   }
   
