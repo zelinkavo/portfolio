@@ -22,8 +22,7 @@ const { title, description, clusters, projectContext, technologies = [] } = Astr
 <BaseLayout title={`${title} — Proyectos | David Oliver`} description={description}>
   
   <article class="case-study section--themed" id="project-top" data-clusters={clusters.join(',')}>
-    <!-- Ambient Background -->
-    <div class="section__bg section__bg--project" id="project-bg" aria-hidden="true">
+    <div class="section__bg section__bg--project" aria-hidden="true">
       <div class="section__grid section__grid--sparse"></div>
       
       {/* Dynamic Orbs based on clusters */}
@@ -31,8 +30,19 @@ const { title, description, clusters, projectContext, technologies = [] } = Astr
       {clusters.includes('development') && <div class="section__orb section__orb--steel-left"></div>}
       {clusters.includes('infrastructure') && <div class="section__orb section__orb--teal-right"></div>}
       
-      {/* Canvas particles (spectacular dots and comets, performant) */}
-      <canvas class="project__particles" id="project-particles"></canvas>
+      {/* High Density Top (Hero equivalent) */}
+      <div class={`mote ${clusters.includes('ai') ? 'mote--gold' : 'mote--steel'}`} style="top:5%;left:12%;--mote-dur:18s;--mote-dx:20px;--mote-dy:-15px"></div>
+      <div class={`mote ${clusters.includes('development') ? 'mote--steel' : 'mote--teal'}`} style="top:15%;right:18%;--mote-dur:22s;--mote-dx:-12px;--mote-dy:18px;animation-delay:-5s"></div>
+      <div class={`mote ${clusters.includes('infrastructure') ? 'mote--teal' : 'mote--gold'} mote--lg`} style="top:8%;right:35%;--mote-dur:24s;--mote-dx:-8px;--mote-dy:12px;animation-delay:-12s"></div>
+      <div class={`comet ${clusters.includes('ai') ? 'comet--gold' : 'comet--steel'}`} style="top:12%;left:5%;--comet-dur:16s;--comet-tx:250px;--comet-ty:-20px;--comet-angle:-5deg"></div>
+      
+      {/* Medium Density Middle (Content equivalent) */}
+      <div class={`mote ${clusters.includes('development') ? 'mote--steel' : 'mote--gold'}`} style="top:45%;left:25%;--mote-dur:20s;--mote-dx:15px;--mote-dy:-10px;animation-delay:-8s"></div>
+      <div class={`mote ${clusters.includes('infrastructure') ? 'mote--teal' : 'mote--steel'}`} style="top:60%;right:22%;--mote-dur:26s;--mote-dx:-18px;--mote-dy:14px;animation-delay:-3s"></div>
+      <div class={`comet ${clusters.includes('development') ? 'comet--steel' : 'comet--teal'} comet--reverse`} style="top:55%;right:10%;--comet-dur:20s;--comet-tx:-200px;--comet-ty:-25px;--comet-angle:8deg;animation-delay:-7s"></div>
+
+      {/* Low Density Bottom (Footer equivalent) */}
+      <div class={`mote ${clusters.includes('ai') ? 'mote--gold' : 'mote--teal'} mote--lg`} style="top:85%;left:45%;--mote-dur:30s;--mote-dx:-10px;--mote-dy:-15px;animation-delay:-16s"></div>
     </div>
 
     <div class="content-wrapper">
@@ -113,20 +123,8 @@ const { title, description, clusters, projectContext, technologies = [] } = Astr
   }
 
   .section__bg--project {
-    height: 120vh;
-    z-index: -1;
-    mask-image: linear-gradient(to bottom, black 0%, black 40%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 40%, transparent 100%);
-    transition: opacity 0.1s linear;
-  }
-
-  .project__particles {
-    position: absolute;
-    inset: 0;
-    width: 100%;
     height: 100%;
-    pointer-events: none;
-    z-index: 1;
+    z-index: 0;
   }
 
   /* Navigation */
@@ -403,153 +401,3 @@ const { title, description, clusters, projectContext, technologies = [] } = Astr
     100%{ transform: translate(calc(var(--comet-tx, 200px) * 2), calc(var(--comet-ty, -30px) * 2)); opacity: 0; }
   }
 </style>
-
-<script>
-  function initProjectParticles() {
-    const bgContainer = document.getElementById('project-bg');
-    const canvas = document.getElementById('project-particles');
-    if (!canvas || !bgContainer) return;
-    
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    // Detect primary color based on active clusters
-    const article = document.getElementById('project-top');
-    const clustersAttr = article?.getAttribute('data-clusters') || '';
-    
-    // Default to steel (development), then override if others are present
-    let r = 124, g = 149, b = 196; // steel
-    if (clustersAttr.includes('ai')) {
-      r = 212; g = 162; b = 78; // gold
-    } else if (clustersAttr.includes('infrastructure')) {
-      r = 91; g = 184; b = 166; // teal
-    }
-    const colorStr = `${r}, ${g}, ${b}`;
-
-    function resize() {
-      const dpr = Math.min(window.devicePixelRatio, 2);
-      canvas.width = bgContainer.offsetWidth * dpr;
-      canvas.height = bgContainer.offsetHeight * dpr;
-      ctx.scale(dpr, dpr);
-    }
-    resize();
-    window.addEventListener('resize', resize);
-
-    const PARTICLE_COUNT = 30; // Slightly fewer than hero
-    const COMET_COUNT = 6;
-    const particles = [];
-    const w = () => bgContainer.offsetWidth;
-    const h = () => bgContainer.offsetHeight;
-
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-      const isComet = i < COMET_COUNT;
-      const goesRight = isComet ? (i % 2 === 0) : true;
-      particles.push({
-        x: Math.random() * w(),
-        y: Math.random() * h(),
-        baseY: Math.random() * h(),
-        size: isComet ? 2 + Math.random() * 2 : 1.5 + Math.random() * 2.5,
-        speed: isComet ? 0.2 + Math.random() * 0.2 : 0.1 + Math.random() * 0.3,
-        opacity: isComet ? 0.3 + Math.random() * 0.3 : 0.1 + Math.random() * 0.3,
-        phase: Math.random() * Math.PI * 2,
-        drift: isComet
-          ? (goesRight ? 1 : -1) * (0.5 + Math.random() * 0.6)
-          : (Math.random() - 0.5) * 0.2,
-        isComet,
-        trail: [],
-      });
-    }
-
-    let frameCount = 0;
-    let animationId;
-    let currentOpacity = 1;
-
-    function drawParticles() {
-      // Don't draw if invisible due to scroll
-      if (currentOpacity <= 0) {
-        animationId = requestAnimationFrame(drawParticles);
-        return;
-      }
-      
-      ctx.clearRect(0, 0, w(), h());
-      frameCount++;
-
-      for (const p of particles) {
-        const prevX = p.x;
-        const prevY = p.y;
-        p.y = p.baseY + Math.sin(frameCount * 0.008 * p.speed + p.phase) * 25;
-        p.x += p.drift;
-
-        if (p.x < -10) { p.x = w() + 10; p.trail = []; }
-        if (p.x > w() + 10) { p.x = -10; p.trail = []; }
-
-        const pulse = 0.7 + 0.3 * Math.sin(frameCount * 0.012 + p.phase);
-
-        if (p.isComet) {
-          p.trail.push({ x: p.x, y: p.y });
-          if (p.trail.length > 45) p.trail.shift();
-
-          if (p.trail.length > 2) {
-            const len = p.trail.length;
-            for (let t = 1; t < len; t++) {
-              const progress = t / len;
-              const alpha = progress * p.opacity * pulse * 0.8 * currentOpacity;
-              const lineWidth = p.size * progress * 1.2;
-              ctx.beginPath();
-              ctx.moveTo(p.trail[t - 1].x, p.trail[t - 1].y);
-              ctx.lineTo(p.trail[t].x, p.trail[t].y);
-              ctx.strokeStyle = `rgba(${colorStr}, ${alpha})`;
-              ctx.lineWidth = lineWidth;
-              ctx.lineCap = 'round';
-              ctx.stroke();
-            }
-          }
-
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${colorStr}, ${p.opacity * pulse * 0.2 * currentOpacity})`;
-          ctx.fill();
-        }
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${colorStr}, ${p.opacity * pulse * currentOpacity})`;
-        ctx.fill();
-
-        if (!p.isComet && p.size > 2.5) {
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${colorStr}, ${p.opacity * pulse * 0.1 * currentOpacity})`;
-          ctx.fill();
-        }
-      }
-      animationId = requestAnimationFrame(drawParticles);
-    }
-    
-    drawParticles();
-
-    // Scroll opacity fade
-    function updateScrollFade() {
-      const scrollMax = Math.min(window.innerHeight * 0.8, 800);
-      const scrollY = window.scrollY;
-      
-      // Calculate opacity from 1 to 0 based on scroll depth
-      let newOpacity = 1 - (scrollY / scrollMax);
-      newOpacity = Math.max(0, Math.min(1, newOpacity));
-      
-      // Reduce intensity
-      currentOpacity = newOpacity;
-      // We also dim the whole background block gradually
-      bgContainer.style.opacity = String(0.2 + (0.8 * newOpacity)); 
-    }
-    
-    window.addEventListener('scroll', updateScrollFade, { passive: true });
-    updateScrollFade();
-  }
-
-  document.addEventListener('astro:page-load', initProjectParticles);
-  initProjectParticles();
-</script>
