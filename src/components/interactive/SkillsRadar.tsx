@@ -280,9 +280,9 @@ export default function SkillsRadar({ clusters }: SkillsRadarProps) {
           // Inject custom properties for colors to match cluster branding
           const cardStyle = {
             '--node-color': cluster.color,
-            '--node-color-alpha': \`\${cluster.color}60\`,   // border lines / gradients
-            '--node-color-bg': \`\${cluster.color}15\`,      // semi-transparent bg
-            '--node-color-shadow': \`\${cluster.color}20\`,  // shadow glow
+            '--node-color-alpha': `${cluster.color}60`,   // border lines / gradients
+            '--node-color-bg': `${cluster.color}15`,      // semi-transparent bg
+            '--node-color-shadow': `${cluster.color}20`,  // shadow glow
           } as React.CSSProperties;
 
           return (
