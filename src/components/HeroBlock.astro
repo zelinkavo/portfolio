@@ -47,38 +47,24 @@
         </p>
       </div>
 
-      <div class="hero__portfolio-meta" data-animate="fade-up" style="--stagger-index: 3">
-        <div class="hero__meta-header">
-          <span class="hero__meta-line" aria-hidden="true"></span>
-          <h2 class="hero__meta-title">Portfolio Architecture & Performance</h2>
-          <span class="hero__meta-line" aria-hidden="true"></span>
+      <div class="hero__engineering-specs" data-animate="fade-up" style="--stagger-index: 3">
+        <div class="spec-group">
+          <span class="spec-key">Core Stack</span>
+          <span class="spec-value">Astro <span class="spec-dot">·</span> React <span class="spec-dot">·</span> TS</span>
         </div>
-
-        <div class="hero__meta-body">
-          <div class="hero__stack">
-            {['Astro', 'TypeScript', 'React', 'Tailwind', 'Cloudflare', 'Human-AI Colab'].map((tech, i) => (
-              <span class="hero__stack-item" style={`--stagger-index: ${i + 4}`} data-animate="fade-up">
-                {tech}
+        <div class="spec-divider" aria-hidden="true"></div>
+        <div class="spec-group">
+          <span class="spec-key">Infrastructure</span>
+          <span class="spec-value">Cloudflare <span class="spec-dot">·</span> Tailwind <span class="spec-dot">·</span> Human-AI</span>
+        </div>
+        <div class="spec-divider" aria-hidden="true"></div>
+        <div class="spec-group">
+          <span class="spec-key">Lighthouse (100)</span>
+          <div class="spec-scores">
+            {['Perf', 'A11y', 'BP', 'SEO'].map((label) => (
+              <span class="score-badge green" title={`100 ${label}`}>
+                {label}
               </span>
-            ))}
-          </div>
-
-          <div class="hero__lighthouse" data-animate="fade-up" style="--stagger-index: 5">
-            {[
-              { label: 'Rendimiento', value: 100, metric: 'LCP 0.7s' },
-              { label: 'Accesibilidad', value: 100, metric: 'ARIA 100%' },
-              { label: 'Prácticas', value: 100, metric: 'PWA Ready' },
-              { label: 'SEO', value: 100, metric: 'Indexado' },
-            ].map((item, i) => (
-              <div class="lighthouse-item" style={`--stagger-index: ${i + 6}`}>
-                <svg class="lighthouse-ring" viewBox="0 0 36 36">
-                  <path class="circle-bg" d="M18 2.0845a 15.9155 15.9155 0 0 1 0 31.831a 15.9155 15.9155 0 0 1 0 -31.831" />
-                  <path class="circle" stroke-dasharray="100, 100" d="M18 2.0845a 15.9155 15.9155 0 0 1 0 31.831a 15.9155 15.9155 0 0 1 0 -31.831" />
-                  <text x="18" y="21.5" class="percentage">{item.value}</text>
-                </svg>
-                <span class="lighthouse-label">{item.label}</span>
-                <div class="lighthouse-tooltip">{item.metric}</div>
-              </div>
             ))}
           </div>
         </div>
@@ -443,89 +429,82 @@
     margin: 0 auto;
   }
 
-  .hero__portfolio-meta {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-md);
-    margin-top: var(--space-md);
-    padding: var(--space-lg) var(--space-xl);
-    background: rgba(17, 20, 26, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.03);
-    border-radius: var(--radius-lg);
-    position: relative;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  }
-
-  .hero__portfolio-meta::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: var(--radius-lg);
-    padding: 1px;
-    background: linear-gradient(180deg, rgba(212,162,78,0.1), transparent 60%);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-  }
-
-  .hero__meta-header {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-    margin-bottom: var(--space-xs);
-  }
-
-  .hero__meta-title {
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    color: var(--color-text-secondary);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    font-weight: 500;
-  }
-
-  .hero__meta-line {
-    width: 24px;
-    height: 1px;
-    background: var(--color-border-subtle);
-    opacity: 0.5;
-  }
-
-  .hero__meta-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-lg);
-  }
-
-  .hero__stack {
+  /* --- Engineering Specs (Minimalist layout) --- */
+  .hero__engineering-specs {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     justify-content: center;
-    gap: var(--space-sm);
+    gap: var(--space-xl);
+    margin-top: var(--space-2xl);
+    padding: var(--space-md) var(--space-xl);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.02) 20%, rgba(255, 255, 255, 0.02) 80%, transparent);
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    width: 100%;
+    max-width: 760px;
   }
 
-  .hero__stack-item {
+  .spec-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .spec-key {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.65rem;
     color: var(--color-text-muted);
-    background: rgba(17, 20, 26, 0.6);
-    border: 1px solid var(--color-border-subtle);
-    padding: var(--space-xs) var(--space-md);
-    border-radius: var(--radius-sm);
-    transition: all var(--transition-fast);
-    letter-spacing: 0.02em;
-    backdrop-filter: blur(8px);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
 
-  .hero__stack-item:hover {
-    color: var(--color-accent-primary);
-    border-color: var(--color-border-accent);
-    box-shadow: 0 0 16px rgba(212, 162, 78, 0.1);
+  .spec-value {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .spec-dot {
+    color: rgba(255,255,255,0.15);
+    font-size: 0.8rem;
+  }
+
+  .spec-divider {
+    width: 1px;
+    height: 32px;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.1), transparent);
+  }
+
+  .spec-scores {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .score-badge {
+    position: relative;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 2px;
+  }
+
+  .score-badge.green::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #0cce6b;
+    box-shadow: 0 0 8px rgba(12, 206, 107, 0.6);
   }
 
   /* Scroll CTA — line grows on scroll */
@@ -609,118 +588,29 @@
     }
   }
 
-  /* --- Lighthouse Metrics --- */
-  .hero__lighthouse {
-    display: flex;
-    justify-content: center;
-    gap: var(--space-xl);
-    position: relative;
-    pointer-events: auto; /* allows hover over elements */
-  }
-
-  .lighthouse-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-xs);
-    position: relative;
-    cursor: default;
-  }
-
-  .lighthouse-ring {
-    width: 60px;
-    height: 60px;
-    filter: drop-shadow(0 0 8px rgba(12, 206, 107, 0.3));
-    transition: filter 0.3s ease, transform 0.3s ease;
-  }
-
-  .lighthouse-item:hover .lighthouse-ring {
-    filter: drop-shadow(0 0 16px rgba(12, 206, 107, 0.8));
-    transform: translateY(-2px) scale(1.05);
-  }
-
-  .lighthouse-ring .circle-bg {
-    fill: none;
-    stroke: rgba(12, 206, 107, 0.1);
-    stroke-width: 2;
-  }
-
-  .lighthouse-ring .circle {
-    fill: rgba(12, 206, 107, 0.05);
-    stroke: #0cce6b;
-    stroke-width: 2.2;
-    stroke-linecap: round;
-    animation: fillRing 1.5s ease-out forwards;
-  }
-
-  @keyframes fillRing {
-    0% { stroke-dasharray: 0, 100; }
-    100% { stroke-dasharray: 100, 100; }
-  }
-
-  .lighthouse-ring .percentage {
-    fill: #0cce6b;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 500;
-    text-anchor: middle;
-  }
-
-  .lighthouse-label {
-    font-family: var(--font-sans);
-    font-size: 0.70rem;
-    color: var(--color-text-muted);
-    letter-spacing: 0.05em;
-    transition: color 0.3s ease;
-  }
-
-  .lighthouse-item:hover .lighthouse-label {
-    color: var(--color-text);
-  }
-
-  .lighthouse-tooltip {
-    position: absolute;
-    top: 110%;
-    left: 50%;
-    transform: translateX(-50%) translateY(5px);
-    background: rgba(12, 206, 107, 0.08);
-    color: #0cce6b;
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    padding: 4px 8px;
-    border-radius: 4px;
-    border: 1px solid rgba(12, 206, 107, 0.2);
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-    backdrop-filter: blur(4px);
-    z-index: 10;
-  }
-
-  .lighthouse-item:hover .lighthouse-tooltip {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
-  }
-
   @media (max-width: 640px) {
-    .hero__portfolio-meta {
-      padding: var(--space-md) var(--space-md);
-      margin-top: var(--space-sm);
+    .hero__engineering-specs {
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-lg);
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin-top: var(--space-xl);
     }
-    .hero__meta-title {
-      font-size: 0.55rem;
+
+    .spec-divider {
+      display: none;
     }
-    .hero__lighthouse {
-      gap: var(--space-md);
+    
+    .spec-group {
+      width: 100%;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      padding-bottom: var(--space-sm);
     }
-    .lighthouse-ring {
-      width: 48px;
-      height: 48px;
-    }
-    .lighthouse-label {
-      font-size: 0.65rem;
+    
+    .spec-group:last-child {
+      border-bottom: none;
     }
   }
 </style>
