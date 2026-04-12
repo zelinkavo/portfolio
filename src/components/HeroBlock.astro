@@ -60,7 +60,15 @@
       <div class="hero__engineering-specs" data-animate="fade-up" style="--stagger-index: 3">
         <div class="spec-group">
           <span class="spec-key">Core Architecture</span>
-          <span class="spec-value">Astro 6 <span class="spec-dot">·</span> React 19 <span class="spec-dot">·</span> TypeScript 5 <span class="spec-dot">·</span> Cloudflare Pages <span class="spec-dot">·</span> Tailwind CSS 4 <span class="spec-dot">·</span> React Flow 12</span>
+          <div class="tech-tags-grid">
+            <span class="tech-tag">Astro 6</span>
+            <span class="tech-tag">React 19</span>
+            <span class="tech-tag">TypeScript 5</span>
+            <span class="tech-tag">Cloudflare</span>
+            <span class="tech-tag">Tailwind 4</span>
+            <span class="tech-tag">React Flow 12</span>
+            <span class="tech-tag">Human-AI Colab</span>
+          </div>
         </div>
         <div class="spec-divider" aria-hidden="true"></div>
         <div class="spec-group">
@@ -549,21 +557,57 @@
     letter-spacing: 0.08em;
   }
 
-  .spec-value {
-    font-size: 0.85rem;
-    color: var(--color-text-secondary);
+  .tech-tags-grid {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    gap: 8px 10px;
     justify-content: center;
-    gap: 6px 8px;
-    max-width: 400px;
-    text-align: center;
+    max-width: 440px;
+    margin-top: 8px;
   }
 
-  .spec-dot {
-    color: rgba(255,255,255,0.15);
-    font-size: 0.8rem;
+  .tech-tag {
+    position: relative;
+    isolation: isolate;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    cursor: default;
+    overflow: hidden;
+  }
+
+  /* Architectural scanner light effect inside the tag */
+  .tech-tag::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(212, 162, 78, 0.25), transparent);
+    transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
+  }
+
+  /* Interaction Group (Hover one, dim others) */
+  .tech-tags-grid:has(.tech-tag:hover) .tech-tag:not(:hover) {
+    opacity: 0.35;
+    filter: blur(1px);
+    border-color: transparent;
+  }
+
+  .tech-tag:hover {
+    color: var(--color-accent-primary);
+    border-color: rgba(212, 162, 78, 0.4);
+    background: rgba(212, 162, 78, 0.08);
+    box-shadow: 0 4px 16px rgba(212, 162, 78, 0.12);
+    transform: translateY(-2px);
+  }
+
+  .tech-tag:hover::before {
+    left: 100%;
   }
 
   .spec-divider {
