@@ -46,10 +46,7 @@
       <div class="hero__title-block">
         <div class="hero__greeting-wrapper" data-animate="fade-up" style="--stagger-index: 0">
           <span class="greeting-line" aria-hidden="true"></span>
-          <div class="hero__greeting-content">
-            <span class="greeting-status" aria-hidden="true"></span>
-            <p class="hero__greeting">DAVID OLIVER</p>
-          </div>
+          <p class="hero__greeting">David Oliver</p>
           <span class="greeting-line" aria-hidden="true"></span>
         </div>
 
@@ -429,7 +426,7 @@
     inset: 0;
     background: linear-gradient(to bottom, transparent, rgba(212,162,78,0.2), transparent);
     height: 200%;
-    animation: scanline 4s linear infinite;
+    animation: scanline 3s ease-in-out infinite alternate;
   }
 
   @keyframes scanline {
@@ -498,37 +495,12 @@
     opacity: 0.5;
   }
 
-  .hero__greeting-content {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(212, 162, 78, 0.05);
-    padding: 6px 16px;
-    border: 1px solid rgba(212,162,78,0.15);
-    border-radius: 100px;
-  }
-
-  .greeting-status {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--color-accent-primary);
-    box-shadow: 0 0 8px var(--color-accent-primary);
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-
   .hero__greeting {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--color-text-primary);
-    letter-spacing: 0.25em;
+    font-size: 0.85rem;
+    color: var(--color-accent-primary);
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    font-weight: 500;
   }
 
   .hero__title {
