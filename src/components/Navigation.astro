@@ -31,8 +31,13 @@ const navItems = [
   <div class="nav__inner">
     <!-- Logo -->
     <a href="/#hero" class="nav__logo" aria-label="Ir al inicio">
-      <span class="nav__logo-text">David Oliver</span>
-      <span class="nav__logo-dot" aria-hidden="true">.</span>
+      <div class="nav__logo-mark" aria-hidden="true">
+        <span class="mark-d">D</span><span class="mark-o">O</span>
+      </div>
+      <div class="nav__logo-text">
+        <span class="text-first">DAVID</span>
+        <span class="text-last">OLIVER</span>
+      </div>
     </a>
 
     <!-- Desktop navigation links -->
@@ -197,24 +202,89 @@ const navItems = [
 
   /* ---- Logo ---- */
   .nav__logo {
-    font-family: var(--font-heading);
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--color-text-primary);
     text-decoration: none;
     display: flex;
-    align-items: baseline;
-    gap: 0;
+    align-items: center;
+    gap: 12px;
   }
 
-  .nav__logo:hover {
+  .nav__logo-mark {
+    position: relative;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(212, 162, 78, 0.3);
+    border-radius: 4px;
+    background: rgba(212, 162, 78, 0.05);
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+
+  .nav__logo-mark::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent, rgba(212, 162, 78, 0.15));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .nav__logo:hover .nav__logo-mark {
+    border-color: var(--color-accent-primary);
+    box-shadow: 0 0 12px rgba(212, 162, 78, 0.2);
+    transform: scale(1.05);
+  }
+
+  .nav__logo:hover .nav__logo-mark::before {
+    opacity: 1;
+  }
+
+  .mark-d, .mark-o {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1;
+    z-index: 1;
+  }
+
+  .mark-d {
     color: var(--color-text-primary);
   }
 
-  .nav__logo-dot {
+  .mark-o {
     color: var(--color-accent-primary);
-    font-size: 1.5rem;
-    line-height: 1;
+  }
+
+  .nav__logo-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.1;
+  }
+
+  .text-first {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .text-last {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+    margin-top: 2px;
+  }
+
+  .nav__logo:hover .text-last {
+    color: var(--color-accent-primary);
   }
 
   /* ---- Desktop Links ---- */

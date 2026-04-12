@@ -32,13 +32,24 @@
   <div class="hero__layer hero__layer--content" data-depth="0.07">
     <div class="hero__content">
       <div class="hero__monogram" data-animate="scale-in">
-        <span class="hero__monogram-text" aria-hidden="true">DO</span>
+        <div class="monogram-grid" aria-hidden="true"></div>
+        <div class="monogram-corner monogram-corner--tl"></div>
+        <div class="monogram-corner monogram-corner--tr"></div>
+        <div class="monogram-corner monogram-corner--bl"></div>
+        <div class="monogram-corner monogram-corner--br"></div>
+        <div class="hero__monogram-inner" aria-hidden="true">
+          <span class="hero__monogram-letter">D</span>
+          <span class="hero__monogram-letter hero__monogram-letter--accent">O</span>
+        </div>
       </div>
 
       <div class="hero__title-block">
         <div class="hero__greeting-wrapper" data-animate="fade-up" style="--stagger-index: 0">
           <span class="greeting-line" aria-hidden="true"></span>
-          <p class="hero__greeting">David Oliver</p>
+          <div class="hero__greeting-content">
+            <span class="greeting-status" aria-hidden="true"></span>
+            <p class="hero__greeting">DAVID OLIVER</p>
+          </div>
           <span class="greeting-line" aria-hidden="true"></span>
         </div>
 
@@ -387,29 +398,84 @@
   }
 
   .hero__monogram {
-    width: 88px;
-    height: 88px;
-    border-radius: var(--radius-lg);
-    border: 2px solid var(--color-accent-primary);
+    position: relative;
+    width: 96px;
+    height: 96px;
+    border-radius: 4px;
+    border: 1px solid rgba(212, 162, 78, 0.3);
+    background: linear-gradient(135deg, rgba(10,10,15,0.9), rgba(20,20,25,0.8));
+    backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--color-bg-secondary);
-    box-shadow: var(--shadow-glow);
+    box-shadow: 0 0 20px rgba(212, 162, 78, 0.15), inset 0 0 15px rgba(212, 162, 78, 0.05);
     animation: monogramFloat 6s ease-in-out infinite;
+    overflow: hidden;
+  }
+
+  .monogram-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(212, 162, 78, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212, 162, 78, 0.1) 1px, transparent 1px);
+    background-size: 8px 8px;
+    opacity: 0.5;
+  }
+
+  .monogram-grid::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent, rgba(212,162,78,0.2), transparent);
+    height: 200%;
+    animation: scanline 4s linear infinite;
+  }
+
+  @keyframes scanline {
+    0% { transform: translateY(-50%); }
+    100% { transform: translateY(0%); }
+  }
+
+  .monogram-corner {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-color: var(--color-accent-primary);
+    border-style: solid;
+    z-index: 2;
+  }
+  .monogram-corner--tl { top: 4px; left: 4px; border-width: 1px 0 0 1px; }
+  .monogram-corner--tr { top: 4px; right: 4px; border-width: 1px 1px 0 0; }
+  .monogram-corner--bl { bottom: 4px; left: 4px; border-width: 0 0 1px 1px; }
+  .monogram-corner--br { bottom: 4px; right: 4px; border-width: 0 1px 1px 0; }
+
+  .hero__monogram-inner {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .hero__monogram-letter {
+    font-family: var(--font-heading);
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: var(--color-text-primary);
+    letter-spacing: -0.05em;
+    line-height: 1;
+    text-shadow: 0 0 12px rgba(255,255,255,0.2);
+  }
+
+  .hero__monogram-letter--accent {
+    color: var(--color-accent-primary);
+    text-shadow: 0 0 15px rgba(212, 162, 78, 0.4);
   }
 
   @keyframes monogramFloat {
-    0%, 100% { transform: translateY(0); box-shadow: var(--shadow-glow); }
-    50% { transform: translateY(-8px); box-shadow: var(--shadow-glow-strong); }
-  }
-
-  .hero__monogram-text {
-    font-family: var(--font-heading);
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: -0.04em;
-    color: var(--color-accent-primary);
+    0%, 100% { transform: translateY(0); box-shadow: 0 0 20px rgba(212, 162, 78, 0.15), inset 0 0 15px rgba(212, 162, 78, 0.05); }
+    50% { transform: translateY(-8px); box-shadow: 0 10px 30px rgba(212, 162, 78, 0.25), inset 0 0 20px rgba(212, 162, 78, 0.1); }
   }
 
   .hero__title-block {
@@ -432,12 +498,37 @@
     opacity: 0.5;
   }
 
+  .hero__greeting-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(212, 162, 78, 0.05);
+    padding: 6px 16px;
+    border: 1px solid rgba(212,162,78,0.15);
+    border-radius: 100px;
+  }
+
+  .greeting-status {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-accent-primary);
+    box-shadow: 0 0 8px var(--color-accent-primary);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
   .hero__greeting {
     font-family: var(--font-mono);
-    font-size: 0.85rem;
-    color: var(--color-accent-primary);
-    letter-spacing: 0.15em;
+    font-size: 0.75rem;
+    color: var(--color-text-primary);
+    letter-spacing: 0.25em;
     text-transform: uppercase;
+    font-weight: 500;
   }
 
   .hero__title {
@@ -763,8 +854,8 @@
       width: 72px;
       height: 72px;
     }
-    .hero__monogram-text {
-      font-size: 1.6rem;
+    .hero__monogram-letter {
+      font-size: 1.8rem;
     }
     .tagline-bracket {
       font-size: 0.9rem;
