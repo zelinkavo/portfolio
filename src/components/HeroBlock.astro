@@ -59,13 +59,8 @@
 
       <div class="hero__engineering-specs" data-animate="fade-up" style="--stagger-index: 3">
         <div class="spec-group">
-          <span class="spec-key">Core Stack</span>
-          <span class="spec-value">Astro 6 <span class="spec-dot">·</span> React 19 <span class="spec-dot">·</span> TypeScript 5</span>
-        </div>
-        <div class="spec-divider" aria-hidden="true"></div>
-        <div class="spec-group">
-          <span class="spec-key">Infrastructure</span>
-          <span class="spec-value">Cloudflare Pages <span class="spec-dot">·</span> Tailwind CSS 4 <span class="spec-dot">·</span> React Flow 12</span>
+          <span class="spec-key">Core Architecture</span>
+          <span class="spec-value">Astro 6 <span class="spec-dot">·</span> React 19 <span class="spec-dot">·</span> TypeScript 5 <span class="spec-dot">·</span> Cloudflare Pages <span class="spec-dot">·</span> Tailwind CSS 4 <span class="spec-dot">·</span> React Flow 12</span>
         </div>
         <div class="spec-divider" aria-hidden="true"></div>
         <div class="spec-group">
@@ -558,8 +553,12 @@
     font-size: 0.85rem;
     color: var(--color-text-secondary);
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
+    gap: 6px 8px;
+    max-width: 400px;
+    text-align: center;
   }
 
   .spec-dot {
@@ -710,9 +709,10 @@
       flex-direction: column;
       align-items: center;
       gap: var(--space-lg);
-      background: transparent;
-      border: none;
-      padding: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03) 20%, rgba(255, 255, 255, 0.03) 80%, transparent);
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      padding: var(--space-md) var(--space-sm);
       margin-top: var(--space-xl);
     }
 
