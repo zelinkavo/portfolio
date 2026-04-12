@@ -2,9 +2,8 @@
  * SkillsRadar.tsx — Interactive skills cluster visualization
  *
  * Transformed into "Core Tech Nodes" to avoid generic AI Bento layouts.
- * Features a mobile-first horizontal snap-carousel (to avoid vertical monotony)
- * and an engineered "blueprint/node" aesthetic per cluster, aligned with
- * the project's architectural Card styles.
+ * Modified to use Hero Section tags instead of percentage bars.
+ * Uses system variables for typography to match website coherence.
  */
 import { useState } from 'react';
 
@@ -39,42 +38,31 @@ export default function SkillsRadar({ clusters }: SkillsRadarProps) {
         .skills-grid {
           display: flex;
           gap: 1.5rem;
-          /* Important for desktop: stretch prevents uneven heights */
           align-items: stretch;
+          /* Padding bottom to prevent shadow clipping from overflow-x */
+          padding-bottom: 2.5rem;
+          padding-top: 1rem;
         }
 
         .skill-node {
           flex: 1;
-          min-width: 0; /* flexbox fix for inner overflow */
+          min-width: 0; 
           display: flex;
         }
 
         @media (max-width: 768px) {
-           .skills-interactive-container::after {
-              content: '';
-              position: absolute;
-              top: 0; right: 0; bottom: 0;
-              width: 40px;
-              background: linear-gradient(to right, transparent, var(--color-bg-base, #0a0c10));
-              pointer-events: none;
-              z-index: 2;
-           }
           .skills-grid {
             overflow-x: auto;
             scroll-snap-type: x mandatory;
-            scroll-padding-left: 1rem; 
-            padding-left: 1rem;
-            padding-right: 2.5rem; 
-            margin-left: -1rem;
-            margin-right: -1rem;
+            padding-left: 0.5rem;
+            padding-right: 2rem; 
             scrollbar-width: none; 
-            padding-bottom: 1.5rem; 
           }
           .skills-grid::-webkit-scrollbar {
             display: none; 
           }
           .skill-node {
-            flex: 0 0 85%; /* Mobile cards take 85% width, hinting at next card */
+            flex: 0 0 88%; /* Mobile cards take 88% width so next card peeks */
             scroll-snap-align: center;
           }
         }
@@ -157,7 +145,7 @@ export default function SkillsRadar({ clusters }: SkillsRadarProps) {
           right: 20px;
           background: var(--color-bg-primary, #0a0c10); 
           padding: 0 8px;
-          font-family: "'JetBrains Mono', monospace";
+          font-family: var(--font-mono, monospace);
           font-size: 0.65rem;
           color: rgba(255,255,255,0.4);
           letter-spacing: 0.1em;
@@ -215,10 +203,10 @@ export default function SkillsRadar({ clusters }: SkillsRadarProps) {
         }
 
         .node-title {
-          font-family: "'Outfit', system-ui, sans-serif";
+          font-family: var(--font-heading, "Outfit", sans-serif);
           font-size: 1.1rem;
           font-weight: 600;
-          color: #e8e6e1;
+          color: var(--color-text-primary, #e8e6e1);
           letter-spacing: -0.01em;
           transition: color 0.3s ease;
         }
@@ -228,79 +216,73 @@ export default function SkillsRadar({ clusters }: SkillsRadarProps) {
           flex-grow: 1;
           display: flex;
           flex-direction: column;
-          gap: 1.25rem;
           position: relative;
           z-index: 2;
         }
 
-        /* Skill Item */
-        .skill-row {
+        /* --- Hero Section Tech Tags Style --- */
+        .skills-tags-grid {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px 12px;
+          max-width: 100%;
+        }
+
+        .skill-tag {
           position: relative;
-          display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
+          isolation: isolate;
+          font-family: var(--font-mono, monospace);
+          font-size: 0.75rem;
+          color: var(--color-text-secondary, #9da3ae);
+          padding: 6px 12px;
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          border-radius: 4px;
+          transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+          cursor: default;
+          overflow: hidden;
         }
 
-        .skill-meta {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-end;
+        /* Architectural scanner light effect inside the tag */
+        .skill-tag::before {
+          content: '';
+          position: absolute;
+          top: 0; left: -100%; width: 100%; height: 100%;
+          background: linear-gradient(90deg, transparent, var(--node-color-alpha), transparent);
+          transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+          z-index: -1;
         }
 
-        .skill-name {
-          font-family: "'Inter', system-ui, sans-serif";
-          font-size: 0.875rem;
-          color: rgba(255,255,255,0.7);
-          font-weight: 500;
-          transition: color 0.3s ease;
-        }
-        .node-card:hover .skill-name {
-          color: #e8e6e1;
+        /* Interaction Group (Hover one, dim others) */
+        .skills-tags-grid:has(.skill-tag:hover) .skill-tag:not(:hover) {
+          opacity: 0.35;
+          filter: blur(1px);
+          border-color: transparent;
         }
 
-        .skill-metric {
-          font-family: "'JetBrains Mono', monospace";
-          font-size: 0.7rem;
-          color: rgba(255, 255, 255, 0.3);
-          transition: color 0.3s ease;
-        }
-        .node-card:hover .skill-metric {
-          color: var(--node-color);
-          opacity: 0.9;
+        .skill-tag:hover {
+          color: var(--color-text-primary, #e8e6e1);
+          border-color: var(--node-color-alpha);
+          background: var(--node-color-bg);
+          box-shadow: 0 4px 16px var(--node-color-shadow);
+          transform: translateY(-2px);
         }
 
-        /* Futuristic Segmented Bar */
-        .skill-track {
-          display: flex;
-          gap: 3px;
-          width: 100%;
-          height: 3px;
-        }
-        
-        .skill-segment {
-          flex: 1;
-          background: rgba(255, 255, 255, 0.05);
-          transition: all 0.4s ease;
-        }
-        
-        .skill-segment.filled {
-          background: rgba(255, 255, 255, 0.15);
-        }
-        
-        .node-card:hover .skill-segment.filled {
-          background: var(--node-color);
-          box-shadow: 0 0 6px var(--node-color-alpha);
+        .skill-tag:hover::before {
+          left: 100%;
         }
 
       `}</style>
 
       <div className="skills-grid">
         {clusters.map((cluster, idx) => {
-          const isActive = activeNode === cluster.id;
-          // Inject custom properties for colors
+          // Identify if it's the hovered node, but the tags don't strictly need it to function.
+          // Inject custom properties for colors to match cluster branding
           const cardStyle = {
             '--node-color': cluster.color,
-            '--node-color-alpha': `${cluster.color}60`, // Opacity for shadows
+            '--node-color-alpha': \`\${cluster.color}60\`,   // border lines / gradients
+            '--node-color-bg': \`\${cluster.color}15\`,      // semi-transparent bg
+            '--node-color-shadow': \`\${cluster.color}20\`,  // shadow glow
           } as React.CSSProperties;
 
           return (
@@ -329,30 +311,13 @@ export default function SkillsRadar({ clusters }: SkillsRadarProps) {
                 </div>
 
                 <div className="node-content">
-                  {cluster.skills.map((skill, si) => {
-                    // Calculate segments to fill (out of 12 for finer detail)
-                    const totalSegments = 12;
-                    const filledSegments = Math.round((skill.level / 100) * totalSegments);
-                    
-                    return (
-                      <div className="skill-row" key={si}>
-                        <div className="skill-meta">
-                          <span className="skill-name">{skill.name}</span>
-                          <span className="skill-metric">{skill.level}%</span>
-                        </div>
-                        <div className="skill-track">
-                          {Array.from({ length: totalSegments }).map((_, i) => (
-                            <div 
-                              key={i} 
-                              className={`skill-segment ${i < filledSegments ? 'filled' : ''}`}
-                              // Stagger the animation of segments slightly on hover
-                              style={isActive && i < filledSegments ? { transitionDelay: `${i * 20}ms` } : {}}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    );
-                  })}
+                  <div className="skills-tags-grid">
+                    {cluster.skills.map((skill, si) => (
+                      <span className="skill-tag" key={si}>
+                        {skill.name}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
