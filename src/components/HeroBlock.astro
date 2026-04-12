@@ -59,7 +59,7 @@
 
       <div class="hero__engineering-specs" data-animate="fade-up" style="--stagger-index: 3">
         <div class="spec-group">
-          <span class="spec-key">Core Architecture</span>
+          <span class="spec-key">Core Architecture <span class="spec-key-accent">/ Human-AI Colab</span></span>
           <div class="tech-tags-grid">
             <span class="tech-tag">Astro 6</span>
             <span class="tech-tag">React 19</span>
@@ -68,7 +68,6 @@
             <span class="tech-tag">Tailwind 4</span>
             <span class="tech-tag">React Flow 12</span>
             <span class="tech-tag">Canvas API</span>
-            <span class="tech-tag">Human-AI Colab</span>
           </div>
         </div>
         <div class="spec-divider" aria-hidden="true"></div>
@@ -561,6 +560,15 @@
     color: var(--color-text-muted);
     text-transform: uppercase;
     letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .spec-key-accent {
+    color: var(--color-accent-primary);
+    opacity: 0.6;
+    font-weight: 400;
   }
 
   .tech-tags-grid {
