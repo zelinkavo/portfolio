@@ -93,8 +93,8 @@ export const experience: ExperienceEntry[] = [
   {
     id: 'bouge-senior',
     role: {
-      es: 'Responsable de desarrollo - Senior Full Stack Developer',
-      en: 'Development Lead - Senior Full Stack Developer',
+      es: 'Tech Lead & Senior Full Stack Developer',
+      en: 'Tech Lead & Senior Full Stack Developer',
     },
     company: 'Bouge S.A. · Jornada completa',
     period: {
@@ -125,8 +125,8 @@ export const experience: ExperienceEntry[] = [
   {
     id: 'freelance-senior-2015',
     role: {
-      es: 'Freelance - Senior Full Stack Developer',
-      en: 'Freelance - Senior Full Stack Developer',
+      es: 'Freelance Full Stack Developer',
+      en: 'Freelance Full Stack Developer',
     },
     company: 'Freelance',
     period: {
