@@ -40,7 +40,9 @@ const navItems = [
       {navItems.map((item) => (
         <li>
           <a href={item.href} class="nav__link">
-            {item.label[lang]}
+            <span class="nav-bracket" aria-hidden="true">[</span>
+            <span class="nav-text">{item.label[lang].toUpperCase()}</span>
+            <span class="nav-bracket" aria-hidden="true">]</span>
           </a>
         </li>
       ))}
@@ -66,7 +68,9 @@ const navItems = [
       {navItems.map((item) => (
         <li>
           <a href={item.href} class="nav__mobile-link">
-            {item.label[lang]}
+            <span class="nav-bracket" aria-hidden="true">[</span>
+            <span class="nav-text">{item.label[lang].toUpperCase()}</span>
+            <span class="nav-bracket" aria-hidden="true">]</span>
           </a>
         </li>
       ))}
@@ -221,12 +225,22 @@ const navItems = [
   }
 
   .nav__link {
-    font-size: 0.875rem;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.75rem;
     font-weight: 500;
+    letter-spacing: 0.1em;
     color: var(--color-text-secondary);
     text-decoration: none;
     padding: var(--space-xs) 0;
     position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    transition: color var(--transition-fast);
+  }
+
+  .nav__link .nav-bracket {
+    color: rgba(255, 255, 255, 0.15);
     transition: color var(--transition-fast);
   }
 
@@ -245,6 +259,11 @@ const navItems = [
   .nav__link:hover,
   .nav__link--active {
     color: var(--color-text-primary);
+  }
+
+  .nav__link:hover .nav-bracket,
+  .nav__link--active .nav-bracket {
+    color: var(--color-accent-primary);
   }
 
   .nav__link:hover::after,
@@ -322,17 +341,51 @@ const navItems = [
   }
 
   .nav__mobile-link {
-    font-family: var(--font-heading);
-    font-size: 1.75rem;
-    font-weight: 600;
+    font-family: var(--font-mono, monospace);
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
     color: var(--color-text-secondary);
     text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    padding-bottom: 0.25rem;
     transition: color var(--transition-fast);
+  }
+
+  .nav__mobile-link .nav-bracket {
+    color: rgba(255, 255, 255, 0.15);
+    transition: color var(--transition-fast);
+  }
+
+  /* Carry over the golden line effect to mobile */
+  .nav__mobile-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-accent);
+    border-radius: var(--radius-full);
+    transition: width var(--transition-base);
   }
 
   .nav__mobile-link:hover,
   .nav__mobile-link.nav__link--active {
     color: var(--color-text-primary);
+  }
+
+  .nav__mobile-link:hover .nav-bracket,
+  .nav__mobile-link.nav__link--active .nav-bracket {
+    color: var(--color-accent-primary);
+  }
+
+  .nav__mobile-link:hover::after,
+  .nav__mobile-link.nav__link--active::after {
+    width: 100%;
   }
 
   /* ---- Responsive ---- */
