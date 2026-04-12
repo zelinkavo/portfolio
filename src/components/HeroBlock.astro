@@ -76,12 +76,12 @@
           <span class="spec-key">Lighthouse Audit</span>
           <div class="spec-scores">
             {[
-              { label: 'Performance', score: 100 },
-              { label: 'Accessibility', score: 100 },
-              { label: 'Best Practices', score: 100 },
-              { label: 'SEO', score: 100 }
+              { label: 'Perf.', full: 'Performance', score: 100 },
+              { label: 'A11y.', full: 'Accessibility', score: 100 },
+              { label: 'Best P.', full: 'Best Practices', score: 100 },
+              { label: 'SEO', full: 'SEO', score: 100 }
             ].map((item) => (
-              <div class="score-badge green" title={`100 ${item.label}`}>
+              <div class="score-badge green" title={`100 ${item.full}`}>
                 <span class="score-label">{item.label}</span>
                 <span class="score-value">{item.score}</span>
               </div>
@@ -670,6 +670,23 @@
     font-size: 0.8rem;
     font-weight: 700;
     color: #0cce6b;
+  }
+
+  @media (max-width: 640px) {
+    .spec-scores {
+      gap: 6px;
+      flex-wrap: nowrap;
+    }
+    .score-badge {
+      padding: 3px 7px;
+      gap: 4px;
+    }
+    .score-label {
+      font-size: 0.65rem;
+    }
+    .score-value {
+      font-size: 0.7rem;
+    }
   }
 
   /* Scroll CTA — line grows on scroll */
