@@ -60,21 +60,27 @@
       <div class="hero__engineering-specs" data-animate="fade-up" style="--stagger-index: 3">
         <div class="spec-group">
           <span class="spec-key">Core Stack</span>
-          <span class="spec-value">Astro <span class="spec-dot">·</span> React <span class="spec-dot">·</span> TS</span>
+          <span class="spec-value">Astro 6 <span class="spec-dot">·</span> React 19 <span class="spec-dot">·</span> TypeScript 5</span>
         </div>
         <div class="spec-divider" aria-hidden="true"></div>
         <div class="spec-group">
           <span class="spec-key">Infrastructure</span>
-          <span class="spec-value">Cloudflare <span class="spec-dot">·</span> Tailwind <span class="spec-dot">·</span> Human-AI</span>
+          <span class="spec-value">Cloudflare Pages <span class="spec-dot">·</span> Tailwind CSS 4 <span class="spec-dot">·</span> React Flow 12</span>
         </div>
         <div class="spec-divider" aria-hidden="true"></div>
         <div class="spec-group">
-          <span class="spec-key">Lighthouse (100)</span>
+          <span class="spec-key">Lighthouse Audit</span>
           <div class="spec-scores">
-            {['Perf', 'A11y', 'BP', 'SEO'].map((label) => (
-              <span class="score-badge green" title={`100 ${label}`}>
-                {label}
-              </span>
+            {[
+              { label: 'Performance', score: 100 },
+              { label: 'Accessibility', score: 100 },
+              { label: 'Best Practices', score: 100 },
+              { label: 'SEO', score: 100 }
+            ].map((item) => (
+              <div class="score-badge green" title={`100 ${item.label}`}>
+                <span class="score-label">{item.label}</span>
+                <span class="score-value">{item.score}</span>
+              </div>
             ))}
           </div>
         </div>
@@ -569,20 +575,29 @@
 
   .spec-scores {
     display: flex;
-    gap: 12px;
+    gap: 10px;
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .score-badge {
     position: relative;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--color-text-secondary);
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 0 2px;
+    padding: 4px 10px;
+    background: rgba(12, 206, 107, 0.04);
+    border: 1px solid rgba(12, 206, 107, 0.15);
+    border-radius: 100px;
+    transition: all 0.3s ease;
+  }
+
+  .score-badge:hover {
+    background: rgba(12, 206, 107, 0.08);
+    border-color: rgba(12, 206, 107, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(12, 206, 107, 0.1);
   }
 
   .score-badge.green::before {
@@ -593,6 +608,20 @@
     border-radius: 50%;
     background-color: #0cce6b;
     box-shadow: 0 0 8px rgba(12, 206, 107, 0.6);
+  }
+
+  .score-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.02em;
+  }
+
+  .score-value {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #0cce6b;
   }
 
   /* Scroll CTA — line grows on scroll */
