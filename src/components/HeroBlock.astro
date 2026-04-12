@@ -36,15 +36,25 @@
       </div>
 
       <div class="hero__title-block">
-        <p class="hero__greeting" data-animate="fade-up" style="--stagger-index: 0">David Oliver</p>
+        <div class="hero__greeting-wrapper" data-animate="fade-up" style="--stagger-index: 0">
+          <span class="greeting-line" aria-hidden="true"></span>
+          <p class="hero__greeting">David Oliver</p>
+          <span class="greeting-line" aria-hidden="true"></span>
+        </div>
+
         <h1 class="hero__title" data-animate="fade-up" style="--stagger-index: 1">
-          Full Stack Developer
-          <span class="hero__amp">&</span>
-          AI Solutions Engineer
+          <span class="title-primary">Full Stack Developer</span>
+          <div class="title-secondary">
+            <span class="title-amp">&amp;</span>
+            <span class="title-accent">AI Solutions Engineer</span>
+          </div>
         </h1>
-        <p class="hero__tagline" data-animate="fade-up" style="--stagger-index: 2">
-          Orquestador de sistemas digitales autónomos
-        </p>
+
+        <div class="hero__tagline-wrapper" data-animate="fade-up" style="--stagger-index: 2">
+          <span class="tagline-bracket" aria-hidden="true">[</span>
+          <p class="hero__tagline">Orquestador de sistemas digitales autónomos</p>
+          <span class="tagline-bracket" aria-hidden="true">]</span>
+        </div>
       </div>
 
       <div class="hero__engineering-specs" data-animate="fade-up" style="--stagger-index: 3">
@@ -396,37 +406,115 @@
   .hero__title-block {
     display: flex;
     flex-direction: column;
-    gap: var(--space-sm);
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .hero__greeting-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .greeting-line {
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-accent-primary), transparent);
+    opacity: 0.5;
   }
 
   .hero__greeting {
     font-family: var(--font-mono);
     font-size: 0.85rem;
     color: var(--color-accent-primary);
-    letter-spacing: 0.08em;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
   }
 
   .hero__title {
-    font-size: clamp(1.75rem, 5vw, 2.75rem);
-    line-height: 1.15;
-    color: var(--color-text-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    line-height: 1.1;
   }
 
-  .hero__amp {
-    display: block;
-    font-size: 0.6em;
-    color: var(--color-text-muted);
+  .title-primary {
+    font-size: clamp(2.2rem, 6vw, 4.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--color-text-primary);
+    text-align: center;
+  }
+
+  .title-secondary {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-top: -0.15em;
+  }
+
+  .title-amp {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--color-border-subtle);
+  }
+
+  .title-accent {
+    font-size: clamp(1.5rem, 4vw, 2.8rem);
     font-weight: 400;
-    margin: var(--space-xs) 0;
+    letter-spacing: -0.01em;
+    background: linear-gradient(90deg, var(--color-text-primary), var(--color-text-muted));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: center;
+  }
+
+  .hero__tagline-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+    padding: var(--space-sm) var(--space-xl);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 100px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  }
+
+  .tagline-bracket {
+    font-family: var(--font-mono);
+    color: var(--color-accent-primary);
+    opacity: 0.5;
+    font-size: 1.1rem;
+    font-weight: 300;
   }
 
   .hero__tagline {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: var(--color-text-secondary);
-    max-width: 440px;
-    line-height: 1.7;
-    margin: 0 auto;
+    letter-spacing: 0.03em;
+  }
+
+  @media (max-width: 640px) {
+    .title-secondary {
+      flex-direction: column;
+      gap: 0;
+    }
+    .title-amp {
+      margin: var(--space-xs) 0;
+    }
+    .hero__tagline-wrapper {
+      padding: var(--space-sm) var(--space-md);
+    }
+    .hero__tagline {
+      font-size: 0.85rem;
+      text-align: center;
+      line-height: 1.4;
+    }
   }
 
   /* --- Engineering Specs (Minimalist layout) --- */
