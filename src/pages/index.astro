@@ -55,23 +55,31 @@ import { skillClusters } from '../data/skills';
               <div class="project-card">
                 <div class="project-card__category">
                   <span class="project-card__icon" aria-hidden="true">
-                    {project.category === 'ai' ? '⚙️' : project.category === 'mobile' ? '📱' : project.category === 'gamedev' ? '🎮' : '🔧'}
+                    {project.category === 'ai' ? '✦' : project.category === 'mobile' ? '⌗' : project.category === 'gamedev' ? '◮' : '⛯'}
                   </span>
-                  {project.clusters ? project.clusters.map(cluster => (
-                    <Badge variant={cluster === 'ai' ? 'ai' : cluster === 'development' ? 'dev' : 'infra'} size="sm">
-                      {cluster === 'development' ? 'dev' : cluster}
-                    </Badge>
-                  )) : (
-                    <Badge variant={project.category === 'ai' ? 'ai' : project.category === 'mobile' ? 'dev' : project.category === 'devops' ? 'infra' : 'default'} size="sm">
-                      {project.category}
-                    </Badge>
-                  )}
+                  <div class="project-card__clusters">
+                    {project.clusters ? project.clusters.map((cluster, idx) => (
+                      <>
+                        <span class={`cluster-text cluster-text--${cluster === 'ai' ? 'ai' : cluster === 'development' ? 'dev' : 'infra'}`}>
+                          {cluster === 'development' ? 'dev' : cluster}
+                        </span>
+                        {idx < project.clusters!.length - 1 && <span class="cluster-sep">/</span>}
+                      </>
+                    )) : (
+                      <span class={`cluster-text cluster-text--${project.category === 'ai' ? 'ai' : project.category === 'mobile' ? 'dev' : project.category === 'devops' ? 'infra' : 'default'}`}>
+                        {project.category}
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <h3 class="project-card__title">{project.title.es}</h3>
                 <p class="project-card__subtitle">{project.subtitle.es}</p>
                 <div class="project-card__techs">
-                  {project.technologies.slice(0, 4).map(tech => (
-                    <span class="project-card__tech">{tech}</span>
+                  {project.technologies.slice(0, 4).map((tech, idx) => (
+                    <>
+                      <span class="project-card__tech">{tech}</span>
+                      {idx < Math.min(project.technologies.length, 4) - 1 && <span class="tech-sep">·</span>}
+                    </>
                   ))}
                 </div>
               </div>
@@ -490,52 +498,89 @@ import { skillClusters } from '../data/skills';
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: var(--space-lg);
+    gap: var(--space-xl);
   }
 
   .project-card {
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
+    height: 100%;
   }
 
   .project-card__category {
     display: flex;
     align-items: center;
     gap: var(--space-sm);
+    margin-bottom: var(--space-xs);
   }
 
   .project-card__icon {
-    font-size: 1.1rem;
+    font-size: 1rem;
+    color: var(--color-border-subtle);
+  }
+
+  .project-card__clusters {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .cluster-text--ai { color: #e8c47a; }
+  .cluster-text--dev { color: #a3b5d6; }
+  .cluster-text--infra { color: #7dd4c4; }
+  .cluster-text--default { color: var(--color-text-muted); }
+
+  .cluster-sep {
+    color: rgba(255, 255, 255, 0.15);
   }
 
   .project-card__title {
-    font-size: 1.15rem;
+    font-size: 1.3rem;
+    letter-spacing: -0.01em;
     color: var(--color-text-primary);
     transition: color var(--transition-fast);
   }
 
   .project-card__subtitle {
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     color: var(--color-text-secondary);
-    line-height: 1.5;
+    line-height: 1.6;
+    flex-grow: 1; /* Pushes tech stack to bottom */
   }
 
   .project-card__techs {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-xs);
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
   }
 
   .project-card__tech {
     font-family: var(--font-mono);
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     color: var(--color-text-muted);
-    padding: 2px var(--space-sm);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-sm);
     letter-spacing: 0.02em;
-    transition: border-color var(--transition-fast), color var(--transition-fast);
+    transition: color var(--transition-fast);
+  }
+
+  .tech-sep {
+    color: rgba(255, 255, 255, 0.15);
+    font-size: 0.8rem;
+  }
+
+  /* Interaction highlights from parent card */
+  :global(.card:hover) .project-card__title {
+    color: var(--color-accent-primary);
+  }
+  
+  :global(.card:hover) .project-card__tech {
+    color: var(--color-text-secondary);
   }
 
   /* ==================== SKILLS ==================== */
