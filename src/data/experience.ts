@@ -91,35 +91,91 @@ export const experience: ExperienceEntry[] = [
     current: false,
   },
   {
-    id: 'bouge',
+    id: 'bouge-senior',
     role: {
-      es: 'Responsable de desarrollo — Senior Full Stack Developer',
-      en: 'Development Lead — Senior Full Stack Developer',
+      es: 'Responsable de desarrollo - Senior Full Stack Developer',
+      en: 'Development Lead - Senior Full Stack Developer',
     },
-    company: 'Bouge S.A.',
+    company: 'Bouge S.A. · Jornada completa',
     period: {
-      es: 'Abr 2012 — Mar 2022 · 10 años',
-      en: 'Apr 2012 — Mar 2022 · 10 years',
+      es: 'abr. 2018 - sept. 2022 · 4 años 6 meses',
+      en: 'Apr 2018 - Sep 2022 · 4 years 6 months',
     },
     description: {
-      es: 'Liderazgo técnico y desarrollo full stack durante una década, gestionando proyectos de principio a fin.',
-      en: 'Technical leadership and full stack development across a decade, managing end-to-end projects.',
+      es: 'Liderazgo técnico y desarrollo full stack gestionando proyectos de principio a fin.',
+      en: 'Technical leadership and full stack development, managing end-to-end projects.',
     },
     achievements: {
       es: [
-        'Responsable técnico de proyectos web durante 10 años',
+        'Responsable técnico de proyectos web',
         'Evolución de stack tecnológico y migración de sistemas legacy',
         'Gestión de bases de datos y servidores de producción',
         'Mentoring a desarrolladores junior',
       ],
       en: [
-        'Technical lead for web projects across 10 years',
+        'Technical lead for web projects',
         'Technology stack evolution and legacy system migration',
         'Production database and server management',
         'Junior developer mentoring',
       ],
     },
     technologies: ['PHP', 'JavaScript', 'SQL Server', 'MySQL', 'WordPress', 'HTML/CSS'],
+    current: false,
+  },
+  {
+    id: 'freelance-senior-2015',
+    role: {
+      es: 'Freelance - Senior Full Stack Developer',
+      en: 'Freelance - Senior Full Stack Developer',
+    },
+    company: 'Freelance',
+    period: {
+      es: 'feb. 2015 - ene. 2018 · 3 años',
+      en: 'Feb 2015 - Jan 2018 · 3 years',
+    },
+    description: {
+      es: 'Desarrollo de soluciones completas de manera independiente.',
+      en: 'Full-stack solution development independently.',
+    },
+    achievements: {
+      es: [
+        'Desarrollo e implementación de proyectos a medida',
+        'Integración de sistemas y bases de datos',
+      ],
+      en: [
+        'Development and implementation of custom projects',
+        'System and database integrations',
+      ],
+    },
+    technologies: ['PHP', 'JavaScript', 'SQL Server', 'MySQL', 'HTML/CSS'],
+    current: false,
+  },
+  {
+    id: 'bouge-junior',
+    role: {
+      es: 'Desarrollador web Junior',
+      en: 'Junior Web Developer',
+    },
+    company: 'Bouge S.A. · Jornada completa',
+    period: {
+      es: 'jul. 2012 - ene. 2015 · 2 año 7 meses',
+      en: 'Jul 2012 - Jan 2015 · 2 years 7 months',
+    },
+    description: {
+      es: 'Desarrollo inicial e implementación de soluciones web en Bouge S.A.',
+      en: 'Initial development and implementation of web solutions at Bouge S.A.',
+    },
+    achievements: {
+      es: [
+        'Desarrollo de sitios corporativos y landing pages',
+        'Mantenimiento de bases de datos SQL Server y MySQL',
+      ],
+      en: [
+        'Development of corporate sites and landing pages',
+        'Maintenance of SQL Server and MySQL databases',
+      ],
+    },
+    technologies: ['PHP', 'JavaScript', 'SQL Server', 'MySQL', 'HTML/CSS'],
     current: false,
   },
 ];
