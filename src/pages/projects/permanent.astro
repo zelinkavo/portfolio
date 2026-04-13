@@ -6,55 +6,55 @@ import ProjectTimelineItem from '../../components/ProjectTimelineItem.astro';
 
 <CaseStudyLayout
   title="Permanent — Hope & Vacuum"
-  description="Desarrollo integral de un videojuego de terror psicológico en primera persona empleando Unreal Engine 5."
+  description="Desarrollo integral de un videojuego de terror psicológico y puzles en primera persona empleando Unreal Engine 5."
   clusters={['development']}
-  projectContext="Indie GameDev — 2023"
-  technologies={['Unreal Engine 5', 'Blueprints Visual Scripting', 'Behavior Trees (AI)', 'Lumen G.I.', 'WordPress', 'Level Design']}
+  projectContext="Indie GameDev — Release 2026"
+  technologies={['Unreal Engine 5', 'C++', 'Blueprints', 'Lumen & Nanite', 'MetaSounds', 'Substance Painter']}
 >
   <ProjectTimelineItem title="El Reto" isOpen={true}>
     <p>
-      El género del terror psicológico indie requiere un delicado equilibrio entre atmósfera inmersiva, rendimiento técnico y sistemas lógicos de juego tensos pero justos. Abordar en solitario el desarrollo de un título 3D completo implica abarcar programación, narrativa, diseño de nivel, iluminación e integración de audio en un motor de nivel AAA como es Unreal Engine.
+      El mayor desafío de <strong>Permanent: Hope & Vacuum</strong> es la amalgama de géneros dispares —horror psicológico, exploración de mazmorras, puzles y plataformas— en una experiencia cohesiva. El objetivo técnico era lograr una inmersión absoluta, eliminando el HUD tradicional y forzando al jugador a depender de estímulos visuales y auditivos orgánicos en un entorno hostil y cambiante.
     </p>
     <div class="callout">
-      <strong>Objetivo:</strong> Diseñar y programar un juego completo en primera persona con mecánicas de sigilo, resolución de puzles de entorno dinámico y una IA básica para entidades hostiles, empacado en una atmósfera estresante y limitando los recursos hardware.
+      <strong>Mecánica Dual:</strong> El sistema de "Esperanza" (Hope) debe funcionar como barra de salud y moneda simultáneamente, obligando al jugador a tomar decisiones estratégicas constantes entre su supervivencia y la progresión en el Lore del mundo.
     </div>
   </ProjectTimelineItem>
 
   <ProjectTimelineItem title="La Solución">
     <p>
-      Adopté Unreal Engine 5 como motor, aprovechando Lumen para la iluminación global en tiempo real (esencial para el terror) y el sistema de Blueprints para la programación orientada a eventos.
+      Se ha implementado una arquitectura modular en Unreal Engine 5, centrada en sistemas reactivos que evolucionan con el estado mental del personaje.
     </p>
     
-    <h3>Sistemas Principales</h3>
+    <h3>Innovaciones y Sistemas</h3>
     <ul>
-      <li><strong>Game Loop & Lógica (Blueprints):</strong> Implementación visual robusta mediante el sistema Blueprints de UE5, controlando estados del jugador (sanidad, stamina, inventario) e iterando rápidamente sin tiempos de compilación excesivos en C++.</li>
-      <li><strong>Mecánicas Core:</strong> Sistema de ocultación dinámico basado en colisiones y linea de visión, un sistema modular de interacción con objetos físicos y puzles de lógica vinculados a componentes del mapa.</li>
-      <li><strong>Inteligencia Artificial:</strong> Configuración de Behavior Trees y Blackboard para controlar las patrullas de las entidades enemigas, con percepciones de sonido y visión vinculadas a las acciones del jugador.</li>
-      <li><strong>Marketing Web:</strong> Creación paralela de la página promocional del juego (landing page y press kit) desarrollada sobre WordPress con un custom theme optimizado.</li>
+      <li><strong>Light of Iliran:</strong> Un sistema de habilidades elementales (fuego, manipulación de gravedad) que actúa como herramienta de combate y resolución de puzles, desbloqueándose progresivamente para alterar la navegación por los niveles.</li>
+      <li><strong>Narrativa Fragmentada (Mental Notes):</strong> Un sistema de progresión psicológica donde el personaje evoluciona mediante notas mentales y documentos adquiridos a los "Dismantos", eliminando la exposición narrativa directa.</li>
+      <li><strong>IA Sistémica (Reks):</strong> Enemigos con árboles de comportamiento complejos que reaccionan de forma no lineal al sonido y a la gestión del haz de luz del jugador.</li>
+      <li><strong>Inmersión HUD-less:</strong> Diseño de interfaz integrado en el mundo (diegetic UI), donde el estado del jugador se percibe a través del sonido de la respiración, efectos visuales de post-procesado y el brillo de la Luz de Iliran.</li>
     </ul>
 
     <!-- Game Systems Showcase -->
     <div class="game-systems" data-animate="fade-up">
       <div class="game-systems__grid">
         <div class="game-systems__card">
-          <span class="game-systems__icon">🎭</span>
-          <h4>Sistema de Sanidad</h4>
-          <p>Estado mental del jugador que afecta filtros visuales, audio y comportamiento de la IA enemiga.</p>
+          <span class="game-systems__icon">✨</span>
+          <h4>Light of Iliran</h4>
+          <p>Mecánicas de control de gravedad y fuego vinculadas a orbes neutrales y cristales de habilidad.</p>
         </div>
         <div class="game-systems__card">
-          <span class="game-systems__icon">👁️</span>
-          <h4>IA Perceptiva</h4>
-          <p>Behavior Trees con percepción de sonido y visión. La IA reacciona al ruido y al campo de visión del jugador.</p>
+          <span class="game-systems__icon">📉</span>
+          <h4>Sistema de Esperanza</h4>
+          <p>Gestión única de recursos: la esperanza es vitalidad para sobrevivir y moneda para comprar lore.</p>
         </div>
         <div class="game-systems__card">
-          <span class="game-systems__icon">🔦</span>
-          <h4>Lumen Real-Time GI</h4>
-          <p>Iluminación global dinámica que reacciona a acciones del jugador, crítica para generar la atmósfera del juego.</p>
+          <span class="game-systems__icon">👤</span>
+          <h4>Voces Reales</h4>
+          <p>Inmersión sonora mediante actoría de voz profesional para los diálogos internos del protagonista.</p>
         </div>
         <div class="game-systems__card">
-          <span class="game-systems__icon">🧩</span>
-          <h4>Puzles Modulares</h4>
-          <p>Sistema de interacción con el entorno basado en componentes reutilizables conectados por eventos.</p>
+          <span class="game-systems__icon">🚪</span>
+          <h4>Dos Finales</h4>
+          <p>Sistema de decisiones implícitas que desembocan en dos conclusiones narrativas divergentes.</p>
         </div>
       </div>
     </div>
@@ -62,13 +62,17 @@ import ProjectTimelineItem from '../../components/ProjectTimelineItem.astro';
 
   <ProjectTimelineItem title="Resultados">
     <p>
-      Una vertical slice jugable y de alta fidelidad visual completa, sirviendo como demostración técnica de capacidades en motores gráficos e iteración rápida en mecánicas interactivas.
+      El proyecto ha evolucionado desde una demostración técnica a una vertical slice completa con una identidad visual y sonora propia, destacada por su atmósfera opresiva y su pulido técnico.
     </p>
     <ul>
-      <li>Dominio profundo de la pipeline de desarrollo 3D (desde bloqueo de nivel hasta empaquetado final de binarios).</li>
-      <li>Optimización de recursos gráficos logrando mantener 60 FPS consistentes con Lumen activado en hardware de gama media.</li>
-      <li>Ecosistema digital completo: Integración de la landing page (WordPress) con analíticas tempranas para medir la tracción orgánica del título en foros indie.</li>
+      <li><strong>Optimización AA:</strong> Mantenimiento de 60 FPS estables empleando Lumen y Nanite en configuraciones de hardware medio (GTX 1060).</li>
+      <li><strong>Ecosistema Integrado:</strong> Sinergia entre el videojuego y su portal web corporativo (DOGames), centralizando el Press Kit y la comunidad de Patreon/Ko-fi.</li>
+      <li><strong>Feedback Visual Premium:</strong> Uso avanzado de VFX (Niagara) y post-procesado para comunicar daño y fatiga sin recurrir a barras de vida.</li>
     </ul>
+    <div class="cta-container">
+      <a href="https://www.permanentgame.com" target="_blank" class="btn-permanent">Visitar Web Oficial</a>
+      <a href="https://www.youtube.com/watch?v=xqpuxQ0WDAY" target="_blank" class="btn-permanent secondary">Ver Trailer</a>
+    </div>
   </ProjectTimelineItem>
 
 
@@ -117,9 +121,46 @@ import ProjectTimelineItem from '../../components/ProjectTimelineItem.astro';
     margin-bottom: 0 !important;
   }
 
+  .cta-container {
+    display: flex;
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+  }
+
+  .btn-permanent {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.8rem 1.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  .btn-permanent.secondary {
+    background: transparent;
+    border: 1px solid var(--color-border-accent);
+    color: var(--color-accent);
+  }
+
+  .btn-permanent:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--color-accent-rgb), 0.2);
+  }
+
+  .btn-permanent.secondary:hover {
+    background: rgba(var(--color-accent-rgb), 0.05);
+  }
+
   @media (max-width: 480px) {
     .game-systems__grid {
       grid-template-columns: 1fr;
+    }
+    .cta-container {
+      flex-direction: column;
     }
   }
 </style>
