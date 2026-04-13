@@ -103,20 +103,20 @@ export const projects: Project[] = [
       en: 'Permanent: Hope & Vacuum',
     },
     subtitle: {
-      es: 'Terror Psicológico en UE5 — Sistema de Esperanza y Vacío',
-      en: 'Psychological Horror in UE5 — Hope & Vacuum Systems',
+      es: 'Arquitectura de Videojuego 3D en UE5 — Sistemas y Level Design',
+      en: '3D Game Architecture in UE5 — Systems & Level Design',
     },
     challenge: {
-      es: 'Orquestar una atmósfera opresiva sin HUD que combine puzles complejos, plataformas en primera persona y un sistema de gestión de recursos donde la "Esperanza" es vida y moneda simultáneamente.',
-      en: 'Orchestrating an oppressive HUD-less atmosphere that blends complex puzzles, first-person platforming, and a resource management system where "Hope" is both life and currency.',
+      es: 'Orquestar la arquitectura técnica completa de un título 3D en Unreal Engine 5, gestionando desde el diseño de niveles y narrativa técnica hasta la optimización de sistemas de IA y renderizado en tiempo real.',
+      en: 'Orchestrating the full technical architecture of a 3D title in Unreal Engine 5, managing everything from level design and technical narrative to AI systems optimization and real-time rendering.',
     },
     action: {
-      es: 'Desarrollo integral en Unreal Engine 5 integrando el sistema "Light of Iliran" para el control de gravedad/fuego, IA reactiva ("Reks") mediante Behavior Trees y una narrativa fragmentada basada en notas mentales.',
-      en: 'Full-scale development in Unreal Engine 5 integrating the "Light of Iliran" system for gravity/fire control, reactive AI ("Reks") via Behavior Trees, and fragmented narrative based on mental notes.',
+      es: 'Implementación de sistemas híbridos C++/Blueprints, diseño de niveles mediante pipelines de Nanite/Lumen, orquestación de IA reactiva con Behavior Trees/EQS y desarrollo de herramientas de autoría personalizadas.',
+      en: 'Implementing hybrid C++/Blueprints systems, level design via Nanite/Lumen pipelines, orchestrating reactive AI with Behavior Trees/EQS, and developing custom authorship tools.',
     },
     result: {
-      es: 'Vertical slice de alta fidelidad con voces reales, banda sonora original y dos finales divergentes, optimizada para hardware medio manteniendo la visión artística AA.',
-      en: 'High-fidelity vertical slice featuring real voices, original soundtrack, and two divergent endings, optimized for mid-range hardware while maintaining AA artistic vision.',
+      es: 'Vertical slice optimizada a 60 FPS estables con una arquitectura de código desacoplada y escalable, demostrando competencia técnica integral en el desarrollo de software interactivo AAA.',
+      en: 'Optimized vertical slice at stable 60 FPS with a decoupled and scalable code architecture, demonstrating full technical competence in AAA interactive software development.',
     },
     technologies: ['Unreal Engine 5', 'C++', 'Blueprints', 'Substance Painter', 'Level Design', 'Sound Design'],
     category: 'gamedev',

@@ -5,56 +5,56 @@ import ProjectTimelineItem from '../../components/ProjectTimelineItem.astro';
 ---
 
 <CaseStudyLayout
-  title="Permanent — Hope & Vacuum"
-  description="Desarrollo integral de un videojuego de terror psicológico y puzles en primera persona empleando Unreal Engine 5."
+  title="Permanent — Game Engineering & UE5 Architecture"
+  description="Arquitectura y desarrollo técnico de un videojuego 3D complejo, abarcando desde sistemas de IA hasta pipelines de optimización en Unreal Engine 5."
   clusters={['development']}
-  projectContext="Indie GameDev — Release 2026"
-  technologies={['Unreal Engine 5', 'C++', 'Blueprints', 'Lumen & Nanite', 'MetaSounds', 'Substance Painter']}
+  projectContext="Game Engineering Project — Solo Dev"
+  technologies={['Unreal Engine 5', 'C++', 'Blueprints Visual Scripting', 'Behavior Trees & EQS', 'Nanite & Lumen', 'Profiling & Optimization']}
 >
   <ProjectTimelineItem title="El Reto" isOpen={true}>
     <p>
-      El mayor desafío de <strong>Permanent: Hope & Vacuum</strong> es la amalgama de géneros dispares —horror psicológico, exploración de mazmorras, puzles y plataformas— en una experiencia cohesiva. El objetivo técnico era lograr una inmersión absoluta, eliminando el HUD tradicional y forzando al jugador a depender de estímulos visuales y auditivos orgánicos en un entorno hostil y cambiante.
+      El desafío principal consistió en orquestar el desarrollo íntegro de un título 3D de alta fidelidad, actuando como arquitecto de sistemas, programador y diseñador de niveles. El objetivo técnico fue crear una <strong>experiencia sistémica</strong> donde todas las mecánicas (interacción, IA, narrativa técnica) estuvieran desacopladas y fueran escalables, manteniendo un rendimiento estable de 60 FPS en hardware de gama media bajo la exigente pipeline de Unreal Engine 5.
     </p>
     <div class="callout">
-      <strong>Mecánica Dual:</strong> El sistema de "Esperanza" (Hope) debe funcionar como barra de salud y moneda simultáneamente, obligando al jugador a tomar decisiones estratégicas constantes entre su supervivencia y la progresión en el Lore del mundo.
+      <strong>Core Engineering:</strong> Implementación de una arquitectura modular que permita iterar sobre la lógica de juego sin incurrir en deuda técnica, gestionando estados complejos del jugador de forma determinista.
     </div>
   </ProjectTimelineItem>
 
   <ProjectTimelineItem title="La Solución">
     <p>
-      Se ha implementado una arquitectura modular en Unreal Engine 5, centrada en sistemas reactivos que evolucionan con el estado mental del personaje.
+      Se optó por un enfoque de desarrollo híbrido, priorizando el rendimiento mediante núcleos de sistema en C++ y la flexibilidad mediante Blueprints para la capa de gameplay.
     </p>
     
-    <h3>Innovaciones y Sistemas</h3>
+    <h3>Arquitectura de Sistemas</h3>
     <ul>
-      <li><strong>Light of Iliran:</strong> Un sistema de habilidades elementales (fuego, manipulación de gravedad) que actúa como herramienta de combate y resolución de puzles, desbloqueándose progresivamente para alterar la navegación por los niveles.</li>
-      <li><strong>Narrativa Fragmentada (Mental Notes):</strong> Un sistema de progresión psicológica donde el personaje evoluciona mediante notas mentales y documentos adquiridos a los "Dismantos", eliminando la exposición narrativa directa.</li>
-      <li><strong>IA Sistémica (Reks):</strong> Enemigos con árboles de comportamiento complejos que reaccionan de forma no lineal al sonido y a la gestión del haz de luz del jugador.</li>
-      <li><strong>Inmersión HUD-less:</strong> Diseño de interfaz integrado en el mundo (diegetic UI), donde el estado del jugador se percibe a través del sonido de la respiración, efectos visuales de post-procesado y el brillo de la Luz de Iliran.</li>
+      <li><strong>Hybrid Scripting Engine:</strong> Desarrollo de clases base en C++ para gestionar sistemas críticos (atributos, inventario, movimiento básico) expuestos a Blueprints para la implementación rápida de lógica de diseño.</li>
+      <li><strong>IA Predictiva y Reactiva:</strong> Orquestación de enemigos mediante <strong>Behavior Trees</strong> y el <strong>Environment Query System (EQS)</strong> de UE, permitiendo que las entidades naveguen de forma inteligente y tomen decisiones basadas en el contexto táctico del entorno.</li>
+      <li><strong>Technical Level Design:</strong> Pipeline de diseño de niveles desde el bloquing técnico hasta el pulido final, integrando <strong>Nanite</strong> para la gestión de geometría de alta densidad y <strong>Lumen</strong> para iluminación global dinámica en tiempo real.</li>
+      <li><strong>Post-Processing & Shaders:</strong> Creación de materiales dinámicos y shaders personalizados para comunicar estados del juego directamente a través del renderizado, optimizando draw calls y memoria de texturas.</li>
     </ul>
 
-    <!-- Game Systems Showcase -->
+    <!-- Technical Systems Showcase -->
     <div class="game-systems" data-animate="fade-up">
       <div class="game-systems__grid">
         <div class="game-systems__card">
-          <span class="game-systems__icon">✨</span>
-          <h4>Light of Iliran</h4>
-          <p>Mecánicas de control de gravedad y fuego vinculadas a orbes neutrales y cristales de habilidad.</p>
+          <span class="game-systems__icon">💻</span>
+          <h4>C++ Core Systems</h4>
+          <p>Clases base optimizadas para la gestión de atributos y estados físicos del personaje.</p>
         </div>
         <div class="game-systems__card">
-          <span class="game-systems__icon">📉</span>
-          <h4>Sistema de Esperanza</h4>
-          <p>Gestión única de recursos: la esperanza es vitalidad para sobrevivir y moneda para comprar lore.</p>
+          <span class="game-systems__icon">🤖</span>
+          <h4>AI Architecture</h4>
+          <p>Uso de Blackboard y EQS para dotar a los enemigos de conciencia espacial dinámica.</p>
         </div>
         <div class="game-systems__card">
-          <span class="game-systems__icon">👤</span>
-          <h4>Voces Reales</h4>
-          <p>Inmersión sonora mediante actoría de voz profesional para los diálogos internos del protagonista.</p>
+          <span class="game-systems__icon">📐</span>
+          <h4>Modular Level Design</h4>
+          <p>Construcción basada en prototipado técnico (Whiteboxing) y kits de assets optimizados.</p>
         </div>
         <div class="game-systems__card">
-          <span class="game-systems__icon">🚪</span>
-          <h4>Dos Finales</h4>
-          <p>Sistema de decisiones implícitas que desembocan en dos conclusiones narrativas divergentes.</p>
+          <span class="game-systems__icon">⚡</span>
+          <h4>Perf. Profiling</h4>
+          <p>Uso de Unreal Insights y GPU Profiler para identificar y mitigar cuellos de botella.</p>
         </div>
       </div>
     </div>
@@ -62,16 +62,16 @@ import ProjectTimelineItem from '../../components/ProjectTimelineItem.astro';
 
   <ProjectTimelineItem title="Resultados">
     <p>
-      El proyecto ha evolucionado desde una demostración técnica a una vertical slice completa con una identidad visual y sonora propia, destacada por su atmósfera opresiva y su pulido técnico.
+      Una vertical slice que demuestra la capacidad de liderar un desarrollo 3D completo bajo estándares profesionales de la industria (GameDev AA/AAA).
     </p>
     <ul>
-      <li><strong>Optimización AA:</strong> Mantenimiento de 60 FPS estables empleando Lumen y Nanite en configuraciones de hardware medio (GTX 1060).</li>
-      <li><strong>Ecosistema Integrado:</strong> Sinergia entre el videojuego y su portal web corporativo (DOGames), centralizando el Press Kit y la comunidad de Patreon/Ko-fi.</li>
-      <li><strong>Feedback Visual Premium:</strong> Uso avanzado de VFX (Niagara) y post-procesado para comunicar daño y fatiga sin recurrir a barras de vida.</li>
+      <li><strong>Eficiencia Técnica:</strong> Optimización de recursos logrando que el título sea jugable en configuraciones de hardware base (GTX 1060) manteniendo la fidelidad visual de UE5.</li>
+      <li><strong>Código Escalable:</strong> Arquitectura basada en componentes que permite la adición de nuevas mecánicas sin refactorizar el núcleo del sistema.</li>
+      <li><strong>Pipeline Profesional:</strong> Dominio completo de la pipeline de producción desde el diseño inicial hasta el empaquetado y distribución del software.</li>
     </ul>
     <div class="cta-container">
-      <a href="https://www.permanentgame.com" target="_blank" class="btn-permanent">Visitar Web Oficial</a>
-      <a href="https://www.youtube.com/watch?v=xqpuxQ0WDAY" target="_blank" class="btn-permanent secondary">Ver Trailer</a>
+      <a href="https://www.permanentgame.com" target="_blank" class="btn-permanent">Web Técnica del Proyecto</a>
+      <a href="https://www.youtube.com/watch?v=xqpuxQ0WDAY" target="_blank" class="btn-permanent secondary">Showcase Técnico</a>
     </div>
   </ProjectTimelineItem>
 
