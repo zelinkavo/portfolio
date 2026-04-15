@@ -27,8 +27,9 @@ import ProjectTimelineItem from '../../components/ProjectTimelineItem.astro';
     
     <h3>Arquitectura de Resiliencia</h3>
     <ul>
-      <li><strong>Validación de Negocio Avanzada:</strong> Implementación de filtros de seguridad que descartan números erróneos, fijos o en "Blacklist" (EvolutionDB) mediante conexiones persistentes para minimizar la latencia.</li>
-      <li><strong>Estrategia de Fallback Inteligente:</strong> Secuencia automatizada donde el sistema intenta el envío vía WhatsApp (Plantilla 269) y, ante cualquier código de error o falta de opt-in, conmuta instantáneamente al canal SMS con normalización de caracteres GSM.</li>
+      <li><strong>Validación de Negocio Avanzada:</strong> Implementación de filtros de seguridad que descartan números erróneos, fijos o en listas negras dinámicas mediante conexiones persistentes para minimizar la latencia.</li>
+      <li><strong>Estrategia de Fallback Inteligente:</strong> Secuencia automatizada donde el sistema intenta el envío vía WhatsApp y, ante cualquier código de error o falta de opt-in, conmuta instantáneamente al canal SMS con normalización de caracteres GSM.</li>
+      <li><strong>Persistencia y Arquitectura de Datos:</strong> Diseño de un esquema relacional optimizado que centraliza el control de envíos. Cada transacción gestiona de forma atómica los estados de entrega de ambos canales (IDs de mensaje, códigos de resultado y timestamps de sincronización), permitiendo un sistema anti-duplicidad de alta precisión basado en estados transaccionales.</li>
       <li><strong>Lógica de Reintentos Automáticos:</strong> Implementación de políticas de reintento (exponential backoff) para llamadas críticas a la API de SvensonNet, asegurando la sincronización de citas incluso ante inestabilidades temporales de red.</li>
       <li><strong>Control Horario Estricto:</strong> Ventana de ejecución protegida para evitar envíos en horarios intempestivos, cumpliendo con la normativa vigente y mejorando la satisfacción del cliente.</li>
     </ul>
