@@ -67,6 +67,35 @@ export const projects: Project[] = [
     order: 1,
   },
   {
+    id: 'svenson-reminders',
+    slug: 'svenson-reminders',
+    title: {
+      es: 'Critical Messaging Engine',
+      en: 'Critical Messaging Engine',
+    },
+    subtitle: {
+      es: 'Notificaciones Omnicanal — Resiliencia y Fallback',
+      en: 'Omnichannel Notifications — Resilience & Fallback',
+    },
+    challenge: {
+      es: 'Garantizar la entrega de recordatorios médicos críticos superando fallos de red, respetando ventanas horarias legales y gestionando listas negras dinámicas sin impacto en el rendimiento.',
+      en: 'Ensuring delivery of critical medical reminders bypassing network failures, respecting legal time windows, and managing dynamic blacklists without performance impact.',
+    },
+    action: {
+      es: 'Desarrollo de un orquestador en PHP con lógica de fallback automático WhatsApp-to-SMS, validación regex de telefonía española y optimización de base de datos mediante conexiones persistentes.',
+      en: 'PHP orchestrator development with automatic WhatsApp-to-SMS fallback logic, Spanish telephony regex validation, and database optimization via persistent connections.',
+    },
+    result: {
+      es: 'Sistema 100% auditable con trazabilidad total de entregas, reducción de ausentismo y arquitectura capaz de procesar miles de registros con reintentos automáticos.',
+      en: '100% auditable system with full delivery traceability, reduced absenteeism, and an architecture capable of processing thousands of records with automatic retries.',
+    },
+    technologies: ['PHP', 'MySQL', 'SQL Server', 'WhatsApp API', 'SMS API', 'Business Logic'],
+    category: 'development',
+    clusters: ['development', 'infrastructure'],
+    featured: true,
+    order: 2,
+  },
+  {
     id: 'crypto-alerts',
     slug: 'crypto-alerts',
     title: {
@@ -93,7 +122,7 @@ export const projects: Project[] = [
     category: 'mobile',
     clusters: ['development'],
     featured: true,
-    order: 2,
+    order: 3,
   },
   {
     id: 'permanent',
@@ -122,7 +151,7 @@ export const projects: Project[] = [
     category: 'gamedev',
     clusters: ['development'],
     featured: true,
-    order: 3,
+    order: 4,
   },
   {
     id: 'infra',
@@ -151,6 +180,6 @@ export const projects: Project[] = [
     category: 'devops',
     clusters: ['infrastructure', 'development'],
     featured: true,
-    order: 4,
+    order: 5,
   },
 ];

@@ -1,0 +1,124 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+import Badge from '../../components/ui/Badge.astro';
+import ProjectTimelineItem from '../../components/ProjectTimelineItem.astro';
+---
+
+<CaseStudyLayout
+  title="Critical Messaging Engine"
+  description="Motor de notificaciones de alta disponibilidad con fallback inteligente WhatsApp/SMS y validación de reglas de negocio en tiempo real."
+  clusters={['development', 'infrastructure']}
+  projectContext="Clínicas Svenson — Performance & Resilience"
+  technologies={['PHP 8.2', 'MySQL', 'SQL Server (ODBC)', 'WhatsApp API (S1)', 'SMS Gateway', 'OAuth2']}
+>
+  <ProjectTimelineItem title="El Reto" isOpen={true}>
+    <p>
+      Svenson requería un sistema de recordatorio de citas que garantizara la entrega bajo cualquier circunstancia, respetando estrictas regulaciones de privacidad y horarios de contacto. El sistema anterior sufría de falta de trazabilidad y no gestionaba eficientemente los fallos de entrega en el canal principal.
+    </p>
+    <div class="callout">
+      <strong>Objetivo:</strong> Desarrollar un "Orquestador de Mensajería" capaz de procesar lotes masivos de citas, validar números móviles, consultar listas negras dinámicas y ejecutar un fallback a SMS en milisegundos si WhatsApp no estaba disponible.
+    </div>
+  </ProjectTimelineItem>
+
+  <ProjectTimelineItem title="La Solución">
+    <p>
+      Diseñé un motor en PHP enfocado en la resiliencia y la auditabilidad. La arquitectura se basa en un ciclo de vida de procesamiento por lotes con validaciones granulares en cada etapa.
+    </p>
+    
+    <h3>Arquitectura de Resiliencia</h3>
+    <ul>
+      <li><strong>Validación de Negocio Avanzada:</strong> Implementación de filtros de seguridad que descartan números erróneos, fijos o en "Blacklist" (EvolutionDB) mediante conexiones persistentes para minimizar la latencia.</li>
+      <li><strong>Estrategia de Fallback Inteligente:</strong> Secuencia automatizada donde el sistema intenta el envío vía WhatsApp (Plantilla 269) y, ante cualquier código de error o falta de opt-in, conmuta instantáneamente al canal SMS con normalización de caracteres GSM.</li>
+      <li><strong>Lógica de Reintentos Automáticos:</strong> Implementación de políticas de reintento (exponential backoff) para llamadas críticas a la API de SvensonNet, asegurando la sincronización de citas incluso ante inestabilidades temporales de red.</li>
+      <li><strong>Control Horario Estricto:</strong> Ventana de ejecución protegida para evitar envíos en horarios intempestivos, cumpliendo con la normativa vigente y mejorando la satisfacción del cliente.</li>
+    </ul>
+
+    <!-- Technical Specs Grid -->
+    <div class="tech-specs" data-animate="fade-up">
+      <div class="tech-specs__grid">
+        <div class="tech-specs__card">
+          <span class="tech-specs__icon">🛡️</span>
+          <h4>SQL Protection</h4>
+          <p>Escapado integral de variables y uso de servicios de base de datos desacoplados para prevenir inyecciones.</p>
+        </div>
+        <div class="tech-specs__card">
+          <span class="tech-specs__icon">🔄</span>
+          <h4>Auto-Retry Engine</h4>
+          <p>Lógica de 3 niveles de reintento para autenticación y descarga de lotes de citas vía API SvensonNet.</p>
+        </div>
+        <div class="tech-specs__card">
+          <span class="tech-specs__icon">📊</span>
+          <h4>Unified Auditing</h4>
+          <p>Sistema de trazabilidad en SQL que registra cada intento, canal utilizado y motivo de descarte para auditoría total.</p>
+        </div>
+        <div class="tech-specs__card">
+          <span class="tech-specs__icon">📱</span>
+          <h4>Phone Validator</h4>
+          <p>Microservicio interno para limpieza y validación Regex de telefonía móvil española (6xx/7xx).</p>
+        </div>
+      </div>
+    </div>
+  </ProjectTimelineItem>
+
+  <ProjectTimelineItem title="Resultados">
+    <p>
+      El sistema se consolidó como la columna vertebral de comunicación de citas de la compañía, operando con una tasa de error técnico inferior al 0.5% y una trazabilidad del 100%.
+    </p>
+    <ul>
+      <li>Reducción significativa del absentismo gracias al sistema de doble canal (WhatsApp + SMS).</li>
+      <li>Eliminación de molestias a clientes por duplicidad de mensajes mediante el sistema de verificación de estado integrado en base de datos.</li>
+      <li>Arquitectura 100% auditable: Los reclutadores y auditores de negocio pueden verificar el estado de entrega y los logs de ejecución de cada lote en tiempo real.</li>
+      <li>Gestión eficiente de lotes: Procesamiento optimizado capaz de manejar miles de citas diarias sin degradación del rendimiento del servidor.</li>
+    </ul>
+  </ProjectTimelineItem>
+
+</CaseStudyLayout>
+
+<style>
+  .tech-specs {
+    margin: 2rem 0;
+  }
+
+  .tech-specs__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  .tech-specs__card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    transition: border-color var(--transition-fast);
+  }
+
+  .tech-specs__card:hover {
+    border-color: var(--color-border-accent);
+  }
+
+  .tech-specs__icon {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: var(--space-sm);
+  }
+
+  .tech-specs__card h4 {
+    font-size: 0.9rem;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-xs);
+  }
+
+  .tech-specs__card p {
+    font-size: 0.75rem !important;
+    color: var(--color-text-muted) !important;
+    line-height: 1.5 !important;
+    margin-bottom: 0 !important;
+  }
+
+  @media (max-width: 480px) {
+    .tech-specs__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
