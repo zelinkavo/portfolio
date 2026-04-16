@@ -6,27 +6,28 @@ import ProjectTimelineItem from '../../components/ProjectTimelineItem.astro';
 ---
 
 <CaseStudyLayout
-  title="Enterprise Appointment Orchestration"
+  title="Enterprise AI Orchestration"
   description="Implementación de IA Generativa y orquestación multi-agente para la automatización de agendas médicas y resolución de dudas."
   clusters={['ai', 'development', 'infrastructure']}
   projectContext="Clínicas Svenson — 2024"
-  technologies={['Langchain', 'LlamaIndex', 'CrewAI', 'Terraform', 'Ansible', 'OpenAI GPT-4', 'Meta WhatsApp API', 'MySQL']}
+  technologies={['Langchain', 'LlamaIndex', 'ChromaDB', 'Python', 'Terraform', 'OpenAI GPT-4', 'Meta WhatsApp API', 'MySQL']}
 >
   <ProjectTimelineItem title="El Reto" isOpen={true}>
     <p>
-      Clínicas Svenson necesitaba optimizar la gestión de sus pacientes ante un volumen creciente de solicitudes. El sistema dependía excesivamente de la intervención humana para tareas repetitivas, generando cuellos de botella. El desafío no era solo automatizar, sino crear un ecosistema donde la IA y el equipo humano colaboraran de forma fluida, manteniendo el control operativo en todo momento.
+      Clínicas Svenson necesitaba optimizar la gestión de pacientes ante volúmenes críticos de solicitudes. El desafío era integrar la IA en un flujo que no solo fuera reactivo (responder dudas), sino proactivo: asegurando que las citas se agendaran correctamente y que los pacientes asistieran mediante un sistema de recordatorios inteligente.
     </p>
   </ProjectTimelineItem>
 
-  <ProjectTimelineItem title="La Solución Técnica">
+  <ProjectTimelineItem title="La Solución">
     <p>
-      Diseñé una arquitectura híbrida centrada en la eficiencia y la visibilidad del dato:
+      Diseñé una arquitectura híbrida que combina la potencia de los LLMs con la estabilidad de los servicios de backend tradicionales:
     </p>
     <ul>
-      <li><strong>Infraestructura y Despliegue (Terraform):</strong> Implementé la base mediante IaC para asegurar un entorno de despliegue estable, pasando de un modelo de hosting tradicional a una gestión de contenedores escalable.</li>
-      <li><strong>Orquestación y Agentes (Langchain / CrewAI):</strong> Estructuré la lógica mediante agentes especializados. Si la IA detecta una necesidad compleja o una solicitud de soporte específico, realiza un traspaso inteligente al equipo humano, enviando el contexto completo de la conversación para garantizar la continuidad de la atención.</li>
-      <li><strong>Soporte con Contexto (RAG con LlamaIndex):</strong> Integré un motor RAG que permite a la IA resolver dudas técnicas consultando manuales internos, reduciendo la carga de consultas básicas antes de la transferencia al agente.</li>
-      <li><strong>Panel de Control y Business Intelligence:</strong> Desarrollé un Dashboard operativo avanzado para el equipo de Operaciones y el Cliente. Este portal permite la monitorización de casos en tiempo real, la gestión de transferencias bot-humano y la descarga de informes analíticos para la toma de decisiones basada en datos de uso y conversión.</li>
+      <li><strong>Infraestructura como Código (Terraform):</strong> Despliegue basado en IaC para garantizar un entorno estable, escalable y replicable, eliminando la dependencia de hostings convencionales.</li>
+      <li><strong>Orquestación de IA (Langchain):</strong> Flujos inteligentes que interpretan la intención del paciente y ejecutan acciones sobre el CRM mediante el consumo de APIs REST en tiempo real.</li>
+      <li><strong>Arquitectura RAG (LlamaIndex & ChromaDB):</strong> Implementé un motor de Generación Aumentada por Recuperación utilizando una base de datos vectorial. Esto permite que la IA consulte manuales médicos y resuelva dudas complejas con precisión técnica.</li>
+      <li><strong>Sincronización Proactiva (Python Services):</strong> Desarrollé servicios en Python encargados de la comunicación saliente. Estos procesos consumen las APIs de Svenson para identificar próximas citas y ejecutar recordatorios automáticos con lógica de fallback (WhatsApp/SMS).</li>
+      <li><strong>Human-in-the-Loop & Analytics:</strong> El sistema incluye un traspaso fluido a agentes humanos y un Dashboard integral donde el equipo de Operaciones monitoriza el rendimiento, los logs de los agentes de IA y descarga informes de conversión.</li>
     </ul>
 
     <!-- Architecture Diagram — React Flow Island -->
@@ -35,12 +36,11 @@ import ProjectTimelineItem from '../../components/ProjectTimelineItem.astro';
     </div>
   </ProjectTimelineItem>
 
-  <ProjectTimelineItem title="Resultados e Impacto">
+  <ProjectTimelineItem title="Resultados">
     <ul>
-      <li><strong>Eficiencia Operativa:</strong> Reducción del 45% en la carga de trabajo manual del contact center.</li>
-      <li><strong>Colaboración Híbrida:</strong> Traspaso fluido de casos críticos a humanos, mejorando la satisfacción del paciente al no dejar consultas sin respuesta.</li>
-      <li><strong>Transparencia Total:</strong> El cliente (Svenson) y Operaciones tienen visibilidad completa de la operativa mediante el portal de informes, optimizando el seguimiento de los leads.</li>
-      <li><strong>Disponibilidad 24/7:</strong> Respuesta instantánea (&lt;5s) y gestión de agenda constante, incluso fuera del horario comercial.</li>
+      <li><strong>Reducción del 45%</strong> en las tareas manuales de gestión de agenda.</li>
+      <li><strong>Mejora del 30%</strong> en la tasa de asistencia gracias a la proactividad del sistema multicanal.</li>
+      <li><strong>SLA de respuesta instantáneo</strong> y visibilidad total del dato para el equipo de operaciones.</li>
     </ul>
   </ProjectTimelineItem>
 

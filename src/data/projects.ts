@@ -41,12 +41,12 @@ export const projects: Project[] = [
     id: 'svenson',
     slug: 'svenson',
     title: {
-      es: 'Enterprise Appointment Orchestration',
-      en: 'Enterprise Appointment Orchestration',
+      es: 'Enterprise AI Orchestration',
+      en: 'Enterprise AI Orchestration',
     },
     subtitle: {
-      es: 'Caso Svenson — Orquestación Multi-Agente e IA Generativa',
-      en: 'Svenson Case — Multi-Agent Orchestration & Generative AI',
+      es: 'Caso Svenson — RAG-Driven Appointments & Multi-Agent System',
+      en: 'Svenson Case — RAG-Driven Appointments & Multi-Agent System',
     },
     challenge: {
       es: 'Evolucionar la captación de citas en un pipeline interactivo capaz de soportar flujos consultivos con IA, proveyendo al mismo tiempo escalabilidad de despliegue.',

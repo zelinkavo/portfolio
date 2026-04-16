@@ -74,7 +74,7 @@ const initialNodes: Node[] = [
   {
     id: 'capture',
     position: { x: 280, y: 0 },
-    data: { label: '🤖 Gestión de Agentes\nLógica CrewAI' },
+    data: { label: '🐍 Sincronización\nServicios Python' },
     style: serverNodeStyle,
     sourcePosition: Position.Right,
     targetPosition: Position.Left,
@@ -106,7 +106,7 @@ const initialNodes: Node[] = [
   {
     id: 'bot',
     position: { x: 840, y: 60 },
-    data: { label: '🧠 Soporte y Contexto\nRAG & LlamaIndex' },
+    data: { label: '🧠 Arquitectura RAG\nLlamaIndex & Chroma' },
     style: serverNodeStyle,
     sourcePosition: Position.Right,
     targetPosition: Position.Left,
