@@ -7,31 +7,30 @@ import ProjectTimelineItem from '../../components/ProjectTimelineItem.astro';
 
 <CaseStudyLayout
   title="Enterprise Appointment Orchestration"
-  description="Automatización end-to-end de agendas médicas, gestión de citas y notificaciones multicanal para Clínicas Svenson."
+  description="Implementación de IA Generativa y orquestación multi-agente para la automatización de agendas médicas y resolución de dudas."
   clusters={['ai', 'development', 'infrastructure']}
   projectContext="Clínicas Svenson — 2024"
-  technologies={['n8n (Self-Hosted)', 'Node.js', 'Cloudflare Workers', 'OpenAI GPT-4', 'Twilio API', 'Meta WhatsApp API', 'MySQL', 'TypeScript']}
+  technologies={['Langchain', 'LlamaIndex', 'CrewAI', 'Terraform', 'Ansible', 'OpenAI GPT-4', 'Meta WhatsApp API', 'MySQL']}
 >
   <ProjectTimelineItem title="El Reto" isOpen={true}>
     <p>
-      Svenson enfrentaba un volumen inmanejable de llamadas entrantes para citas, cancelaciones y reubicaciones. Su sistema manual provocaba cuellos de botella en atención al cliente, tiempos de espera elevados y altas tasas de ausentismo (no-shows) por falta de confirmaciones estructuradas.
+      Svenson requería transformar sus operativas, haciendo frente a volúmenes crecientes de solicitudes de pacientes buscando gestionar sus citas o resolver dudas clínicas. Un flujo conversacional inadaptable amenazaba con aumentar los cuellos de botella y comprometer la escalabilidad de la clínica.
     </p>
     <div class="callout">
-      <strong>Objetivo:</strong> Diseñar un asistente virtual inteligente capaz de interactuar por teléfono y WhatsApp de forma natural para gestionar citas directamente contra su CRM, reduciendo la carga del call center en un 40%.
+      <strong>Objetivo:</strong> Consolidar una maduración tecnológica integral diseñando una solución que combinara IA Generativa y orquestación dinámica interconectando a los pacientes desde WhatsApp con el ecosistema de la base de datos interna.
     </div>
   </ProjectTimelineItem>
 
   <ProjectTimelineItem title="La Solución">
     <p>
-      Implementé una arquitectura serverless basada en Cloudflare Workers y n8n (self-hosted en VPS propio) para orquestar la integración entre los distintos proveedores y el backend de la clínica (Salesforce/CRM propietario).
+      Para sostener arquitecturas avanzadas con resiliencia total garantizada y en pos de escalar sin obstáculos frente a campañas pico, migré el core del despliegue recurriendo a la <strong>Infraestructura como Código (Terraform/Ansible)</strong>, desechando paradigmas de hosting tradicional.
     </p>
     
-    <h3>Flujo de Trabajo del Agente</h3>
+    <h3>Inteligencia Orquestada</h3>
     <ul>
-      <li><strong>Canal Omnicanal:</strong> Integración de WhatsApp Business API via Twilio y PBX SIP para llamadas telefónicas.</li>
-      <li><strong>NLU (Natural Language Understanding):</strong> El bot transcribe el audio, lo procesa mediante OpenAI GPT-4 ajustado para el dominio médico, y determina la intención (nueva cita, cambio, cancelación).</li>
-      <li><strong>Resolución de Conflictos:</strong> El sistema detecta y sugiere slots disponibles consultando en tiempo real la base de datos MySQL de agendas.</li>
-      <li><strong>Notificaciones:</strong> Confirmaciones automáticas proactivas 24h y 2h antes de la cita mediante SMS fallback y WhatsApp.</li>
+      <li><strong>Orquestación con Langchain:</strong> Construí flujos estructurales fiables para interpretar el lenguaje natural mediante Langchain, conectando integralmente las recepciones a través de Meta WhatsApp API y orquestando los procesos de guardado y validación de las citas en tiempo real.</li>
+      <li><strong>Agentes de IA (CrewAI):</strong> Organización modular y delegativa gracias a roles especializados en funciones de agendamiento interdependientes con agentes orientados a la clasificación y reconquista de las citas.</li>
+      <li><strong>Soporte Extendido (RAG con LlamaIndex):</strong> Toda duda clínica de pacientes es resuelta internando un motor RAG capaz de consultar e incorporar normativas e instrucciones en milisegundos. Esta abstracción contextual asegura a los pacientes respuestas de precisión y minimiza drásticamente el componente humano necesario previo a la cita.</li>
     </ul>
 
     <!-- Architecture Diagram — React Flow Island -->
