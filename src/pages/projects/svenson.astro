@@ -14,23 +14,23 @@ import ProjectTimelineItem from '../../components/ProjectTimelineItem.astro';
 >
   <ProjectTimelineItem title="El Reto" isOpen={true}>
     <p>
-      Svenson requería transformar sus operativas, haciendo frente a volúmenes crecientes de solicitudes de pacientes buscando gestionar sus citas o resolver dudas clínicas. Un flujo conversacional inadaptable amenazaba con aumentar los cuellos de botella y comprometer la escalabilidad de la clínica.
+      Clínicas Svenson necesitaba optimizar la gestión de sus pacientes ante un volumen creciente de solicitudes. El sistema anterior dependía excesivamente de la intervención humana para tareas repetitivas, como el agendamiento de citas y la resolución de dudas frecuentes, lo que generaba cuellos de botella y tiempos de espera elevados.
     </p>
     <div class="callout">
-      <strong>Objetivo:</strong> Consolidar una maduración tecnológica integral diseñando una solución que combinara IA Generativa y orquestación dinámica interconectando a los pacientes desde WhatsApp con el ecosistema de la base de datos interna.
+      <strong>Objetivo:</strong> Evolucionar el canal de atención hacia una solución de IA conversacional y orquestación dinámica, capaz de integrar de forma segura las peticiones desde WhatsApp con la lógica de negocio y las APIs internas de la clínica.
     </div>
   </ProjectTimelineItem>
 
   <ProjectTimelineItem title="La Solución">
     <p>
-      Para sostener arquitecturas avanzadas con resiliencia total garantizada y en pos de escalar sin obstáculos frente a campañas pico, migré el core del despliegue recurriendo a la <strong>Infraestructura como Código (Terraform/Ansible)</strong>, desechando paradigmas de hosting tradicional.
+      Diseñé una arquitectura centrada en la eficiencia y la escalabilidad, pasando de un modelo de hosting convencional a una gestión moderna basada en servicios:
     </p>
     
-    <h3>Inteligencia Orquestada</h3>
     <ul>
-      <li><strong>Orquestación con Langchain:</strong> Construí flujos estructurales fiables para interpretar el lenguaje natural mediante Langchain, conectando integralmente las recepciones a través de Meta WhatsApp API y orquestando los procesos de guardado y validación de las citas en tiempo real.</li>
-      <li><strong>Agentes de IA (CrewAI):</strong> Organización modular y delegativa gracias a roles especializados en funciones de agendamiento interdependientes con agentes orientados a la clasificación y reconquista de las citas.</li>
-      <li><strong>Soporte Extendido (RAG con LlamaIndex):</strong> Toda duda clínica de pacientes es resuelta internando un motor RAG capaz de consultar e incorporar normativas e instrucciones en milisegundos. Esta abstracción contextual asegura a los pacientes respuestas de precisión y minimiza drásticamente el componente humano necesario previo a la cita.</li>
+      <li><strong>Infraestructura como Código (Terraform):</strong> Implementé la base del proyecto mediante IaC para asegurar un entorno de despliegue estable y replicable, facilitando la gestión de picos de demanda durante campañas comerciales.</li>
+      <li><strong>Orquestación de Flujos (Langchain):</strong> Utilicé Langchain para estructurar la lógica del bot. Esto permitió procesar el lenguaje natural de los pacientes y conectar de forma fluida la API de WhatsApp con los endpoints de validación y guardado de citas en tiempo real.</li>
+      <li><strong>Gestión de Agentes (Lógica tipo CrewAI):</strong> Organicé el sistema en módulos con funciones especializadas (agentes): uno dedicado a la captura de datos y triaje, otro a la gestión de agenda y un tercero para la derivación inteligente a agentes humanos en casos complejos.</li>
+      <li><strong>Soporte con Contexto (RAG con LlamaIndex):</strong> Para resolver dudas clínicas sin intervención humana, integré un sistema de Generación Aumentada por Recuperación (RAG). Usando LlamaIndex, el sistema consulta manuales y normativas internas para ofrecer respuestas precisas y seguras basadas exclusivamente en documentación oficial.</li>
     </ul>
 
     <!-- Architecture Diagram — React Flow Island -->
@@ -41,13 +41,13 @@ import ProjectTimelineItem from '../../components/ProjectTimelineItem.astro';
 
   <ProjectTimelineItem title="Resultados">
     <p>
-      La implementación fue un éxito medible en los primeros 3 meses de producción. El impacto directo en el negocio fue evidente desde el primer mes completo de operación.
+      La implementación transformó la operativa del contact center en los primeros tres meses:
     </p>
     <ul>
-      <li>Reducción del <strong>45%</strong> del tiempo de los agentes en llamadas de agenda rutinarias.</li>
-      <li>Reducción del <strong>30%</strong> en "no-shows" gracias al sistema de recordatorios estructurado.</li>
-      <li>Capacidad de agendar 24/7 sin dependencias humanas, atrayendo leads fuera de horario laboral.</li>
-      <li>Tiempos de respuesta (SLA) de WhatsApp reducidos de 45 minutos a &lt;5 segundos.</li>
+      <li><strong>Reducción del 45%</strong> en la carga de trabajo manual de los agentes en tareas de agenda.</li>
+      <li><strong>Mejora del 30%</strong> en la asistencia a citas (reducción de no-shows) gracias a la automatización de recordatorios y confirmaciones.</li>
+      <li><strong>Disponibilidad 24/7:</strong> Captura de leads y gestión de citas fuera del horario comercial, sin costes operativos adicionales.</li>
+      <li><strong>Optimización del SLA:</strong> El tiempo de respuesta inicial en WhatsApp pasó de una media de 45 minutos a una respuesta instantánea (&lt;5 segundos).</li>
     </ul>
   </ProjectTimelineItem>
 

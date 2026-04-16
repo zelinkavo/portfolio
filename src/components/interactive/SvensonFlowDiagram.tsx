@@ -74,7 +74,7 @@ const initialNodes: Node[] = [
   {
     id: 'capture',
     position: { x: 280, y: 0 },
-    data: { label: '🤖 Agentes Clínicos\nCrewAI' },
+    data: { label: '🤖 Gestión de Agentes\nLógica CrewAI' },
     style: serverNodeStyle,
     sourcePosition: Position.Right,
     targetPosition: Position.Left,
@@ -106,7 +106,7 @@ const initialNodes: Node[] = [
   {
     id: 'bot',
     position: { x: 840, y: 60 },
-    data: { label: '🧠 Soporte Documental\nRAG / LlamaIndex' },
+    data: { label: '🧠 Soporte y Contexto\nRAG & LlamaIndex' },
     style: serverNodeStyle,
     sourcePosition: Position.Right,
     targetPosition: Position.Left,
